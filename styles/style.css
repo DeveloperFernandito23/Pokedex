@@ -8,3 +8,18 @@
     font-family: "Pokemon Solid";
     text-align: center;
 }
+.grid-container
+{
+    display: grid;
+    grid-template-columns: repeat( auto-fill, minmax(250px, 1fr) );
+    background-color: black;
+    color: wheat;
+    gap: 10px;
+}
+.grid-container > div
+{
+    background-color: rgba(43, 36, 36, 0.8);
+  text-align: center;
+  padding: 20px 0;
+  font-size: 30px;
+}
