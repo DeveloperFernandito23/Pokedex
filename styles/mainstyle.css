@@ -4,9 +4,17 @@
     font-style: normal;
     font-weight: normal;
 }
+#main-title{
+    text-decoration: none;
+}
+
 #font-type{
     font-family: "Pokemon Solid";
     text-align: center;
+    color: #FFCB05;
+    text-shadow: -4px -4px 1px #184079, 4px 4px 1px #184079, -4px 4px 1px #184079, 4px -4px 1px #184079;;
+    font-size: 50px;
+    letter-spacing: 5px;
 }
 .grid-container
 {
@@ -25,4 +33,32 @@
     padding: 200px 0;
     font-size: 30px;
     border-radius: 25%;
+}
+form input{
+    height: 30px;
+    position: absolute;
+    top: 5%;
+}
+form .input:focus + .spinner{
+    background-color: #184079;
+    display: block;
+}
+
+.spinner{
+    position: absolute;
+    top: 7%;
+    left: 150px;
+    translate: 0 -50%;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 3px solid green;
+    border-top-color: red;
+    display: none;
+    animation: spin 1s linear infinite;
+}
+@keyframes spin{
+    to{
+        transform: rotate(360deg)
+    }
 }
