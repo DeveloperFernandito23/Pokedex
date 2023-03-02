@@ -20,7 +20,7 @@ body {
     font-size: 50px;
     letter-spacing: 5px;
 }
-.grid-container
+#demo
 {
     display: grid;
     margin-left: 10%;
@@ -30,7 +30,7 @@ body {
     gap: 10px;
 
 }
-.grid-container > div
+#demo > div
 {
     background-color: rgb(16, 15, 15);
     text-align: center;
@@ -65,10 +65,4 @@ form .input:focus + .spinner{
     to{
         transform: rotate(360deg)
     }
-}
-
-.poke{
-    background-color: #FFCB05;
-    border: 3px black solid;
-    border-radius: 3px;
 }
