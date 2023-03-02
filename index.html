@@ -11,8 +11,9 @@
 <body onload="mostrarPokemons()">
     <nav>
         <form action="">
-            <input id="search" onkeydown="buscarPokemons()" type="text" name="search" value="" placeholder="Buscar Pokemon">
+            <input id="search" onkeyup="buscarPokemons(this.value)" type="text" name="search" placeholder="Buscar Pokemon">
         </form>
+        
         <div class="spinner"></div>
     </nav>
 
@@ -25,6 +26,12 @@
     <div id="xd">   
         <button onkeydown="buscarPokemons()">hola</button>
     </div>
+
+    <hr>
+
+    <div id="mostrar"></div>
+
+    <hr>
 
 </body>
 </html>
