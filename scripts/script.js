@@ -27,16 +27,14 @@ function mostrarPokemons() {
 
 function buscarPokemons(busqueda){
 
-    var nombresPokemons = [];
-    var cantidad = document.getElementsByClassName("poke").length;
+    var nombresPokemons = document.getElementsByClassName("poke");
 
     var divs = "";
 
-    for(var i = 0; i < cantidad; i++){
-        nombresPokemons[i] = document.getElementsByClassName("poke")[i].innerHTML;
+    for(var i = 0; i < nombresPokemons.length; i++){
 
-        if(nombresPokemons[i].includes(busqueda)){
-            divs += "<div class=\"poke\">" + nombresPokemons[i] + "</div>";
+        if(nombresPokemons[i].innerHTML.includes(busqueda)){
+            divs += "<div class=\"poke\">" + nombresPokemons[i].innerHTML + "</div>";
         }
     }
 
