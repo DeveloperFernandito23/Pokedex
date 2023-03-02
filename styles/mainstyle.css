@@ -4,6 +4,10 @@
     font-style: normal;
     font-weight: normal;
 }
+:root{
+    --fuego : red;
+}
+
 #main-title{
     text-decoration: none;
 }
@@ -22,7 +26,7 @@
     margin-left: 10%;
     margin-right: 10%;
     grid-template-columns: repeat( auto-fill, minmax(450px, 1fr) );
-    color: wheat;
+    color: var(--fuego);
     gap: 10px;
 
 }
