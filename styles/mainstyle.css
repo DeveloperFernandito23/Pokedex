@@ -62,3 +62,9 @@ form .input:focus + .spinner{
         transform: rotate(360deg)
     }
 }
+
+.poke{
+    background-color: #FFCB05;
+    border: 3px black solid;
+    border-radius: 3px;
+}
