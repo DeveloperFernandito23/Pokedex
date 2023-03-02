@@ -68,7 +68,3 @@ form .input:focus + .spinner{
     border: 3px black solid;
     border-radius: 3px;
 }
-
-#search{
-    
-}
