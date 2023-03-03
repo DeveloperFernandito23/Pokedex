@@ -6,6 +6,7 @@
 }
 :root{
     --fuego : red;
+    margin: 0;
 }
 
 #main-title{
@@ -22,12 +23,11 @@
 }
 #demo{
     display: grid;
-    margin-left: 10%;
-    margin-right: 10%;
     grid-template-columns: repeat( auto-fill, minmax(250px, 1fr) );
     color: var(--fuego);
-    gap: 10px;
-
+    gap: 4vw;
+    margin: 10vw;
+    /* vw para que sea más responsivo, es una unidad de medida relativa */
 }
 #demo > div{
     background-color: rgb(255, 255, 255);
@@ -36,11 +36,20 @@
     font-size: 30px;
     border-radius: 55px;
     box-shadow: 0px 0px 10px black;
+    width: 100%;
+    height: 100%;
 }
 .poke, .poke a{
     text-decoration: none;
     color: rgb(0, 0, 0);
 }
+img{
+    vertical-align: middle;
+}
+
+
+
+
 form input{
     height: 30px;
     position: absolute;
