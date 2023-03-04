@@ -56,33 +56,22 @@ img{
     margin: 20px;
   }
 
+#search{
+    background-image: url(../img/search.png);
+    background-repeat: no-repeat;
+    padding: 1vh 2vw 1vh 2vw;
+    background-size: 1vw;
+    background-position: center;
+    border-radius: 25px;
+    width: 1vw;
+    height: 2vw;
+    cursor: pointer;
+    transition: all 1s ease-in-out;
 
-
-form input{
-    height: 30px;
-    position: absolute;
-    top: 5%;
 }
-form .input:focus + .spinner{
-    background-color: #184079;
-    display: block;
-}
-
-.spinner{
-    position: absolute;
-    top: 7%;
-    left: 150px;
-    translate: 0 -50%;
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    border: 3px solid green;
-    border-top-color: red;
-    display: none;
-    animation: spin 1s linear infinite;
-}
-@keyframes spin{
-    to{
-        transform: rotate(360deg)
-    }
+#search:focus{
+    background-position: 0.5vw;
+    border-radius: 25px;
+    width: 15vw;
+    height: 2vw;
 }
