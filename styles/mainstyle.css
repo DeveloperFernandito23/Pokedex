@@ -28,6 +28,8 @@
     gap: 4vw;
     margin: 10vw;
     /* vw para que sea más responsivo, es una unidad de medida relativa */
+    cursor: none;
+
 }
 .poke{
     background-color: rgb(255, 255, 255);
@@ -39,12 +41,37 @@
     width: 100%;
     height: 100%;
 }
+.poke:hover{
+    position: relative;
+}
+.poke:hover::before {
+    content: "";
+    position: absolute;
+    background: linear-gradient(45deg, red, white, black);
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    border-radius: inherit;
+    z-index: -1;
+    filter: blur(5px);
+}
 .poke, .poke a{
     text-decoration: none;
     color: rgb(0, 0, 0);
 }
 img{
     vertical-align: middle;
+}
+.types{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(2vw, 0.5fr));
+    gap: 2vw;
+    justify-content: center;
+}
+.type{
+    outline: auto black;
+    border-radius: 25px;
 }
 .alert {
     background-color: #f44336;

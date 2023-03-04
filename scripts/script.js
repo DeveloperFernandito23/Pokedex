@@ -7,10 +7,10 @@ function buscarPokemons(valor) {
     for(var i = 0; i < pokemons.length;i++){
 
         if(valor == undefined){
-            divs += "<div class='poke'> <a href='#'> <div class='image'><img src='https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/1.svg'></div><div class='name'>" + pokemons[i] + "</div> <div class='number'>" + (i + 1) + "</div> <div class='type'>Tipo</div> </a></div>";
+            divs += "<div class='poke'> <a href='#'> <div class='image'><img src='https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/1.svg'></div><div class='name'>" + pokemons[i] + "</div> <div class='number'>" + (i + 1) + "</div> <div class='types'><div class='type'>Tipo</div></div></a></div>";
         }else{
             if(pokemons[i].toUpperCase().includes(valor.toUpperCase())){
-                divs += "<div class='poke'> <a href='#'> <div class='image'><img src='https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/1.svg'></div><div class='name'>" + pokemons[i] + "</div> <div class='number'>" + (i + 1) + "</div> <div class='type'>Tipo</div> </a></div>";
+                divs += "<div class='poke'> <a href='#'> <div class='image'><img src='https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/1.svg'></div><div class='name'>" + pokemons[i] + "</div> <div class='number'>" + (i + 1) + "</div> <div class='types'>Tipo</div> </a></div>";
             }
         }
     }
