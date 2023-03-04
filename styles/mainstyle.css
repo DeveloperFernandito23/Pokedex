@@ -29,7 +29,7 @@
     margin: 10vw;
     /* vw para que sea más responsivo, es una unidad de medida relativa */
 }
-#demo > div{
+.poke{
     background-color: rgb(255, 255, 255);
     text-align: center;
     padding: 10px;
@@ -46,7 +46,15 @@
 img{
     vertical-align: middle;
 }
-
+.alert {
+    background-color: #f44336;
+    color: rgb(255, 255, 255);
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 18px;
+    text-align: center;
+    margin: 20px;
+  }
 
 
 
