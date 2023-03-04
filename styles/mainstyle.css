@@ -35,8 +35,6 @@ body{
     gap: 4vw;
     margin: 10vw;
     /* vw para que sea más responsivo, es una unidad de medida relativa */
-    cursor: none;
-
 }
 .poke{
     background-color: rgb(255, 255, 255);
