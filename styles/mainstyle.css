@@ -23,18 +23,15 @@
     
     margin: 0;
 }
-
 body{
     background-image: url(../img/background.jpg);
     background-repeat: no-repeat;
     background-size: cover;
     background-attachment: fixed;
 }
-
 #main-title{
     text-decoration: none;
 }
-
 #font-type{
     font-family: "Pokemon Solid";
     text-align: center;
@@ -63,6 +60,9 @@ body{
 }
 .poke:hover{
     position: relative;
+}
+.poke div.name:first-letter {
+    text-transform: uppercase;
 }
 .poke:hover::before {
     content: "";
@@ -101,8 +101,7 @@ img{
     font-size: 18px;
     text-align: center;
     margin: 20px;
-  }
-
+}
 #search{
     background-image: url(../img/search.png);
     background-repeat: no-repeat;
