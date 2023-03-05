@@ -1,6 +1,14 @@
 //var pokemons = ["Charmander", "Bulbasaur", "Squirtle", "Pikachu"];
 var pokemons = [];
 
+
+/* function comparar ( a, b ){ return a - b; }
+arr.sort( comparar );  // [ 1, 5, 40, 200 ]
+
+NO BORRAR, ES PARA ORDENAR (PARA ACORDARME PARA HAZERLO)
+
+*/
+
 for(var i = 1; i <= 151;i++){
     fetch(`https://pokeapi.co/api/v2/pokemon/${i}/`).then(res => res.json()).then(res => pokemons.push(res) );
 }
