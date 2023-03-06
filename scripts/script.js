@@ -5,7 +5,7 @@ var pokemons = [];
 /* function comparar ( a, b ){ return a - b; }
 arr.sort( comparar );  // [ 1, 5, 40, 200 ]
 
-NO BORRAR, ES PARA ORDENAR (PARA ACORDARME PARA HAZERLO)
+NO BORRAR, ES PARA ORDENAR (PARA ACORDARME PARA HACERLO)
 
 */
 
