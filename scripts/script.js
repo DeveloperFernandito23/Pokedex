@@ -16,68 +16,32 @@ async function traerPokemon() { //NEVER TOUCH
         await pokemons.push(objeto);
         crearPokemon(objeto);
     }
-
-    console.log(pokemons[0]);
-
-}
-
-
-
-
-//var listaPokemons = document.createElement("div");
-
-//listaPokemons.classList.add("demo");
-
-//document.appendChild(listaPokemons);
-
-//var listaPokemons = document.getElementById("demo");
-
-function iniciarPokedex() {
-    for(var i = 0; i < 151;i++){
-        crearPokemon(pokemons[i + 1]);
-    }
 }
 
 function buscarPokemons(valor) {
+    document.getElementById("demo").innerHTML = "";
 
-    var divs = "";
 
     for(var i = 0; i < pokemons.length;i++){
-        if(valor == undefined || pokemons[i].name.toUpperCase().includes(valor.toUpperCase())){
-            divs += "<div class='poke'><a href='html/pokemon?numero=" + pokemons[i].id + "'><div class='image'><img src='" + pokemons[i].sprites.front_default + "' alt='Lo siento el pokemon: " + pokemons[i].name + " no está cargado'></div><div class='name'>" + pokemons[i].name + "</div> <div class='number'>#" + pokemons[i].id.toString().padStart(3, 0) + "</div> <div class='types'><div class='type'>Tipo</div></div> </a></div>";
-        }
+        if(pokemons[i].name.toUpperCase().includes(valor.toUpperCase())){
+            crearPokemon(pokemons[i]);
+         }
     }
-/*
-    for(var i = 0; i < pokemons.length;i++){
-        if(valor == undefined || pokemons[i].name.toUpperCase().includes(valor.toUpperCase())){
-           crearPokemon(pokemons[i]);
-        }  
-    }*/
 
-    /*
-    if (divs === "") {
-        listaPokemons.innerHTML = "<div class='alert'>¡No se encontraron pokémons!</div>";
-    }else{
-        listaPokemons.innerHTML = divs;
-    }*/
-
-    if (divs === "") {
-        document.getElementById("demo").innerHTML = "<div class='alert'>¡No se encontraron pokémons!</div>";
-    }else{
-        document.getElementById("demo").innerHTML = divs;
+    if (document.getElementById("demo").innerHTML === "") {
+        document.getElementById("demo").innerHTML = "<div class='alert'>¡No se encontraron pokémons!</div>";     
     }
 }
 
-/*
-function datosPokemon(){
-    var url = new URLSearchParams(window.location.search);
+function datosPokemon() {
+    var parametros = window.location.search;
 
-    var numero = url.get("numero");
+    var newUrl = new URLSearchParams(parametros);
 
-    var todo = document.createElement("div");
-    todo.innerHTML = `hola ${numero}`;
-    document.appendChild(todo);
-}*/
+    var numero = newUrl.get('numero');
+
+    document.getElementById("pokemon").innerHTML = numero;
+}
 
 
 function crearPokemon(pokemon){
@@ -85,7 +49,7 @@ function crearPokemon(pokemon){
     bicho.classList.add("poke");
 
     var enlace = document.createElement("a");
-    enlace.href = `html/pokemon?numero=${pokemon.id}`
+    enlace.href = `html/pokemon.html?numero=${pokemon.id}`
 
     var divImagen = document.createElement("div");
     divImagen.classList.add("image");
