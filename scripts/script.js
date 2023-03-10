@@ -11,11 +11,14 @@ NO BORRAR, ES PARA ORDENAR (PARA ACORDARME PARA HACERLO)
 
 async function traerPokemon() { //NEVER TOUCH
     for(var i = 0; i < 151;i++){
-        var peticion = await fetch(`https://pokeapi.co/api/v2/pokemon/${i + 1}/`);
-        var dato = await peticion.json();
-        await pokemons.push(dato);
-        crearPokemon(dato);
+        var response = await fetch(`https://pokeapi.co/api/v2/pokemon/${i + 1}/`);
+        var objeto = await response.json();
+        await pokemons.push(objeto);
+        crearPokemon(objeto);
     }
+
+    console.log(pokemons[0]);
+
 }
 
 
@@ -24,7 +27,6 @@ async function traerPokemon() { //NEVER TOUCH
 //var listaPokemons = document.createElement("div");
 
 //listaPokemons.classList.add("demo");
-console.log(pokemons[0]);
 
 //document.appendChild(listaPokemons);
 
