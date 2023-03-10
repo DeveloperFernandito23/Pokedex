@@ -9,9 +9,17 @@ NO BORRAR, ES PARA ORDENAR (PARA ACORDARME PARA HACERLO)
 
 */
 
-for(var i = 0; i < 151;i++){
-    fetch(`https://pokeapi.co/api/v2/pokemon/${i + 1}/`).then(res => res.json()).then(res => { pokemons.push(res); crearPokemon(res); });
+async function traerPokemon() { //NEVER TOUCH
+    for(var i = 0; i < 151;i++){
+        var peticion = await fetch(`https://pokeapi.co/api/v2/pokemon/${i + 1}/`);
+        var dato = await peticion.json();
+        await pokemons.push(dato);
+        crearPokemon(dato);
+    }
 }
+
+
+
 
 //var listaPokemons = document.createElement("div");
 
@@ -22,7 +30,7 @@ console.log(pokemons[0]);
 
 //var listaPokemons = document.getElementById("demo");
 
-function iniciarPokedex(){
+function iniciarPokedex() {
     for(var i = 0; i < 151;i++){
         crearPokemon(pokemons[i + 1]);
     }
@@ -58,7 +66,7 @@ function buscarPokemons(valor) {
     }
 }
 
-
+/*
 function datosPokemon(){
     var url = new URLSearchParams(window.location.search);
 
@@ -67,7 +75,7 @@ function datosPokemon(){
     var todo = document.createElement("div");
     todo.innerHTML = `hola ${numero}`;
     document.appendChild(todo);
-}
+}*/
 
 
 function crearPokemon(pokemon){
@@ -101,8 +109,4 @@ function crearPokemon(pokemon){
     enlace.appendChild(numero);
     enlace.appendChild(tipos);
     divImagen.appendChild(imagen);
-}
-
-function traerPokemon(num){
-    fetch(`https://pokeapi.co/api/v2/pokemon/${num}/`).then(res => res.json()).then(res => crearPokemon(res));
 }
