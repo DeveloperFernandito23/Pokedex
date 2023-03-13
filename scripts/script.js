@@ -9,12 +9,38 @@ NO BORRAR, ES PARA ORDENAR (PARA ACORDARME PARA HACERLO)
 
 */
 
+
+function reversa (){
+    var lista = pokemons.reverse();
+    document.getElementById("demo").innerHTML = "";
+    lista.forEach(element => {
+        crearPokemon(element);
+    });
+}
+
+// ORDENA ALFABETICAMENTE
+function orden(){
+    var lista = pokemons.sort((a, b) =>{
+        if (a.name.toLowerCase() > b.name.toLowerCase()) {
+            return 1;
+        }
+        if (a.name.toLowerCase() < b.name.toLowerCase()) {
+            return -1;
+        }
+        return 0;
+    });
+    document.getElementById("demo").innerHTML = "";
+    lista.forEach(element => {
+        crearPokemon(element);
+    });
+}
+
 async function traerPokemon() { //NEVER TOUCH
     for(var i = 0; i < 151;i++){
         var response = await fetch(`https://pokeapi.co/api/v2/pokemon/${i + 1}/`);
         var objeto = await response.json();
         await pokemons.push(objeto);
-        crearPokemon(objeto);
+        await crearPokemon(objeto);
     }
 }
 

@@ -13,11 +13,35 @@
 
     <a href=".." id="main-title"><h1 id="font-type">Pokédex</h1></a>
 
-    <nav>
-        <input id="search" onkeyup="buscarPokemons(this.value)" type="search" name="search" placeholder="Buscar Pokemon...">
-        
-        <div class="spinner"><sub></sub></div>
-    </nav> 
+    <div class="navegation">
+        <span>
+            <input id="search" onkeyup="buscarPokemons(this.value)" type="search" name="search" placeholder="Buscar Pokemon...">
+            
+            <div class="spinner"><sub></sub></div>
+        </span> 
+
+        <span>
+            <button onclick="orden()"></button>
+        </span>
+
+        <span>
+            <form class="buscador">
+                <input type="text" placeholder=" "/>
+                <button type="reset"></button>
+            </form>
+        </span>
+
+        <span>
+            <select name="options" id="options" onchange="reversa()">
+                <option value="opt1">Ascendentemente</option>
+                <option value="opt2">Descendentemente</option>
+            </select>
+        </span>
+    </div>
+
+    
+
+   
 
     <a href="html/pokemon.html?numero=001"></a>
 

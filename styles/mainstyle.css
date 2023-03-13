@@ -121,3 +121,67 @@ img{
     width: 15vw;
     height: 2vw;
 }
+#options{
+    left: 0;
+}
+.buscador {
+    font-size: 20px;
+    border: solid 0.1em #000000;
+    display: inline-block;
+    position: relative;
+    border-radius: 2.5em;
+  }
+  .buscador input[type=text] {
+    font-family: inherit;
+    font-weight: bold;
+    width: 2.5em;
+    height: 2.5em;
+    padding: 0.3em 2.1em 0.3em 0.4em;
+    border: none;
+    box-sizing: border-box;
+    border-radius: 2.5em;
+    transition: width 0.8s ease-in-out 0.150s;
+  }
+
+  .buscador input[type=text]:focus, .buscador input[type=text]:not(:placeholder-shown) {
+    width: 18em;
+    transition: width 0.8s ease-in-out;
+  }
+  .buscador input[type=text]:focus + button[type=reset], .buscador input[type=text]:not(:placeholder-shown) + button[type=reset] {
+    transform: rotate(-45deg);
+    transition: transform 0.150s ease-out 0.8s;
+  }
+  .buscador input[type=text]:focus + button[type=reset]:after, .buscador input[type=text]:not(:placeholder-shown) + button[type=reset]:after {
+    opacity: 1;
+    transition: top 0.150s ease-out 1s, right 0.150s ease-out 1s, opacity 0.150s ease 1s;
+  }
+  .buscador button[type=reset] {
+    width: 1.4em;
+    height: 1.4em;
+    border: 0;
+    padding: 0;
+    outline: 0;
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    top: 0.55em;
+    right: 0.55em;
+    transform: rotate(-45deg) translateY(2.2em);
+    transition: transform 0.150s ease-out 0.150s;
+  }
+  .buscador button[type=reset]:before, .buscador button[type=reset]:after {
+    content: "";
+    background-color: #000000;
+    width: 0.3em;
+    height: 1.4em;
+    position: absolute;
+  }
+  .buscador button[type=reset]:after {
+    transform: rotate(90deg);
+    opacity: 0;
+    transition: transform 0.150s ease-out, opacity 0.150s ease-out;
+  }
+
+  span{
+    margin: 5px 50px;
+  }
