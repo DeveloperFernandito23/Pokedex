@@ -1,6 +1,25 @@
-//var pokemons = ["Charmander", "Bulbasaur", "Squirtle", "Pikachu"];
 var pokemons = [];
 
+//JS no tiene tipo enumerado, pero se puede usar esta sintaxis para dejarlo más claro
+let TiposPokemon = {
+    Agua: "water",
+    Fuego: "fire",
+    Normal: "normal",
+    Planta: "grass",
+    Veneno: "poison",
+    Tierra: "ground",
+    Roca: "rock",
+    Bicho: "bug",
+    Hada: "fairy",
+    Volador: "flying",
+    Fantasma: "ghost",
+    Dragón: "dragon",
+    Acero: "steel",
+    Eléctrico: "electric",
+    Psíquico: "psychic",
+    Lucha: "fighting",
+    Hielo: "ice"
+};
 
 /* function comparar ( a, b ){ return a - b; }
 arr.sort( comparar );  // [ 1, 5, 40, 200 ]
@@ -10,7 +29,7 @@ NO BORRAR, ES PARA ORDENAR (PARA ACORDARME PARA HACERLO)
 */
 
 
-function reversa (){
+function reversa(){
     var lista = pokemons.reverse();
     document.getElementById("demo").innerHTML = "";
     lista.forEach(element => {
@@ -46,8 +65,9 @@ async function traerPokemon() { //NEVER TOUCH
 }
 
 function buscarPokemons(valor) {
-    document.getElementById("demo").innerHTML = "";
+    var documento = document.getElementById("demo");
 
+    documento.innerHTML = "";
 
     for(var i = 0; i < pokemons.length;i++){
         if(pokemons[i].name.toUpperCase().includes(valor.toUpperCase())){
@@ -55,8 +75,8 @@ function buscarPokemons(valor) {
          }
     }
 
-    if (document.getElementById("demo").innerHTML === "") {
-        document.getElementById("demo").innerHTML = "<div class='alert'>¡No se encontraron pokémons!</div>";     
+    if (documento.innerHTML === "") {
+        documento.innerHTML = "<div class='alert'>¡No se encontraron pokémons!</div>";     
     }
 }
 
@@ -105,6 +125,7 @@ function crearPokemon(pokemon){
     numero.innerHTML = '#' + pokemon.id.toString().padStart(3, 0);
 
     var tipos = document.createElement("div");
+    tipos.classList.add("types");
 
     document.getElementById("demo").appendChild(bicho);
     bicho.appendChild(enlace);
@@ -112,5 +133,30 @@ function crearPokemon(pokemon){
     enlace.appendChild(nombre);
     enlace.appendChild(numero);
     enlace.appendChild(tipos);
+    //comprobarTipos(pokemon);
     divImagen.appendChild(imagen);
+}
+
+function comprobarTipos(pokemon) {
+    var tipos = document.getElementsByClassName("types");
+    var posicion = pokemon.id - 1;
+
+    for(var i = 0; i < pokemon.types.length;i++){
+        var tipo = document.createElement("div");
+        tipo.classList.add("type");
+        tipo.innerHTML = traducir(pokemon.types[i].type.name);
+        tipos[posicion].appendChild(tipo);
+    }
+}
+
+function traducir(texto) {
+    var traduccion;
+
+    for(var tipo in TiposPokemon){
+        if(TiposPokemon[tipo] === texto){
+            traduccion = tipo;
+        }
+    }
+
+    return traduccion;
 }

@@ -20,6 +20,8 @@
     --tierra: rgb(146,80,27);
     --veneno: rgb(146,63,204);
     --volador: rgb(130,186,240);
+    --hada: rgb(239,113,240);
+    --acero: rgb(96,162,185);
     
     margin: 0;
 }
@@ -130,8 +132,8 @@ img{
     display: inline-block;
     position: relative;
     border-radius: 2.5em;
-  }
-  .buscador input[type=text] {
+}
+.buscador input[type=text] {
     font-family: inherit;
     font-weight: bold;
     width: 2.5em;
@@ -141,21 +143,21 @@ img{
     box-sizing: border-box;
     border-radius: 2.5em;
     transition: width 0.8s ease-in-out 0.150s;
-  }
+}
 
-  .buscador input[type=text]:focus, .buscador input[type=text]:not(:placeholder-shown) {
+.buscador input[type=text]:focus, .buscador input[type=text]:not(:placeholder-shown) {
     width: 18em;
     transition: width 0.8s ease-in-out;
-  }
-  .buscador input[type=text]:focus + button[type=reset], .buscador input[type=text]:not(:placeholder-shown) + button[type=reset] {
+}
+.buscador input[type=text]:focus + button[type=reset], .buscador input[type=text]:not(:placeholder-shown) + button[type=reset] {
     transform: rotate(-45deg);
     transition: transform 0.150s ease-out 0.8s;
-  }
-  .buscador input[type=text]:focus + button[type=reset]:after, .buscador input[type=text]:not(:placeholder-shown) + button[type=reset]:after {
+}
+.buscador input[type=text]:focus + button[type=reset]:after, .buscador input[type=text]:not(:placeholder-shown) + button[type=reset]:after {
     opacity: 1;
     transition: top 0.150s ease-out 1s, right 0.150s ease-out 1s, opacity 0.150s ease 1s;
-  }
-  .buscador button[type=reset] {
+}
+.buscador button[type=reset] {
     width: 1.4em;
     height: 1.4em;
     border: 0;
@@ -168,20 +170,20 @@ img{
     right: 0.55em;
     transform: rotate(-45deg) translateY(2.2em);
     transition: transform 0.150s ease-out 0.150s;
-  }
-  .buscador button[type=reset]:before, .buscador button[type=reset]:after {
+}
+.buscador button[type=reset]:before, .buscador button[type=reset]:after {
     content: "";
     background-color: #000000;
     width: 0.3em;
     height: 1.4em;
     position: absolute;
-  }
-  .buscador button[type=reset]:after {
+}
+.buscador button[type=reset]:after {
     transform: rotate(90deg);
     opacity: 0;
     transition: transform 0.150s ease-out, opacity 0.150s ease-out;
-  }
+}
 
-  span{
+span{
     margin: 5px 50px;
-  }
+}
