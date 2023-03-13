@@ -29,6 +29,7 @@ function orden(){
         }
         return 0;
     });
+
     document.getElementById("demo").innerHTML = "";
     lista.forEach(element => {
         crearPokemon(element);
@@ -59,12 +60,23 @@ function buscarPokemons(valor) {
     }
 }
 
-function datosPokemon() {
+async function traerUno(id) {
+    var response = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}/`);
+    var objeto = await response.json();
+
+    return objeto;
+}
+
+async function datosPokemon() {
     var parametros = window.location.search;
 
     var newUrl = new URLSearchParams(parametros);
 
     var numero = newUrl.get('numero');
+
+    var pokemon = await traerUno(numero);
+
+    document.title = pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1);
 
     document.getElementById("pokemon").innerHTML = numero;
 }

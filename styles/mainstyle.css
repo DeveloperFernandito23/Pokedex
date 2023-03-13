@@ -61,7 +61,7 @@ body{
 .poke:hover{
     position: relative;
 }
-.poke div.name:first-letter {
+.name:first-letter {
     text-transform: uppercase;
 }
 .poke:hover::before {
