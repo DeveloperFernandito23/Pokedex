@@ -99,9 +99,9 @@ async function datosPokemon() {
     document.title = pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1);
 
     var prueba = document.getElementById("prueba");
-    prueba.src = pokemon.sprites.front_default;
+    prueba.src = pokemon.sprites.other["official-artwork"].front_default;
     prueba.addEventListener("click", function() { 
-        prueba.src = pokemon.sprites.front_shiny;
+        prueba.src = pokemon.sprites.other["official-artwork"].front_shiny;
     });
 
     document.getElementById("pokemon").innerHTML = numero;
@@ -119,7 +119,7 @@ function crearPokemon(pokemon){
     divImagen.classList.add("image");
 
     var imagen = document.createElement("img");
-    imagen.src = pokemon.sprites.front_default;
+    imagen.src = pokemon.sprites.other["official-artwork"].front_default;
     imagen.alt = "Lo siento, el pokemon no ha sido encontrado :(";
 
     var nombre = document.createElement("div");
