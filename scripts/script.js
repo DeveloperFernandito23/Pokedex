@@ -18,7 +18,7 @@ let TiposPokemon = {
     Veneno: "poison",
     Volador: "flying",
     Hada: "fairy",
-    Acero: "steel",
+    Acero: "steel"
 };
 
 /* function comparar ( a, b ){ return a - b; }
@@ -97,6 +97,12 @@ async function datosPokemon() {
     var pokemon = await traerUno(numero);
 
     document.title = pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1);
+
+    var prueba = document.getElementById("prueba");
+    prueba.src = pokemon.sprites.front_default;
+    prueba.addEventListener("click", function() { 
+        prueba.src = pokemon.sprites.front_shiny;
+    });
 
     document.getElementById("pokemon").innerHTML = numero;
 }
