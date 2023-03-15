@@ -1,24 +1,24 @@
 var pokemons = [];
 
 //JS no tiene tipo enumerado, pero se puede usar esta sintaxis para dejarlo más claro
-let TiposPokemon = {
-    Agua: "water",
-    Bicho: "bug",
-    Dragón: "dragon",
-    Eléctrico: "electric",
-    Fantasma: "ghost",
-    Fuego: "fire",
-    Hielo: "ice",
-    Lucha: "fighting",
-    Normal: "normal",
-    Planta: "grass",
-    Psíquico: "psychic",
-    Roca: "rock",
-    Tierra: "ground",
-    Veneno: "poison",
-    Volador: "flying",
-    Hada: "fairy",
-    Acero: "steel"
+var TiposPokemon = {
+    water: "Agua",
+    bug: "Bicho",
+    dragon: "Dragón",
+    electric: "Eléctrico",
+    ghost: "Fantasma",
+    fire: "Fuego",
+    ice: "Hielo",
+    fighting: "Lucha",
+    normal: "Normal",
+    grass: "Planta",
+    psychic: "Psíquico",
+    rock: "Roca",
+    ground: "Tierra",
+    poison: "Veneno",
+    flying: "Volador",
+    fairy: "Hada",
+    steel: "Acero"
 };
 
 /* function comparar ( a, b ){ return a - b; }
@@ -69,10 +69,10 @@ function buscarPokemons(valor) {
 
     documento.innerHTML = "";
 
-    for(var i = 0; i < pokemons.length;i++){
-        if(pokemons[i].name.toUpperCase().includes(valor.toUpperCase())){
+    for(var i = 0; i < pokemons.length;i++) {
+        if(pokemons[i].name.toUpperCase().includes(valor.toUpperCase())) {
             crearPokemon(pokemons[i]);
-         }
+        }
     }
 
     if (documento.innerHTML === "") {
@@ -100,7 +100,7 @@ async function datosPokemon() {
 
     var prueba = document.getElementById("prueba");
     prueba.src = pokemon.sprites.other["official-artwork"].front_default;
-    prueba.addEventListener("click", function() { 
+    prueba.addEventListener("click", function() {
         prueba.src = pokemon.sprites.other["official-artwork"].front_shiny;
     });
 
@@ -150,28 +150,10 @@ function comprobarTipos(pokemon) {
         var tipo = document.createElement("div");
         tipo.classList.add("type");
 
-        var style = perfeccionarTipo(pokemon.types[i].type.name);
-        tipo.innerHTML = style[0];
-        tipo.style.backgroundColor = style[1];
+        var style = pokemon.types[i].type.name;
+        tipo.innerHTML = TiposPokemon[style];
+        tipo.style.backgroundColor = `var(--${pokemon.types[i].type.name})`;
 
         tipos[tipos.length - 1].appendChild(tipo);
     }
-}
-
-function perfeccionarTipo(texto) {
-    var count = 0;
-    var traduccion;
-    var color;
-
-    for(var tipo in TiposPokemon){
-        if(TiposPokemon[tipo] === texto){
-            traduccion = tipo;
-            color = getComputedStyle(document.documentElement).getPropertyValue("--" + tipo.toLowerCase());
-        }
-        count++;
-    }
-
-    var devuelve = [traduccion, color];
-
-    return devuelve;
 }
