@@ -166,7 +166,7 @@ function perfeccionarTipo(texto) {
     for(var tipo in TiposPokemon){
         if(TiposPokemon[tipo] === texto){
             traduccion = tipo;
-            color = getComputedStyle(document.documentElement).getPropertyValue("--" + tipo);
+            color = getComputedStyle(document.documentElement).getPropertyValue("--" + tipo.toLowerCase());
         }
         count++;
     }

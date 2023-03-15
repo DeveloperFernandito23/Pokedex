@@ -5,23 +5,23 @@
     font-weight: normal;
 }
 :root{
-    --Agua: rgb(36,129,240);
-    --Bicho: rgb(146,162,18);
-    --Dragón: rgb(79,96,226);
-    --Eléctrico: rgb(250,193,0);
-    --Fantasma: rgb(113,63,113);
-    --Fuego : rgb(231,35,36);
-    --Hielo: rgb(61,217,255);
-    --Lucha: rgb(255,129,0);
-    --Normal: rgb(160,162,160);
-    --Planta: rgb(61,162,36);
-    --Psíquico: rgb(239,63,122);
-    --Roca: rgb(176,171,130);
-    --Tierra: rgb(146,80,27);
-    --Veneno: rgb(146,63,204);
-    --Volador: rgb(130,186,240);
-    --Hada: rgb(239,113,240);
-    --Acero: rgb(96,162,185);
+    --agua: rgb(36,129,240);
+    --bicho: rgb(146,162,18);
+    --dragón: rgb(79,96,226);
+    --eléctrico: rgb(250,193,0);
+    --fantasma: rgb(113,63,113);
+    --fuego : rgb(231,35,36);
+    --hielo: rgb(61,217,255);
+    --lucha: rgb(255,129,0);
+    --normal: rgb(160,162,160);
+    --planta: rgb(61,162,36);
+    --psíquico: rgb(239,63,122);
+    --roca: rgb(176,171,130);
+    --tierra: rgb(146,80,27);
+    --veneno: rgb(146,63,204);
+    --volador: rgb(130,186,240);
+    --hada: rgb(239,113,240);
+    --acero: rgb(96,162,185);
     
     margin: 0;
 }
