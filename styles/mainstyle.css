@@ -187,3 +187,7 @@ img{
 span{
     margin: 5px 50px;
 }
+.image > img{
+    width: 100%;
+    height: auto;
+}
