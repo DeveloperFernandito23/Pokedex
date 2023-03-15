@@ -149,23 +149,29 @@ function comprobarTipos(pokemon) {
     for(var i = 0; i < pokemon.types.length;i++){
         var tipo = document.createElement("div");
         tipo.classList.add("type");
-        tipo.style.backgroundColor = pokemon.t
-        tipo.innerHTML = traducir(pokemon.types[i].type.name);
+
+        var style = perfeccionarTipo(pokemon.types[i].type.name)
+        tipo.innerHTML = style[0];
+        tipo.style.backgroundColor = style[1];
 
         tipos[tipos.length - 1].appendChild(tipo);
     }
 }
 
-function traducir(texto) {
-    var traduccion;
+function perfeccionarTipo(texto) {
     var count = 0;
+    var traduccion;
+    var color;
 
     for(var tipo in TiposPokemon){
         if(TiposPokemon[tipo] === texto){
             traduccion = tipo;
+            color = getComputedStyle(document.documentElement).getPropertyValue("--" + tipo);
         }
         count++;
     }
 
-    return traduccion;
+    var devuelve = [traduccion, color];
+
+    return devuelve;
 }
