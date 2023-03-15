@@ -150,7 +150,7 @@ function comprobarTipos(pokemon) {
         var tipo = document.createElement("div");
         tipo.classList.add("type");
 
-        var style = perfeccionarTipo(pokemon.types[i].type.name)
+        var style = perfeccionarTipo(pokemon.types[i].type.name);
         tipo.innerHTML = style[0];
         tipo.style.backgroundColor = style[1];
 
