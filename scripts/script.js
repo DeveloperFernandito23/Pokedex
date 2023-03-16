@@ -98,13 +98,30 @@ async function datosPokemon() {
 
     document.title = pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1);
 
-    var prueba = document.getElementById("prueba");
-    prueba.src = pokemon.sprites.other["official-artwork"].front_default;
-    prueba.addEventListener("click", function() {
-        prueba.src = pokemon.sprites.other["official-artwork"].front_shiny;
-    });
+    var prueba = document.getElementById("prueba");//por que si quito esto me lo pilla igual
+    var prueba2 = document.getElementById("imagen");
+
+    prueba2.src = pokemon.sprites.other["official-artwork"].front_default;
+
+    prueba.addEventListener("click", changeShiny(pokemon));
 
     document.getElementById("pokemon").innerHTML = numero;
+}
+
+var shiny = false;
+
+function changeShiny(pokemon){
+    var prueba = document.getElementById("imagen");
+
+    if(shiny){
+        prueba.setAttribute("src", pokemon.sprites.other["official-artwork"].front_default);
+        //prueba.style.border = "3px black solid";
+        shiny = false;
+    }else{
+        prueba.setAttribute("src", pokemon.sprites.other["official-artwork"].front_shiny);
+       // prueba.style.border = "3px red solid";
+        shiny = true;
+    }
 }
 
 
