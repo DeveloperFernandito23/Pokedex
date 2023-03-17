@@ -39,14 +39,14 @@ function reversa(){
 
 // ORDENA ALFABETICAMENTE
 function orden(){
-    var lista = pokemons.sort((a, b) =>{
+    var lista = pokemons.sort((a, b, result = 0) =>{
         if (a.name.toLowerCase() > b.name.toLowerCase()) {
-            return 1;
+            result = 1;
         }
         if (a.name.toLowerCase() < b.name.toLowerCase()) {
-            return -1;
+            result = -1;
         }
-        return 0;
+        return result;
     });
 
     document.getElementById("demo").innerHTML = "";
