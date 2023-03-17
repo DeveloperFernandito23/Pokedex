@@ -36,9 +36,6 @@ body{
 .poke:hover{
     position: relative;
 }
-.name:first-letter {
-    text-transform: uppercase;
-}
 .poke:hover::before {
     content: "";
     position: absolute;

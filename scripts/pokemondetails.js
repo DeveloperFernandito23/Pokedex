@@ -31,24 +31,6 @@ async function evolutionChain(speciePokemon) {
     return objecttwo;
 }
 
-async function datosPokemon() {
-    var parametros = window.location.search;
-
-    var newUrl = new URLSearchParams(parametros);
-
-    var numero = newUrl.get('numero');
-
-    var pokemon = await traerUno(numero);
-
-    crearDatos(pokemon);
-
-    var evolution = await evolutionChain(pokemon.species.url);
-
-    makeChain(evolution);
-
-    document.title = pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1);
-}
-
 function makeChain(evolution) {
     var chain = evolution.chain;
     var hasElement = true;
@@ -64,6 +46,23 @@ function makeChain(evolution) {
     }
 }
 
+async function datosPokemon() {
+    var parametros = window.location.search;
+
+    var newUrl = new URLSearchParams(parametros);
+
+    var numero = newUrl.get('numero');
+
+    var pokemon = await traerUno(numero);
+
+    var evolution = await evolutionChain(pokemon.species.url);
+    
+    crearDatos(pokemon);
+
+    makeChain(evolution);
+
+    document.title = pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1);
+}
 
 function crearDatos(pokemon) {
     var image = document.getElementsByClassName("image")[0];
@@ -73,12 +72,16 @@ function crearDatos(pokemon) {
 
     image.addEventListener("click", () => changeShiny(pokemon) );
 
-    pokemonData(pokemon);
+    document.getElementsByClassName("name")[0].innerHTML = pokemon.name;
+    
+    comprobarTipos(pokemon);
+
+    pokemonValues(pokemon);
 
     document.getElementById("pokemon").innerHTML = pokemon.id;
 }
 
-function pokemonData(pokemon) {
+function pokemonValues(pokemon) {
     var progress = document.getElementsByClassName("progreso");
 
     for(var i = 0; i < pokemon.stats.length; i++){

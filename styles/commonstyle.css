@@ -44,3 +44,6 @@
 img{
     vertical-align: middle;
 }
+.name:first-letter {
+    text-transform: uppercase;
+}
