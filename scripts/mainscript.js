@@ -26,12 +26,20 @@ function reversa(value){
                 crearPokemon(element);
             });
             break;
+        case "opt3":
+           orden(false);
+            break;
+        case "opt4":
+           orden(true);
+            break;
     }
 }
 
 // ORDENA ALFABETICAMENTE
-function orden(){
-    var lista = pokemons.sort((a, b, result = 0) =>{
+function orden(bool){
+    var lista = pokemons.slice();
+
+    var listaOrder = lista.sort((a, b, result = 0) =>{
         if (a.name.toLowerCase() > b.name.toLowerCase()) {
             result = 1;
         }
@@ -42,7 +50,11 @@ function orden(){
     });
 
     document.getElementById("demo").innerHTML = "";
-    lista.forEach(element => {
+    if(bool){
+        listaOrder.reverse();
+    }
+    
+    listaOrder.forEach(element => {
         crearPokemon(element);
     });
 }

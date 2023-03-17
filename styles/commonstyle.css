@@ -26,6 +26,7 @@
     margin: 0;
 }
 .types{
+    color: white;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(2vw, 0.5fr));
     gap: 2vw;
@@ -34,6 +35,7 @@
 .type{
     outline: auto black;
     border-radius: 25px;
+    -webkit-text-stroke: .5px black;
 }
 .image > img{
     width: 100%;
