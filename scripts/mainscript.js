@@ -7,6 +7,8 @@ NO BORRAR, ES PARA ORDENAR (PARA ACORDARME PARA HACERLO)
 
 */
 
+var leo = document.getElementById("leo").innerHTML = "hola";
+
 function reversa(value){
     var lista = pokemons.slice();
 

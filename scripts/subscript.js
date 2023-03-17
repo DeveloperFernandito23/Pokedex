@@ -1,3 +1,19 @@
+/*var TipeTrigger = {
+    "level-up": 
+    "trade":
+    "use-item": 
+    "shed":
+    "spin":
+    "tower-of-darkness":
+    "tower-of-water":
+    "three-critical-hits":
+    "take-damage":
+    "other":
+    "agile-style-move":
+    "strong-style-move":
+    "recoil-damage":
+}*/
+
 async function traerUno(id) {
     var response = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}/`);
     var object = await response.json();
@@ -28,13 +44,24 @@ async function datosPokemon() {
 
     var evolution = await evolutionChain(pokemon.species.url);
 
-    
+    makeChain(evolution);
 
     document.title = pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1);
 }
 
-function makeChain() {
-    
+function makeChain(evolution) {
+    var chain = evolution.chain;
+    var hasElement = true;
+
+    while(hasElement) {
+        console.log(chain.species.name);
+
+        if(chain.evolves_to.length != 0){
+            chain = chain.evolves_to[0];
+        }else{
+            hasElement = false;
+        }     
+    }
 }
 
 
