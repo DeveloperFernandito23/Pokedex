@@ -96,30 +96,34 @@ async function datosPokemon() {
 
     var pokemon = await traerUno(numero);
 
+    crearDatos(pokemon);
+
     document.title = pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1);
 
-    var prueba = document.getElementById("prueba");//por que si quito esto me lo pilla igual
-    var prueba2 = document.getElementById("imagen");
+}
 
-    prueba2.src = pokemon.sprites.other["official-artwork"].front_default;
+function crearDatos(pokemon) {
+    var image = document.getElementsByClassName("image")[0];
+    var contentImage = document.getElementById("pokemonimage");
 
-    prueba.addEventListener("click", changeShiny(pokemon));
+    contentImage.src = pokemon.sprites.other["official-artwork"].front_default;
 
-    document.getElementById("pokemon").innerHTML = numero;
+    image.addEventListener("click", function() { changeShiny(pokemon) } );
+
+    document.getElementById("pokemon").innerHTML = pokemon.id;
+
 }
 
 var shiny = false;
 
 function changeShiny(pokemon){
-    var prueba = document.getElementById("imagen");
+    var contentImage = document.getElementById("pokemonimage");
 
     if(shiny){
-        prueba.setAttribute("src", pokemon.sprites.other["official-artwork"].front_default);
-        //prueba.style.border = "3px black solid";
+        contentImage.setAttribute("src", pokemon.sprites.other["official-artwork"].front_default);
         shiny = false;
     }else{
-        prueba.setAttribute("src", pokemon.sprites.other["official-artwork"].front_shiny);
-       // prueba.style.border = "3px red solid";
+        contentImage.setAttribute("src", pokemon.sprites.other["official-artwork"].front_shiny);
         shiny = true;
     }
 }

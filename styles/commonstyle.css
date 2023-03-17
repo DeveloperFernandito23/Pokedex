@@ -1,0 +1,44 @@
+@font-face {
+    font-family: 'Pokemon Solid';
+    src: url('fonts/Pokemon Solid.ttf') format('truetype');
+    font-style: normal;
+    font-weight: normal;
+}
+:root{
+    --water: rgb(36,129,240);
+    --bug: rgb(146,162,18);
+    --dragon: rgb(79,96,226);
+    --electric: rgb(250,193,0);
+    --ghost: rgb(113,63,113);
+    --fire : rgb(231,35,36);
+    --ice: rgb(61,217,255);
+    --fighting: rgb(255,129,0);
+    --normal: rgb(160,162,160);
+    --grass: rgb(61,162,36);
+    --psychic: rgb(239,63,122);
+    --rock: rgb(176,171,130);
+    --ground: rgb(146,80,27);
+    --poison: rgb(146,63,204);
+    --flying: rgb(130,186,240);
+    --fairy: rgb(239,113,240);
+    --steel: rgb(96,162,185);
+    
+    margin: 0;
+}
+.types{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(2vw, 0.5fr));
+    gap: 2vw;
+    justify-content: center;
+}
+.type{
+    outline: auto black;
+    border-radius: 25px;
+}
+.image > img{
+    width: 100%;
+    height: auto;
+}
+img{
+    vertical-align: middle;
+}
