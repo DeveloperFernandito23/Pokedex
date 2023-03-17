@@ -1,33 +1,11 @@
 var pokemons = [];
 
-//JS no tiene tipo enumerado, pero se puede usar esta sintaxis para dejarlo más claro
-var TiposPokemon = {
-    water: "Agua",
-    bug: "Bicho",
-    dragon: "Dragón",
-    electric: "Eléctrico",
-    ghost: "Fantasma",
-    fire: "Fuego",
-    ice: "Hielo",
-    fighting: "Lucha",
-    normal: "Normal",
-    grass: "Planta",
-    psychic: "Psíquico",
-    rock: "Roca",
-    ground: "Tierra",
-    poison: "Veneno",
-    flying: "Volador",
-    fairy: "Hada",
-    steel: "Acero"
-};
-
 /* function comparar ( a, b ){ return a - b; }
 arr.sort( comparar );  // [ 1, 5, 40, 200 ]
 
 NO BORRAR, ES PARA ORDENAR (PARA ACORDARME PARA HACERLO)
 
 */
-
 
 function reversa(){
     var lista = pokemons.reverse();
@@ -55,7 +33,7 @@ function orden(){
     });
 }
 
-async function traerPokemon() { //NEVER TOUCH
+async function givePokemons() { //NEVER TOUCH
     for(var i = 0; i < 151;i++){
         var response = await fetch(`https://pokeapi.co/api/v2/pokemon/${i + 1}/`);
         var objeto = await response.json();
@@ -79,55 +57,6 @@ function buscarPokemons(valor) {
         documento.innerHTML = "<div class='alert'>¡No se encontraron pokémons!</div>";     
     }
 }
-
-async function traerUno(id) {
-    var response = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}/`);
-    var objeto = await response.json();
-
-    return objeto;
-}
-
-async function datosPokemon() {
-    var parametros = window.location.search;
-
-    var newUrl = new URLSearchParams(parametros);
-
-    var numero = newUrl.get('numero');
-
-    var pokemon = await traerUno(numero);
-
-    crearDatos(pokemon);
-
-    document.title = pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1);
-
-}
-
-function crearDatos(pokemon) {
-    var image = document.getElementsByClassName("image")[0];
-    var contentImage = document.getElementById("pokemonimage");
-
-    contentImage.src = pokemon.sprites.other["official-artwork"].front_default;
-
-    image.addEventListener("click", function() { changeShiny(pokemon) } );
-
-    document.getElementById("pokemon").innerHTML = pokemon.id;
-
-}
-
-var shiny = false;
-
-function changeShiny(pokemon){
-    var contentImage = document.getElementById("pokemonimage");
-
-    if(shiny){
-        contentImage.setAttribute("src", pokemon.sprites.other["official-artwork"].front_default);
-        shiny = false;
-    }else{
-        contentImage.setAttribute("src", pokemon.sprites.other["official-artwork"].front_shiny);
-        shiny = true;
-    }
-}
-
 
 function crearPokemon(pokemon){
     var bicho = document.createElement("div");
@@ -162,19 +91,4 @@ function crearPokemon(pokemon){
     enlace.appendChild(tipos);
     comprobarTipos(pokemon);
     divImagen.appendChild(imagen);
-}
-
-function comprobarTipos(pokemon) {
-    var tipos = document.getElementsByClassName("types");
-
-    for(var i = 0; i < pokemon.types.length;i++){
-        var tipo = document.createElement("div");
-        tipo.classList.add("type");
-
-        var style = pokemon.types[i].type.name;
-        tipo.innerHTML = TiposPokemon[style];
-        tipo.style.backgroundColor = `var(--${pokemon.types[i].type.name})`;
-
-        tipos[tipos.length - 1].appendChild(tipo);
-    }
 }
