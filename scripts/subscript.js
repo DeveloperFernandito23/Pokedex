@@ -1,8 +1,18 @@
 async function traerUno(id) {
     var response = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}/`);
-    var objeto = await response.json();
+    var object = await response.json();
 
-    return objeto;
+    return object;
+}
+
+async function evolutionChain(speciePokemon) {
+    var response = await fetch(speciePokemon);
+    var object = await response.json();
+
+    var responsetwo = await fetch(object.evolution_chain.url);
+    var objecttwo = await responsetwo.json();
+
+    return objecttwo;
 }
 
 async function datosPokemon() {
@@ -16,9 +26,17 @@ async function datosPokemon() {
 
     crearDatos(pokemon);
 
-    document.title = pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1);
+    var evolution = await evolutionChain(pokemon.species.url);
 
+    
+
+    document.title = pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1);
 }
+
+function makeChain() {
+    
+}
+
 
 function crearDatos(pokemon) {
     var image = document.getElementsByClassName("image")[0];
@@ -26,7 +44,7 @@ function crearDatos(pokemon) {
 
     contentImage.src = pokemon.sprites.other["official-artwork"].front_default;
 
-    image.addEventListener("click", function() { changeShiny(pokemon) } );
+    image.addEventListener("click", () => changeShiny(pokemon) );
 
     pokemonData(pokemon);
 
