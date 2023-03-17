@@ -7,12 +7,26 @@ NO BORRAR, ES PARA ORDENAR (PARA ACORDARME PARA HACERLO)
 
 */
 
-function reversa(){
-    var lista = pokemons.reverse();
-    document.getElementById("demo").innerHTML = "";
-    lista.forEach(element => {
-        crearPokemon(element);
-    });
+function reversa(value){
+    var lista = pokemons.slice();
+
+    switch(value){
+        case "opt1":
+            document.getElementById("demo").innerHTML = "";
+
+            pokemons.forEach(element => {
+                crearPokemon(element);
+            });
+            break;
+        case "opt2":
+            document.getElementById("demo").innerHTML = "";
+
+            console.log(lista);
+            lista.reverse().forEach(element => {
+                crearPokemon(element);
+            });
+            break;
+    }
 }
 
 // ORDENA ALFABETICAMENTE
