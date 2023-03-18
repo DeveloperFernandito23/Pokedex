@@ -1,19 +1,3 @@
-/*var TipeTrigger = {
-    "level-up": 
-    "trade":
-    "use-item": 
-    "shed":
-    "spin":
-    "tower-of-darkness":
-    "tower-of-water":
-    "three-critical-hits":
-    "take-damage":
-    "other":
-    "agile-style-move":
-    "strong-style-move":
-    "recoil-damage":
-}*/
-
 async function traerUno(id) {
     var response = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}/`);
     var object = await response.json();
@@ -25,25 +9,10 @@ async function evolutionChain(speciePokemon) {
     var response = await fetch(speciePokemon);
     var object = await response.json();
 
-    var responsetwo = await fetch(object.evolution_chain.url);
-    var objecttwo = await responsetwo.json();
+    response = await fetch(object.evolution_chain.url);
+    object = await response.json();
 
-    return objecttwo;
-}
-
-function makeChain(evolution) {
-    var chain = evolution.chain;
-    var hasElement = true;
-
-    while(hasElement) {
-        console.log(chain.species.name);
-
-        if(chain.evolves_to.length != 0){
-            chain = chain.evolves_to[0];
-        }else{
-            hasElement = false;
-        }     
-    }
+    return object;
 }
 
 async function datosPokemon() {
@@ -59,9 +28,44 @@ async function datosPokemon() {
     
     crearDatos(pokemon);
 
-    makeChain(evolution);
+    makeChain(pokemon, evolution);
 
     document.title = pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1);
+}
+
+function makeChain(pokemon, evolution) {
+    var chain = evolution.chain;
+    var hasElement = true;
+
+    while(hasElement) {
+        if(pokemon.name == chain.species.name){
+            console.log(chain.species.name + "Es");
+        }else{
+            console.log(chain.species.name);
+        }
+
+        if(chain.evolution_details.length != 0){
+            checkTrigger(chain.evolution_details[0]);
+        }
+
+        if(chain.evolves_to.length != 0){
+            chain = chain.evolves_to[0];
+        }else{
+            hasElement = false;
+        }     
+    }
+}
+
+function checkTrigger(details) { //NO me lo creo que haya sacao los de los ?
+    var TipeTrigger = {
+        "level-up": `Nivel => ${details.min_level}`,
+        "use-item": `Usar => ${details.item?.name}`,
+        trade: "Trade",
+    }
+
+    var trigger = details.trigger.name;
+
+    console.log(TipeTrigger[trigger]);
 }
 
 function crearDatos(pokemon) {
@@ -73,6 +77,10 @@ function crearDatos(pokemon) {
     image.addEventListener("click", () => changeShiny(pokemon) );
 
     document.getElementsByClassName("name")[0].innerHTML = pokemon.name;
+
+    console.log(`Peso => ${pokemon.weight}`);
+
+    console.log(`Peso => ${pokemon.height}`);
     
     comprobarTipos(pokemon);
 
@@ -91,7 +99,7 @@ function pokemonValues(pokemon) {
 
 var shiny = false;
 
-function changeShiny(pokemon){
+function changeShiny(pokemon) {
     var contentImage = document.getElementById("pokemonimage");
 
     if(shiny){
