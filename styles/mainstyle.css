@@ -4,6 +4,9 @@ body{
     background-size: cover;
     background-attachment: fixed;
 }
+.oscuro{
+    background-color: #000000 !important;
+}
 #main-title{
     text-decoration: none;
 }

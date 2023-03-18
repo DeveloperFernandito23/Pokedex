@@ -7,7 +7,6 @@ NO BORRAR, ES PARA ORDENAR (PARA ACORDARME PARA HACERLO)
 
 */
 
-var leo = document.getElementById("leo").innerHTML = "hola";
 
 function reversa(value){
     var lista = pokemons.slice();
@@ -61,13 +60,44 @@ function orden(bool){
     });
 }
 
+
+
+function changeTheme() {
+    const collection = document.getElementsByClassName("poke");
+    
+    bucleToChange(collection); // bucle para que me ponga o quite la clase oscuro
+
+    
+   if(collection[0].classList.contains('oscuro')){ //cuando un elemento tenga la clase oscuro
+        localStorage.setItem('oscuro', 'enabled'); 
+    }else{
+        localStorage.setItem('oscuro', 'disabled'); 
+    }
+}
+
+function bucleToChange(collection){
+    for (let i = 0; i < collection.length; i++) {
+        collection[i].classList.toggle('oscuro');
+      }
+}
+
 async function givePokemons() { //NEVER TOUCH
+
     for(var i = 0; i < 151;i++){
         var response = await fetch(`https://pokeapi.co/api/v2/pokemon/${i + 1}/`);
         var objeto = await response.json();
         await pokemons.push(objeto);
         await crearPokemon(objeto);
     }
+    compruebaTema(); // para que nada más cree los pokemons revise que tema aplicar no se puede poner antes debido que se quedaría null
+}
+
+function compruebaTema(){
+    const collection = document.getElementsByClassName("poke");
+
+    if(localStorage.getItem('oscuro') == 'enabled'){ // cuando está enabled me cambia de oscuro o no
+        bucleToChange(collection);
+    } 
 }
 
 function buscarPokemons(valor) {
