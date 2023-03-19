@@ -36,13 +36,13 @@ async function evolutionChain(speciePokemon) {
 }
 
 async function pokemonDetails() {
-    var parametros = window.location.search;
+    var parameters = window.location.search;
 
-    var newUrl = new URLSearchParams(parametros);
+    var newUrl = new URLSearchParams(parameters);
 
-    var numero = newUrl.get('numero');
+    var number = newUrl.get('numero');
 
-    var pokemon = await givePokemonDetails(numero);
+    var pokemon = await givePokemonDetails(number);
 
     var evolution = await evolutionChain(pokemon.species.url);
 
@@ -52,7 +52,7 @@ async function pokemonDetails() {
 
     makeChain(pokemon, evolution);
 
-    document.title = pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1);
+    document.title = `${pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)} | Pokédex`;
 }
 
 function makeChain(pokemon, evolution) {
@@ -61,7 +61,7 @@ function makeChain(pokemon, evolution) {
 
     while(hasElement) {
         if(pokemon.name == chain.species.name){
-            console.log(chain.species.name + "Es");
+            console.log(`*${chain.species.name}*`);
         }else{
             console.log(chain.species.name);
         }
@@ -102,7 +102,7 @@ function crearDatos(pokemon) {
 
     console.log(`Peso => ${pokemon.weight}`);
 
-    console.log(`Peso => ${pokemon.height}`);
+    console.log(`Altura => ${pokemon.height}`);
     
     comprobarTipos(pokemon);
 
