@@ -65,14 +65,12 @@ function orden(bool){
 function changeTheme() {
     const collection = document.getElementsByClassName("poke");
     
-    bucleToChange(collection); // bucle para que me ponga o quite la clase oscuro
-
-    
    if(collection[0].classList.contains('oscuro')){ //cuando un elemento tenga la clase oscuro
-        localStorage.setItem('oscuro', 'enabled'); 
-    }else{
         localStorage.setItem('oscuro', 'disabled'); 
+    }else{
+        localStorage.setItem('oscuro', 'enabled'); 
     }
+    compruebaTema();
 }
 
 function bucleToChange(collection){
@@ -94,10 +92,13 @@ async function givePokemons() { //NEVER TOUCH
 
 function compruebaTema(){
     const collection = document.getElementsByClassName("poke");
+    const collection2 = document.getElementsByClassName("name");
+    const collection3 = document.getElementsByClassName("number");
 
-    if(localStorage.getItem('oscuro') == 'enabled'){ // cuando está enabled me cambia de oscuro o no
-        bucleToChange(collection);
-    } 
+    // Me lo cambia siempre da igual que este enabled o no para intercambiar de oscuro a claro
+    bucleToChange(collection);
+    bucleToChange(collection2);
+    bucleToChange(collection3);
 }
 
 function buscarPokemons(valor) {
