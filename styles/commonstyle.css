@@ -35,6 +35,7 @@
     outline: auto black;
     border-radius: 25px;
     -webkit-text-stroke: .5px black;
+    /*text-shadow: -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;*/
 }
 .image > img{
     width: 100%;
