@@ -130,6 +130,7 @@ body{
     right: 0.55em;
     transform: rotate(-45deg) translateY(2.2em);
     transition: transform 0.150s ease-out 0.150s;
+    background-color: transparent;
 }
 .buscador button[type=reset]:before, .buscador button[type=reset]:after {
     content: "";
