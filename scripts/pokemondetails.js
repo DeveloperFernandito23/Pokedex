@@ -1,23 +1,3 @@
-var FavPokemon = {
-    water: "../img/favicons/water.ico",
-    bug: "../img/favicons/bug.ico",
-    dragon: "../img/favicons/dragon.ico",
-    electric: "../img/favicons/electric.ico",
-    ghost: "../img/favicons/ghost.ico",
-    fire: "../img/favicons/fire.ico",
-    ice: "../img/favicons/ice.ico",
-    fighting: "../img/favicons/fighting.ico",
-    normal: "../img/favicons/normal.ico",
-    grass: "../img/favicons/grass.ico",
-    psychic: "../img/favicons/psychic.ico",
-    rock: "../img/favicons/rock.ico",
-    ground: "../img/favicons/ground.ico",
-    poison: "../img/favicons/poison.ico",
-    flying: "../img/favicons/flying.ico",
-    fairy: "../img/favicons/fairy.ico",
-    steel: "../img/favicons/steel.ico"
-}; 
-
 async function givePokemonDetails(id) {
     var response = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}/`);
     var object = await response.json();
@@ -60,22 +40,44 @@ function makeChain(pokemon, evolution) {
     var hasElement = true;
 
     while(hasElement) {
-        if(pokemon.name == chain.species.name){
-            console.log(`*${chain.species.name}*`);
-        }else{
-            console.log(chain.species.name);
-        }
+        var numberEvolutions = chain.evolves_to.length;
 
-        if(chain.evolution_details.length != 0){
-            checkTrigger(chain.evolution_details[0]);
-        }
+        makeChainData(pokemon, chain);
 
-        if(chain.evolves_to.length != 0){
-            chain = chain.evolves_to[0];
-        }else{
-            hasElement = false;
-        }     
+        for(var i = 0; i < numberEvolutions;i++) {
+            var chainCopy = chain.evolves_to[i];
+
+            makeChainData(pokemon, chainCopy);
+    
+            checkTrigger(chainCopy.evolution_details[0]);
+        }
+        
+        hasElement = false;
     }
+}
+
+function makeChainData(pokemon, chain) {
+    if(pokemon.name == chain.species.name){
+        console.log(`*${chain.species.name}*`);
+    }else{
+        console.log(chain.species.name);
+    }
+
+    var chainSpace = document.getElementById("evolution-chain");
+
+    var element = document.createElement("div");
+    element.classList.add("evolution-elements");
+
+    var link = document.createElement("a");
+
+    var id = chain.species.url.split("/")[6];
+
+    link.innerHTML = id;
+    link.href = `pokemon.html?numero=${id}`;
+    link.target = "_self";
+
+    chainSpace.appendChild(element);
+    element.appendChild(link);
 }
 
 function checkTrigger(details) { //NO me lo creo que haya sacao los de los ?
@@ -112,10 +114,15 @@ function crearDatos(pokemon) {
 }
 
 function pokemonValues(pokemon) {
-    var progress = document.getElementsByClassName("progreso");
+    var listStats = document.getElementById("stats");
+    listStats.style.backgroundColor = `var(--${pokemon.types[0].type.name})`;
+
+    var statsProgress = document.getElementsByClassName("stats-progress");
+    var statsNumber = document.getElementsByClassName("stats-number");
 
     for(var i = 0; i < pokemon.stats.length; i++){
-        progress[i].value = pokemon.stats[i].base_stat;
+        statsProgress[i].value = pokemon.stats[i].base_stat;
+        statsNumber[i].innerHTML = pokemon.stats[i].base_stat;
     }
 }
 
@@ -136,11 +143,11 @@ function changeShiny(pokemon) {
 function chooseFavicon(pokemon) {
     var head = document.head;
 
-    var href = FavPokemon[pokemon.types[0].type.name];
+    var href = pokemon.types[0].type.name;
 
     var favicon = document.createElement("link");
     favicon.rel = "shortcut icon";
-    favicon.href = href;
+    favicon.href = `../img/favicons/${href}.ico`;
 
     head.appendChild(favicon);
 }
