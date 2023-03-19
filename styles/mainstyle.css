@@ -21,7 +21,7 @@ body{
 }
 #demo{
     display: grid;
-    grid-template-columns: repeat( auto-fill, minmax(250px, 1fr) );
+    grid-template-columns: repeat( auto-fill, minmax(20vw, 1fr) );
     color: var(--fuego);
     gap: 4vw;
     margin: 10vw;
