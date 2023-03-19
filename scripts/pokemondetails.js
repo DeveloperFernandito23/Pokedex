@@ -1,4 +1,24 @@
-async function traerUno(id) {
+var FavPokemon = {
+    water: "../img/favicons/water.ico",
+    bug: "../img/favicons/bug.ico",
+    dragon: "../img/favicons/dragon.ico",
+    electric: "../img/favicons/electric.ico",
+    ghost: "../img/favicons/ghost.ico",
+    fire: "../img/favicons/fire.ico",
+    ice: "../img/favicons/ice.ico",
+    fighting: "../img/favicons/fighting.ico",
+    normal: "../img/favicons/normal.ico",
+    grass: "../img/favicons/grass.ico",
+    psychic: "../img/favicons/psychic.ico",
+    rock: "../img/favicons/rock.ico",
+    ground: "../img/favicons/ground.ico",
+    poison: "../img/favicons/poison.ico",
+    flying: "../img/favicons/flying.ico",
+    fairy: "../img/favicons/fairy.ico",
+    steel: "../img/favicons/steel.ico"
+}; 
+
+async function givePokemonDetails(id) {
     var response = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}/`);
     var object = await response.json();
 
@@ -15,16 +35,18 @@ async function evolutionChain(speciePokemon) {
     return object;
 }
 
-async function datosPokemon() {
+async function pokemonDetails() {
     var parametros = window.location.search;
 
     var newUrl = new URLSearchParams(parametros);
 
     var numero = newUrl.get('numero');
 
-    var pokemon = await traerUno(numero);
+    var pokemon = await givePokemonDetails(numero);
 
     var evolution = await evolutionChain(pokemon.species.url);
+
+    chooseFavicon(pokemon);
     
     crearDatos(pokemon);
 
@@ -109,4 +131,16 @@ function changeShiny(pokemon) {
         contentImage.setAttribute("src", pokemon.sprites.other["official-artwork"].front_shiny);
         shiny = true;
     }
+}
+
+function chooseFavicon(pokemon) {
+    var head = document.head;
+
+    var href = FavPokemon[pokemon.types[0].type.name];
+
+    var favicon = document.createElement("link");
+    favicon.rel = "shortcut icon";
+    favicon.href = href;
+
+    head.appendChild(favicon);
 }

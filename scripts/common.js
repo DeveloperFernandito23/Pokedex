@@ -17,7 +17,7 @@ var TiposPokemon = {
     flying: "Volador",
     fairy: "Hada",
     steel: "Acero"
-};
+}; 
 
 function comprobarTipos(pokemon) {
     var tipos = document.getElementsByClassName("types");
