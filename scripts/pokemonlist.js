@@ -6,7 +6,11 @@ arr.sort( comparar );  // [ 1, 5, 40, 200 ]
 NO BORRAR, ES PARA ORDENAR (PARA ACORDARME PARA HACERLO)
 
 */
-
+// function pruebaTipos(){
+//     let elemento = document.getElementsByClassName("poke");
+//     let estilo = window.getComputedStyle(elemento[1], "::before");
+//     console.log(estilo.getPropertyValue('background'));
+// }
 
 function reversa(value){
     var lista = pokemons.slice();
@@ -68,10 +72,11 @@ function changeTheme() {
     const collection3 = document.getElementsByClassName("number");
     
    if(collection[0].classList.contains('oscuro')){ //cuando un elemento tenga la clase oscuro
-        localStorage.setItem('oscuro', 'disabled'); 
+        localStorage.setItem('oscuro', 'disabled');  // pasara a desctivarlo
     }else{
-        localStorage.setItem('oscuro', 'enabled'); 
+        localStorage.setItem('oscuro', 'enabled');  // o activarlo
     }
+    // Y aquí cambia de uno a otro
     bucleToChange(collection);
     bucleToChange(collection2);
     bucleToChange(collection3);
@@ -95,8 +100,7 @@ async function givePokemons() { //NEVER TOUCH
 }
 
 function compruebaTema(){
-
-    if(localStorage.getItem('oscuro') == 'enabled'){ // cuando está enabled me cambia de oscuro o no
+    if(localStorage.getItem('oscuro') == 'enabled'){ // cuando está enabled me llama a cambiar el tema
         changeTheme();
     } 
 }
