@@ -35,49 +35,72 @@ async function pokemonDetails() {
     document.title = `${pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)} | Pokédex`;
 }
 
-function makeChain(pokemon, evolution) {
+async function makeChain(pokemon, evolution) {
     var chain = evolution.chain;
     var hasElement = true;
+
+    await makeChainData(pokemon, chain);
 
     while(hasElement) {
         var numberEvolutions = chain.evolves_to.length;
 
-        makeChainData(pokemon, chain);
-
         for(var i = 0; i < numberEvolutions;i++) {
             var chainCopy = chain.evolves_to[i];
 
-            makeChainData(pokemon, chainCopy);
-    
-            checkTrigger(chainCopy.evolution_details[0]);
+            await makeChainData(pokemon, chainCopy);
         }
         
-        hasElement = false;
+        if(numberEvolutions != 0){
+            chain = chain.evolves_to[0];
+        }else{
+            hasElement = false;
+        }
     }
 }
 
-function makeChainData(pokemon, chain) {
-    if(pokemon.name == chain.species.name){
-        console.log(`*${chain.species.name}*`);
-    }else{
-        console.log(chain.species.name);
-    }
+async function makeChainData(thisPokemon, chain) {
+    var id = chain.species.url.split("/")[6];
+    
+    var pokemon = await givePokemonDetails(id);
 
     var chainSpace = document.getElementById("evolution-chain");
 
     var element = document.createElement("div");
-    element.classList.add("evolution-elements");
+    element.classList.add("poke");
 
     var link = document.createElement("a");
-
-    var id = chain.species.url.split("/")[6];
-
-    link.innerHTML = id;
     link.href = `pokemon.html?numero=${id}`;
-    link.target = "_self";
+
+    var imageContainer = document.createElement("div");
+    imageContainer.classList.add("image");
+
+    var image = document.createElement("img");
+    image.src = pokemon.sprites.other["official-artwork"].front_default;
+    image.alt = "Lo siento, el pokemon no ha sido encontrado :(";
+
+    var pokemonName = document.createElement("div");
+    pokemonName.classList.add("name");
+
+    if(chain.species.name == thisPokemon.name){
+        pokemonName.innerHTML = `*${chain.species.name}*`;
+        link.style.color = "black";
+    }else{
+        pokemonName.innerHTML = chain.species.name;
+        link.style.color = `var(--${pokemon.types[0].type.name})`;
+    }
 
     chainSpace.appendChild(element);
     element.appendChild(link);
+    link.appendChild(imageContainer);
+    link.appendChild(pokemonName);
+    imageContainer.appendChild(image);
+
+    if(chain.evolution_details.length != 0){
+        var trigger = document.createElement("div");
+        trigger.innerHTML = await checkTrigger(chain.evolution_details[0]);
+
+        link.appendChild(trigger);
+    }
 }
 
 function checkTrigger(details) { //NO me lo creo que haya sacao los de los ?
@@ -89,7 +112,7 @@ function checkTrigger(details) { //NO me lo creo que haya sacao los de los ?
 
     var trigger = details.trigger.name;
 
-    console.log(TipeTrigger[trigger]);
+    return TipeTrigger[trigger];
 }
 
 function crearDatos(pokemon) {

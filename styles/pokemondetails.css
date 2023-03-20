@@ -1,0 +1,21 @@
+#evolution-chain{
+    display: grid;
+    grid-template-columns: repeat( auto-fill, minmax(15vw, 200px) );
+    gap: 4vw;
+    margin: 10vw;
+    justify-content: center;
+}
+
+.evolution-elements{
+    text-align: center;
+    padding: 10px;
+    font-size: 1.5rem;
+    border-radius: 55px;
+    box-shadow: 0px 0px 10px black;
+    width: 100%;
+    height: 100%;
+}
+
+#evolution-chain a {
+    text-decoration: none;
+}
