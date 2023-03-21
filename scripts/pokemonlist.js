@@ -134,6 +134,12 @@ function crearPokemon(pokemon){
     var imagen = document.createElement("img");
     imagen.src = pokemon.sprites.other["official-artwork"].front_default;
     imagen.alt = "Lo siento, el pokemon no ha sido encontrado :(";
+    imagen.addEventListener("mouseover", () => {
+        imagen.style.filter = `drop-shadow(0 0 15px var(--${pokemon.types[0].type.name}))`;
+    })
+    imagen.addEventListener("mouseout", () => {
+        imagen.style.filter = `none`;
+    })
 
     var nombre = document.createElement("div");
     nombre.classList.add("name");

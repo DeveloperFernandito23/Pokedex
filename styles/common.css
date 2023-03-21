@@ -59,7 +59,7 @@ img{
 }
 .poke:hover{
     position: relative;
-}
+}/*
 .poke:hover::before {
     content: "";
     position: absolute;
@@ -71,4 +71,4 @@ img{
     border-radius: inherit;
     z-index: -1;
     filter: blur(5px);
-}
+}*/

@@ -77,6 +77,12 @@ async function makeChainData(thisPokemon, chain) {
     var image = document.createElement("img");
     image.src = pokemon.sprites.other["official-artwork"].front_default;
     image.alt = "Lo siento, el pokemon no ha sido encontrado :(";
+    image.addEventListener("mouseover", () => {
+        image.style.filter = `drop-shadow(0 0 15px var(--${pokemon.types[0].type.name}))`;
+    })
+    image.addEventListener("mouseout", () => {
+        image.style.filter = `none`;
+    })
 
     var pokemonName = document.createElement("div");
     pokemonName.classList.add("name");
@@ -107,7 +113,7 @@ function checkTrigger(details) { //NO me lo creo que haya sacao los de los ?
     var TipeTrigger = {
         "level-up": `Nivel => ${details.min_level}`,
         "use-item": `Usar => ${details.item?.name}`,
-        trade: "Trade",
+        trade: "Trade"
     }
 
     var trigger = details.trigger.name;
