@@ -93,18 +93,18 @@ function bucleToChange(collection){
 }
 
 async function givePokemons() { //NEVER TOUCH
-
     for(var i = 0; i < 151;i++){
         var response = await fetch(`https://pokeapi.co/api/v2/pokemon/${i + 1}/`);
         var objeto = await response.json();
         await pokemons.push(objeto);
         await crearPokemon(objeto);
     }
+
     compruebaTema(); // para que nada más cree los pokemons revise que tema aplicar no se puede poner antes debido que se quedaría null
 }
 
 function compruebaTema(){
-    if(localStorage.getItem('oscuro') == 'enabled'){ // cuando está enabled me llama a cambiar el tema
+    if(localStorage.getItem('oscuro') == true){ // cuando está enabled me llama a cambiar el tema
         changeTheme();
     } 
 }

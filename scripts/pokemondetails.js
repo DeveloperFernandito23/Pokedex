@@ -63,49 +63,52 @@ async function makeChainData(thisPokemon, chain) {
     
     var pokemon = await givePokemonDetails(id);
 
-    var chainSpace = document.getElementById("evolution-chain");
+    if(pokemon.id <= 151){
+        var chainSpace = document.getElementById("evolution-chain");
 
-    var element = document.createElement("div");
-    element.classList.add("poke");
+        var link = document.createElement("a");
+        link.href = `pokemon.html?numero=${id}`;
 
-    var link = document.createElement("a");
-    link.href = `pokemon.html?numero=${id}`;
+        var element = document.createElement("div");
+        element.classList.add("poke");
 
-    var imageContainer = document.createElement("div");
-    imageContainer.classList.add("image");
+        var imageContainer = document.createElement("div");
+        imageContainer.classList.add("image");
 
-    var image = document.createElement("img");
-    image.src = pokemon.sprites.other["official-artwork"].front_default;
-    image.alt = "Lo siento, el pokemon no ha sido encontrado :(";
-    image.addEventListener("mouseover", () => {
-        image.style.filter = `drop-shadow(0 0 15px var(--${pokemon.types[0].type.name}))`;
-    })
-    image.addEventListener("mouseout", () => {
-        image.style.filter = `none`;
-    })
+        var image = document.createElement("img");
+        image.src = pokemon.sprites.other["official-artwork"].front_default;
+        image.alt = "Lo siento, el pokemon no ha sido encontrado :(";
 
-    var pokemonName = document.createElement("div");
-    pokemonName.classList.add("name");
+        image.addEventListener("mouseover", () => {
+            image.style.filter = `drop-shadow(0 0 15px var(--${pokemon.types[0].type.name}))`;
+        })
+        image.addEventListener("mouseout", () => {
+            image.style.filter = `none`;
+        })
 
-    if(chain.species.name == thisPokemon.name){
-        pokemonName.innerHTML = `*${chain.species.name}*`;
-        link.style.color = "black";
-    }else{
-        pokemonName.innerHTML = chain.species.name;
-        link.style.color = `var(--${pokemon.types[0].type.name})`;
-    }
+        var pokemonName = document.createElement("div");
+        pokemonName.classList.add("name");
 
-    chainSpace.appendChild(element);
-    element.appendChild(link);
-    link.appendChild(imageContainer);
-    link.appendChild(pokemonName);
-    imageContainer.appendChild(image);
+        if(chain.species.name == thisPokemon.name){
+            pokemonName.innerHTML = `*${chain.species.name}*`;
+            link.style.color = "black";
+        }else{
+            pokemonName.innerHTML = chain.species.name;
+            link.style.color = `var(--${pokemon.types[0].type.name})`;
+        }
 
-    if(chain.evolution_details.length != 0){
-        var trigger = document.createElement("div");
-        trigger.innerHTML = await checkTrigger(chain.evolution_details[0]);
+        chainSpace.appendChild(link);
+        link.appendChild(element);
+        element.appendChild(imageContainer);
+        element.appendChild(pokemonName);
+        imageContainer.appendChild(image);
 
-        link.appendChild(trigger);
+        if(chain.evolution_details.length != 0){
+            var trigger = document.createElement("div");
+            trigger.innerHTML = await checkTrigger(chain.evolution_details[0]);
+
+            link.appendChild(trigger);
+        }
     }
 }
 
