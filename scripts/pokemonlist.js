@@ -12,7 +12,7 @@ NO BORRAR, ES PARA ORDENAR (PARA ACORDARME PARA HACERLO)
 //     console.log(estilo.getPropertyValue('background'));
 // }
 
-function reversa(value){
+function orderBy(value){
     var lista = pokemons.slice();
 
     switch(value){
@@ -38,6 +38,7 @@ function reversa(value){
            orden(true);
             break;
     }
+    compruebaTema();
 }
 
 // ORDENA ALFABETICAMENTE
@@ -70,11 +71,14 @@ function changeTheme() {
     const collection = document.getElementsByClassName("poke");
     const collection2 = document.getElementsByClassName("name");
     const collection3 = document.getElementsByClassName("number");
+    const slider = document.getElementById("slide");
     
    if(collection[0].classList.contains('oscuro')){ //cuando un elemento tenga la clase oscuro
         localStorage.setItem('oscuro', 'disabled');  // pasara a desctivarlo
+        slider.checked = false;
     }else{
         localStorage.setItem('oscuro', 'enabled');  // o activarlo
+        slider.checked = true;
     }
     // Y aquí cambia de uno a otro
     bucleToChange(collection);
