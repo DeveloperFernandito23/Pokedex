@@ -33,3 +33,25 @@ function comprobarTipos(pokemon) {
         tipos[tipos.length - 1].appendChild(tipo);
     }
 }
+
+function changeTheme() {
+    const slider = document.getElementById("slide");
+    const linkedStyle = document.getElementById("theme");
+    const split = linkedStyle.href.split("/");
+
+   if(split[4] == "dark.css"){ //cuando un elemento tenga la clase oscuro
+        localStorage.setItem('oscuro', false);  // pasara a desctivarlo
+        slider.checked = false;
+        linkedStyle.href = "../styles/light.css";
+    }else{
+        localStorage.setItem('oscuro', true);  // o activarlo
+        slider.checked = true;
+        linkedStyle.href = "../styles/dark.css";
+    }
+}
+
+function compruebaTema(){
+    if(localStorage.getItem('oscuro') == "true"){ // cuando está enabled me llama a cambiar el tema
+        changeTheme();
+    } 
+}

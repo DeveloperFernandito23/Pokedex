@@ -64,27 +64,6 @@ function orden(bool){
     });
 }
 
-
-
-function changeTheme() {
-    const collection = document.getElementsByClassName("poke");
-    const collection2 = document.getElementsByClassName("name");
-    const collection3 = document.getElementsByClassName("number");
-    const slider = document.getElementById("slide");
-    const linkedStyle = document.getElementById("theme");
-    const split = linkedStyle.href.split("/");
-
-   if(split[4] == "dark.css"){ //cuando un elemento tenga la clase oscuro
-        localStorage.setItem('oscuro', false);  // pasara a desctivarlo
-        slider.checked = false;
-        linkedStyle.href = "../styles/light.css";
-    }else{
-        localStorage.setItem('oscuro', true);  // o activarlo
-        slider.checked = true;
-        linkedStyle.href = "../styles/dark.css";
-    }
-}
-
 async function givePokemons() { //NEVER TOUCH
     compruebaTema(); // Lo primero que hace es comprobar el tema activo y lo ajusta a cual sea el elegido
 
@@ -94,12 +73,6 @@ async function givePokemons() { //NEVER TOUCH
         await pokemons.push(objeto);
         await crearPokemon(objeto);
     }
-}
-
-function compruebaTema(){
-    if(localStorage.getItem('oscuro') == "true"){ // cuando está enabled me llama a cambiar el tema
-        changeTheme();
-    } 
 }
 
 function buscarPokemons(valor) {
