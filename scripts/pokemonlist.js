@@ -38,7 +38,6 @@ function orderBy(value){
            orden(true);
             break;
     }
-    compruebaTema();
 }
 
 // ORDENA ALFABETICAMENTE
@@ -72,39 +71,33 @@ function changeTheme() {
     const collection2 = document.getElementsByClassName("name");
     const collection3 = document.getElementsByClassName("number");
     const slider = document.getElementById("slide");
-    
-   if(collection[0].classList.contains('oscuro')){ //cuando un elemento tenga la clase oscuro
-        localStorage.setItem('oscuro', 'disabled');  // pasara a desctivarlo
-        slider.checked = false;
-    }else{
-        localStorage.setItem('oscuro', 'enabled');  // o activarlo
-        slider.checked = true;
-    }
-    // Y aquí cambia de uno a otro
-    bucleToChange(collection);
-    bucleToChange(collection2);
-    bucleToChange(collection3);
-}
+    const linkedStyle = document.getElementById("theme");
+    const split = linkedStyle.href.split("/");
 
-function bucleToChange(collection){
-    for (let i = 0; i < collection.length; i++) {
-        collection[i].classList.toggle('oscuro');
-      }
+   if(split[4] == "dark.css"){ //cuando un elemento tenga la clase oscuro
+        localStorage.setItem('oscuro', false);  // pasara a desctivarlo
+        slider.checked = false;
+        linkedStyle.href = "../styles/light.css";
+    }else{
+        localStorage.setItem('oscuro', true);  // o activarlo
+        slider.checked = true;
+        linkedStyle.href = "../styles/dark.css";
+    }
 }
 
 async function givePokemons() { //NEVER TOUCH
+    compruebaTema(); // Lo primero que hace es comprobar el tema activo y lo ajusta a cual sea el elegido
+
     for(var i = 0; i < 151;i++){
         var response = await fetch(`https://pokeapi.co/api/v2/pokemon/${i + 1}/`);
         var objeto = await response.json();
         await pokemons.push(objeto);
         await crearPokemon(objeto);
     }
-
-    compruebaTema(); // para que nada más cree los pokemons revise que tema aplicar no se puede poner antes debido que se quedaría null
 }
 
 function compruebaTema(){
-    if(localStorage.getItem('oscuro') == true){ // cuando está enabled me llama a cambiar el tema
+    if(localStorage.getItem('oscuro') == "true"){ // cuando está enabled me llama a cambiar el tema
         changeTheme();
     } 
 }
