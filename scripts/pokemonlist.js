@@ -119,11 +119,11 @@ function buscarPokemons(valor) {
 }
 
 function crearPokemon(pokemon){
-    var bicho = document.createElement("div");
-    bicho.classList.add("poke");
-
     var enlace = document.createElement("a");
     enlace.href = `html/pokemon.html?numero=${pokemon.id}`
+
+    var bicho = document.createElement("div");
+    bicho.classList.add("poke");
 
     var divImagen = document.createElement("div");
     divImagen.classList.add("image");
@@ -131,6 +131,7 @@ function crearPokemon(pokemon){
     var imagen = document.createElement("img");
     imagen.src = pokemon.sprites.other["official-artwork"].front_default;
     imagen.alt = "Lo siento, el pokemon no ha sido encontrado :(";
+
     imagen.addEventListener("mouseover", () => {
         imagen.style.filter = `drop-shadow(0 0 15px var(--${pokemon.types[0].type.name}))`;
     })
@@ -149,12 +150,12 @@ function crearPokemon(pokemon){
     var tipos = document.createElement("div");
     tipos.classList.add("types");
 
-    document.getElementById("demo").appendChild(bicho);
-    bicho.appendChild(enlace);
-    enlace.appendChild(divImagen);
-    enlace.appendChild(nombre);
-    enlace.appendChild(numero);
-    enlace.appendChild(tipos);
+    document.getElementById("demo").appendChild(enlace);
+    enlace.appendChild(bicho);
+    bicho.appendChild(divImagen);
+    bicho.appendChild(nombre);
+    bicho.appendChild(numero);
+    bicho.appendChild(tipos);
     comprobarTipos(pokemon);
     divImagen.appendChild(imagen);
 }

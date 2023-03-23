@@ -5,17 +5,6 @@ body{
     background-attachment: fixed;
 
 }
-#main-title{
-    text-decoration: none;
-}
-#font-type{
-    font-family: "Pokemon Solid";
-    text-align: center;
-    color: #FFCB05;
-    text-shadow: -4px -4px 1px #184079, 4px 4px 1px #184079, -4px 4px 1px #184079, 4px -4px 1px #184079;
-    font-size: 50px;
-    letter-spacing: 5px;
-}
 #demo{
     display: grid;
     grid-template-columns: repeat( auto-fill, minmax(15vw, 200px) );
