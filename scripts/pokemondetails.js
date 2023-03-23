@@ -107,7 +107,7 @@ async function makeChainData(thisPokemon, chain) {
             var trigger = document.createElement("div");
             trigger.innerHTML = await checkTrigger(chain.evolution_details[0]);
 
-            link.appendChild(trigger);
+            element.appendChild(trigger);
         }
     }
 }
