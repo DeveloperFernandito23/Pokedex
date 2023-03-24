@@ -58,11 +58,9 @@ function changeTheme() {
 
     if(localValue == "true"){
         localStorage.setItem('oscuro', false);
-        
     }
     else{
         localStorage.setItem('oscuro', true);
-        slider.checked = false;
     }
 
     compruebaTema()
