@@ -19,3 +19,8 @@
 #evolution-chain a {
     text-decoration: none;
 }
+.image{
+    width: 30vw;
+    height: auto;
+    margin: auto;
+}
