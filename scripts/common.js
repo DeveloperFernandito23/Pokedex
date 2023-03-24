@@ -19,6 +19,8 @@ var TiposPokemon = {
     steel: "Acero"
 }; 
 
+compruebaTema(); // Lo primero que hace es comprobar el tema activo y lo ajusta a cual sea el elegido
+
 function comprobarTipos(pokemon) {
     var tipos = document.getElementsByClassName("types");
 
@@ -34,24 +36,34 @@ function comprobarTipos(pokemon) {
     }
 }
 
-function changeTheme() {
-    const slider = document.getElementById("slide");
+function compruebaTema(){
     const linkedStyle = document.getElementById("theme");
-    const split = linkedStyle.href.split("/");
+    const slider = document.getElementById("slide");
 
-   if(split[4] == "dark.css"){ //cuando un elemento tenga la clase oscuro
-        localStorage.setItem('oscuro', false);  // pasara a desctivarlo
-        slider.checked = false;
+    if(localStorage.getItem('oscuro') == "true"){ // cuando está enabled me llama a cambiar el tema
         linkedStyle.href = "../styles/light.css";
-    }else{
-        localStorage.setItem('oscuro', true);  // o activarlo
-        slider.checked = true;
+        slider.checked = false;
+    }
+    else{
         linkedStyle.href = "../styles/dark.css";
+        slider.checked = true   ;
     }
 }
 
-function compruebaTema(){
-    if(localStorage.getItem('oscuro') == "true"){ // cuando está enabled me llama a cambiar el tema
-        changeTheme();
-    } 
+function changeTheme() {
+    // Comentario de Jose 🙄 (24/03/2023)
+    // Toggle true/false setitem oscuro
+
+    const localValue = localStorage.getItem('oscuro');
+
+    if(localValue == "true"){
+        localStorage.setItem('oscuro', false);
+        
+    }
+    else{
+        localStorage.setItem('oscuro', true);
+        slider.checked = false;
+    }
+
+    compruebaTema()
 }

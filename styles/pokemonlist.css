@@ -15,7 +15,7 @@ body{
     justify-content: center ;
     /* vw para que sea más responsivo, es una unidad de medida relativa */
 }
-@media (max-width: 500px) {
+@media (max-width: 700px) {
     #demo{
         grid-template-columns: repeat( auto-fill, 200px );
         gap: 10vw;

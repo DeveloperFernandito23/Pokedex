@@ -65,8 +65,6 @@ function orden(bool){
 }
 
 async function givePokemons() { //NEVER TOUCH
-    compruebaTema(); // Lo primero que hace es comprobar el tema activo y lo ajusta a cual sea el elegido
-
     for(var i = 0; i < 151;i++){
         var response = await fetch(`https://pokeapi.co/api/v2/pokemon/${i + 1}/`);
         var objeto = await response.json();
