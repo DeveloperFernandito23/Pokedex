@@ -15,7 +15,7 @@
 
     <a href=".." id="main-title"><h1 id="font-type">Pokédex</h1></a>
 
-    <div class="navegation">
+    <!-- <div class="navegation">
         <span>
             <input id="search" onkeyup="buscarPokemons(this.value)" type="search" name="search" placeholder="Buscar Pokemon...">
             
@@ -43,7 +43,27 @@
                 <option value="opt4">Z-A</option>
             </select>
         </span>
-    </div>
+    </div> -->
+
+    <nav class="menu">
+        <ul style="margin-block: 0; margin-inline: 0;">
+            <label class="switch" >
+                <input type="checkbox" id="slide" onclick="changeTheme()">
+                <span class="slider round"></span>
+            </label>
+        </ul>
+       
+        <form class="buscador">
+            <input type="text" placeholder=" " onkeyup="buscarPokemons(this.value)"/>
+            <button type="reset"></button>
+        </form>
+        <select name="options" id="options" onchange="orderBy(this.value)">
+            <option value="opt1">Ascendentemente</option>
+            <option value="opt2">Descendentemente</option>
+            <option value="opt3">A-Z</option>
+            <option value="opt4">Z-A</option>
+        </select>
+      </nav>
 
     <div id="demo"></div>
 

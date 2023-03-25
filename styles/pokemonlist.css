@@ -3,7 +3,18 @@ body{
     background-repeat: no-repeat;
     background-size: cover;
     background-attachment: fixed;
-
+}
+.menu {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #333;
+  padding: 20px;
+  align-items: flex-start;
+}
+ul{
+  padding-inline: 0;
+  margin-block: 0;
 }
 #demo{
     display: grid;
@@ -50,14 +61,18 @@ body{
     height: 2vw;
 }
 #options{
-    left: 0;
+    background-color: #333;
+    color:aliceblue;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
 }
 .buscador {
     font-size: 20px;
     border: solid 0.1em #000000;
-    display: inline-block;
     position: relative;
     border-radius: 2.5em;
+    display: flex;
 }
 .buscador input[type=text] {
     font-family: inherit;
@@ -115,7 +130,7 @@ span{
 }
 .switch {
   position: absolute;
-  right: 100px;
+  /* right: 100px; */
   display: inline-block;
   width: 60px;
   height: 34px;
