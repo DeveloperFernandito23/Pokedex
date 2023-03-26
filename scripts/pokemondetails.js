@@ -22,6 +22,8 @@ async function pokemonDetails() {
 
     var number = newUrl.get('numero');
 
+    compruebaTema();
+
     var pokemon = await givePokemonDetails(number);
 
     var evolution = await evolutionChain(pokemon.species.url);
@@ -134,9 +136,9 @@ function crearDatos(pokemon) {
 
     document.getElementsByClassName("name")[0].innerHTML = pokemon.name;
 
-    console.log(`Peso => ${pokemon.weight}`);
+    console.log(`Peso => ${pokemon.weight}kg`);
 
-    console.log(`Altura => ${pokemon.height}`);
+    console.log(`Altura => ${pokemon.height}m`);
     
     comprobarTipos(pokemon);
 
