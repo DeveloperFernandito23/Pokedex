@@ -84,7 +84,7 @@ function buscarPokemons(valor) {
         }
     }
 
-    if (documento.innerHTML === "") {
+    if (documento.innerHTML.length == 0) {
         documento.innerHTML = "<div class='alert'>¡No se encontraron pokémons!</div>";     
     }
 }
