@@ -65,7 +65,6 @@ async function makeChainData(thisPokemon, chain) {
     
     var pokemon = await givePokemonDetails(id);
 
-    if(pokemon.id <= 151){
         var chainSpace = document.getElementById("evolution-chain");
 
         var link = document.createElement("a");
@@ -107,11 +106,11 @@ async function makeChainData(thisPokemon, chain) {
 
         if(chain.evolution_details.length != 0){
             var trigger = document.createElement("div");
-            trigger.innerHTML = await checkTrigger(chain.evolution_details[0]);
+            trigger.innerHTML = checkTrigger(chain.evolution_details[chain.evolution_details.length - 1]);
 
             element.appendChild(trigger);
         }
-    }
+    
 }
 
 function checkTrigger(details) { //NO me lo creo que haya sacao los de los ?

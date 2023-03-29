@@ -65,7 +65,7 @@ function orden(bool){
 }
 
 async function givePokemons() { //NEVER TOUCH
-    for(var i = 0; i < 151;i++){
+    for(var i = 0; i < 1010;i++){
         var response = await fetch(`https://pokeapi.co/api/v2/pokemon/${i + 1}/`);
         var objeto = await response.json();
         await pokemons.push(objeto);

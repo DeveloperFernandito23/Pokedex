@@ -16,7 +16,8 @@ var TiposPokemon = {
     poison: "Veneno",
     flying: "Volador",
     fairy: "Hada",
-    steel: "Acero"
+    steel: "Acero",
+    dark: "Siniestro"
 }; 
 
 compruebaTema(); // Lo primero que hace es comprobar el tema activo y lo ajusta a cual sea el elegido
