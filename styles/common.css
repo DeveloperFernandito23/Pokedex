@@ -158,3 +158,20 @@ ul{
     padding-inline: 0;
     margin-block: 0;
 }
+::-webkit-scrollbar{
+    width: 1vw;
+    margin: 0;
+  }
+  
+  ::-webkit-scrollbar-track{
+    background-color: transparent;
+  }
+  
+  ::-webkit-scrollbar-thumb{
+    background-color: #494646;
+    border-radius: 15px;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover{
+    background-color: #716e6e;
+  }

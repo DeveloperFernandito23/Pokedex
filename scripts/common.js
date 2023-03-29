@@ -46,7 +46,7 @@ function compruebaTema(){
     }
     else{
         linkedStyle.href = "../styles/dark.css";
-        slider.checked = true   ;
+        slider.checked = true;
     }
 }
 
