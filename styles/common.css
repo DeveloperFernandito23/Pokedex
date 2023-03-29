@@ -25,6 +25,16 @@
     --dark: rgb(80,65,63);
     margin: 0;
 }
+
+body[theme="dark"]{
+    --background-color: black;
+    --text-color: white;
+}
+body[theme="light"]{
+    --background-color: white;
+    --text-color: black;
+}
+
 a {
     text-decoration: none;
     color: inherit;

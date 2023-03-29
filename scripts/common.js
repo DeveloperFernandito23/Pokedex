@@ -38,15 +38,15 @@ function comprobarTipos(pokemon) {
 }
 
 function compruebaTema(){
-    const linkedStyle = document.getElementById("theme");
+    const bodyAttributes = document.getElementsByTagName("body")[0];
     const slider = document.getElementById("slide");
 
     if(localStorage.getItem('oscuro') == "true"){ // cuando está enabled me llama a cambiar el tema
-        linkedStyle.href = "../styles/light.css";
+        bodyAttributes.attributes.theme.nodeValue = "light";
         slider.checked = false;
     }
     else{
-        linkedStyle.href = "../styles/dark.css";
+        bodyAttributes.attributes.theme.nodeValue = "dark";
         slider.checked = true;
     }
 }
