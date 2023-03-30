@@ -34,7 +34,7 @@ async function pokemonDetails() {
 
     makeChain(pokemon, evolution);
 
-    document.title = `${pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)} | Pokédex`;
+    document.title = `${pokemon.species.name.charAt(0).toUpperCase() + pokemon.species.name.slice(1)} | Pokédex`;
 }
 
 async function makeChain(pokemon, evolution) {
@@ -65,59 +65,65 @@ async function makeChainData(thisPokemon, chain) {
     
     var pokemon = await givePokemonDetails(id);
 
-        var chainSpace = document.getElementById("evolution-chain");
+    var chainSpace = document.getElementById("evolution-chain");
 
-        var link = document.createElement("a");
-        link.href = `pokemon.html?numero=${id}`;
+    var link = document.createElement("a");
+    link.href = `pokemon.html?numero=${id}`;
 
-        var element = document.createElement("div");
-        element.classList.add("poke");
+    var element = document.createElement("div");
+    element.classList.add("poke");
 
-        var imageContainer = document.createElement("div");
-        imageContainer.classList.add("image");
+    var imageContainer = document.createElement("div");
+    imageContainer.classList.add("image");
 
-        var image = document.createElement("img");
-        image.src = pokemon.sprites.other["official-artwork"].front_default;
-        image.alt = "Lo siento, el pokemon no ha sido encontrado :(";
+    var image = document.createElement("img");
+    image.src = pokemon.sprites.other["official-artwork"].front_default;
+    image.alt = "Lo siento, el pokemon no ha sido encontrado :(";
 
-        image.addEventListener("mouseover", () => {
-            image.style.filter = `drop-shadow(0 0 15px var(--${pokemon.types[0].type.name}))`;
-        })
-        image.addEventListener("mouseout", () => {
-            image.style.filter = `none`;
-        })
+    image.addEventListener("mouseover", () => {
+        image.style.filter = `drop-shadow(0 0 15px var(--${pokemon.types[0].type.name}))`;
+    })
+    image.addEventListener("mouseout", () => {
+        image.style.filter = `none`;
+    })
 
-        var pokemonName = document.createElement("div");
-        pokemonName.classList.add("name");
+    var pokemonName = document.createElement("div");
+    pokemonName.classList.add("name");
 
-        if(chain.species.name == thisPokemon.name){
-            pokemonName.innerHTML = `*${chain.species.name}*`;
-            link.style.color = "black";
-        }else{
-            pokemonName.innerHTML = chain.species.name;
-            link.style.color = `var(--${pokemon.types[0].type.name})`;
-        }
+    if(chain.species.name == thisPokemon.species.name){
+        pokemonName.innerHTML = `*${chain.species.name}*`;
+        link.style.color = "black";
+    }else{
+        pokemonName.innerHTML = chain.species.name;
+        link.style.color = `var(--${pokemon.types[0].type.name})`;
+    }
 
-        chainSpace.appendChild(link);
-        link.appendChild(element);
-        element.appendChild(imageContainer);
-        element.appendChild(pokemonName);
-        imageContainer.appendChild(image);
+    chainSpace.appendChild(link);
+    link.appendChild(element);
+    element.appendChild(imageContainer);
+    element.appendChild(pokemonName);
+    imageContainer.appendChild(image);
 
-        if(chain.evolution_details.length != 0){
-            var trigger = document.createElement("div");
-            trigger.innerHTML = checkTrigger(chain.evolution_details[chain.evolution_details.length - 1]);
+    if(chain.evolution_details.length != 0){
+        var trigger = document.createElement("div");
+        trigger.innerHTML = checkTrigger(chain.evolution_details[chain.evolution_details.length - 1]);
 
-            element.appendChild(trigger);
-        }
-    
+        element.appendChild(trigger);
+    }
 }
 
-function checkTrigger(details) { //NO me lo creo que haya sacao los de los ?
+function checkTrigger(details) { //Me niego totalmente a poner todas las formas del Spin, porque no te viene en la pokeapi y como que no pienso hacerlo a mano, sabes tmb hay que quererse un poco... :)
     var TipeTrigger = {
         "level-up": `Nivel => ${details.min_level}`,
         "use-item": `Usar => ${details.item?.name}`,
-        trade: "Trade"
+        "tower-of-darkness": "Ganar Torre De Oscuridad",
+        "tower-of-waters": "Ganar Torre De Agua",
+        "three-critical-hits": "Realizar 3 Ataques Críticos",
+        "take-damage": "Recibir Mínimo 49 De Daño De Un Golpe",
+        other: details.min_level != null ? `Nivel => ${details.min_level}` : "",
+        trade: "Trade",
+        shed: "Shed",
+        spin: "Spin"
     }
 
     var trigger = details.trigger.name;
@@ -133,7 +139,7 @@ function crearDatos(pokemon) {
 
     image.addEventListener("click", () => changeShiny(pokemon) );
 
-    document.getElementsByClassName("name")[0].innerHTML = pokemon.name;
+    document.getElementsByClassName("name")[0].innerHTML = pokemon.species.name;
 
     console.log(`Peso => ${pokemon.weight}kg`);
 

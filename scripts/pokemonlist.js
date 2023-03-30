@@ -112,7 +112,7 @@ function crearPokemon(pokemon){
 
     var nombre = document.createElement("div");
     nombre.classList.add("name");
-    nombre.innerHTML = pokemon.name;
+    nombre.innerHTML = pokemon.species.name;
 
     var numero = document.createElement("div");
     numero.classList.add("number");

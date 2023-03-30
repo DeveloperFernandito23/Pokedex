@@ -33,3 +33,21 @@
     border: 3px black solid;
     border-radius: 30px;
 }
+
+#p2 {
+    display: flex;
+    position: fixed;
+    top: 0;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+}
+
+#pantallaca {
+    display: none;
+    width: 500px;
+    height: 400px;
+    background-color: red;
+}
