@@ -114,21 +114,60 @@ async function makeChainData(thisPokemon, chain) {
 
 function checkTrigger(details) { //Me niego totalmente a poner todas las formas del Spin, porque no te viene en la pokeapi y como que no pienso hacerlo a mano, sabes tmb hay que quererse un poco... :)
     var TipeTrigger = {
-        "level-up": `Nivel => ${details.min_level}`,
-        "use-item": `Usar => ${details.item?.name}`,
+        "level-up": levelUp(details),
+        "use-item": (`Usar => ${details.item?.name[0].toUpperCase() + details.item?.name.slice(1)}\n`) + (details.gender? details.gender == 1 ? `Debe Ser Hembra` : `Debe Ser Macho` : ""),
         "tower-of-darkness": "Ganar Torre De Oscuridad",
         "tower-of-waters": "Ganar Torre De Agua",
         "three-critical-hits": "Realizar 3 Ataques Críticos",
         "take-damage": "Recibir Mínimo 49 De Daño De Un Golpe",
-        other: details.min_level != null ? `Nivel => ${details.min_level}` : "",
-        trade: "Trade",
+        "agile-style-move": `Utilizar ${details.known_move?.name[0].toUpperCase() + details.known_move?.name.slice(1)} 20 Veces En Estilo Rápido`,
+        "strong-style-move": `Utilizar ${details.known_move?.name[0].toUpperCase() + details.known_move?.name.slice(1)} 20 Veces En Estilo Fuerte`,
+        other: details.min_level? `Nivel => ${details.min_level}` : "Otra Manera",
+        trade: details.held_item? `Trade Con ${details.held_item.name[0].toUpperCase() + details.held_item.name.slice(1)} Equipado` : 'Trade',
+        "recoil-damage": "Recibir 294 De Daño De El Mismo Sin Ser Debilitado",
         shed: "Shed",
-        spin: "Spin"
+        spin: "Spin",
     }
 
     var trigger = details.trigger.name;
 
     return TipeTrigger[trigger];
+}
+
+function levelUp(details){
+    var trigger;
+
+    if(details.min_level != null){
+        trigger = `Nivel => ${details.min_level}\n`;
+
+        details.turn_upside_down == true ? trigger += "Girando La Pantalla\n" : trigger;
+        
+        details.gender? details.gender == 1 ? trigger += `Debe Ser Hembra\n` : trigger += `Debe Ser Macho\n` : trigger;
+
+        details.time_of_day.length != 0 ? details.time_of_day == `day` ? trigger += `Debe Ser De Día\n` : trigger += `Debe Ser De Noche\n` : trigger;
+    }else{
+        trigger = "Subir Nivel\n"
+
+        details.min_happiness? trigger += `Felicidad => ${details.min_happiness}\n` : trigger;
+
+        details.known_move? trigger += `Conocer => ${details.known_move.name[0].toUpperCase() + details.known_move.name.slice(1 )}\n` : trigger;
+
+        details.known_move_type? trigger += `Conocer Movimiento Tipo ${TiposPokemon[details.known_move_type.name]}` : trigger;
+        
+        details.min_beauty? trigger += `Belleza => ${details.min_beauty}\n` : trigger;
+
+        details.time_of_day.length != 0 ? details.time_of_day == `day` ? trigger += `Debe Ser De Día\n` : trigger += `Debe Ser De Noche\n` : trigger;
+
+        details.held_item? trigger += `Con ${details.held_item.name[0].toUpperCase() + details.held_item.name.slice(1)} Equipado` : trigger;
+
+        details.location? trigger += `En ${details.location.name[0].toUpperCase() + details.location.name.slice(1)}` : trigger;
+    }
+
+    return trigger;
+}
+
+function other(details){
+
 }
 
 function crearDatos(pokemon) {

@@ -35,7 +35,7 @@
 }
 
 #p2 {
-    display: flex;
+    display: none;
     position: fixed;
     top: 0;
     flex-direction: column;
@@ -46,7 +46,6 @@
 }
 
 #pantallaca {
-    display: none;
     width: 500px;
     height: 400px;
     background-color: red;
