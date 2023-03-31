@@ -28,7 +28,7 @@
 
 #stats{
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(15vw, 200px) );
+    grid-template-columns: repeat(3, minmax(15vw, 200px) );
     gap: 10px;
     border: 3px black solid;
     border-radius: 30px;

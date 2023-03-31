@@ -29,7 +29,7 @@ async function pokemonDetails() {
     var evolution = await evolutionChain(pokemon.species.url);
 
     chooseFavicon(pokemon);
-    
+
     crearDatos(pokemon);
 
     makeChain(pokemon, evolution);
@@ -39,30 +39,26 @@ async function pokemonDetails() {
 
 async function makeChain(pokemon, evolution) {
     var chain = evolution.chain;
-    var hasElement = true;
+    var numberEvolutions = chain.evolves_to.length;
 
     await makeChainData(pokemon, chain);
 
-    while(hasElement) {
-        var numberEvolutions = chain.evolves_to.length;
+    for (var i = 0; i < numberEvolutions; i++) {
+        var chainCopy = chain.evolves_to[i];
 
-        for(var i = 0; i < numberEvolutions;i++) {
-            var chainCopy = chain.evolves_to[i];
+        await makeChainData(pokemon, chainCopy);
 
-            await makeChainData(pokemon, chainCopy);
-        }
-        
-        if(numberEvolutions != 0){
-            chain = chain.evolves_to[0];
-        }else{
-            hasElement = false;
+        for (var j = 0; j < chainCopy.evolves_to.length; j++) {
+            var subChain = chainCopy.evolves_to[j];
+
+            await makeChainData(pokemon, subChain);
         }
     }
 }
 
 async function makeChainData(thisPokemon, chain) {
     var id = chain.species.url.split("/")[6];
-    
+
     var pokemon = await givePokemonDetails(id);
 
     var chainSpace = document.getElementById("evolution-chain");
@@ -90,10 +86,10 @@ async function makeChainData(thisPokemon, chain) {
     var pokemonName = document.createElement("div");
     pokemonName.classList.add("name");
 
-    if(chain.species.name == thisPokemon.species.name){
+    if (chain.species.name == thisPokemon.species.name) {
         pokemonName.innerHTML = `*${chain.species.name}*`;
         link.style.color = "black";
-    }else{
+    } else {
         pokemonName.innerHTML = chain.species.name;
         link.style.color = `var(--${pokemon.types[0].type.name})`;
     }
@@ -104,7 +100,7 @@ async function makeChainData(thisPokemon, chain) {
     element.appendChild(pokemonName);
     imageContainer.appendChild(image);
 
-    if(chain.evolution_details.length != 0){
+    if (chain.evolution_details.length != 0) {
         var trigger = document.createElement("div");
         trigger.innerHTML = checkTrigger(chain.evolution_details[chain.evolution_details.length - 1]);
 
@@ -115,18 +111,18 @@ async function makeChainData(thisPokemon, chain) {
 function checkTrigger(details) { //Me niego totalmente a poner todas las formas del Spin, porque no te viene en la pokeapi y como que no pienso hacerlo a mano, sabes tmb hay que quererse un poco... :)
     var TipeTrigger = {
         shed: "Shed",
-        spin: "Spin",
         other: other(details),
+        trade: Trade(details),
         "level-up": levelUp(details),
+        spin: "Dar Confite Y Girar Personaje",
         "tower-of-waters": "Ganar Torre De Agua",
         "tower-of-darkness": "Ganar Torre De Oscuridad",
         "three-critical-hits": "Realizar 3 Ataques Críticos",
         "take-damage": "Recibir Mínimo 49 De Daño De Un Golpe",
         "recoil-damage": "Recibir 294 De Daño De El Mismo Sin Ser Debilitado",
-        trade: details.held_item? `Trade Con ${details.held_item.name[0].toUpperCase() + details.held_item.name.slice(1)} Equipado` : 'Trade',
         "agile-style-move": `Utilizar ${details.known_move?.name[0].toUpperCase() + details.known_move?.name.slice(1)} 20 Veces En Estilo Rápido`,
         "strong-style-move": `Utilizar ${details.known_move?.name[0].toUpperCase() + details.known_move?.name.slice(1)} 20 Veces En Estilo Fuerte`,
-        "use-item": (`Usar => ${details.item?.name[0].toUpperCase() + details.item?.name.slice(1)}\n`) + (details.gender? details.gender == 1 ? `Debe Ser Hembra` : `Debe Ser Macho` : ""),
+        "use-item": `Usar => ${details.item?.name[0].toUpperCase() + details.item?.name.slice(1)}\n` + (details.gender ? details.gender == 1 ? `Debe Ser Hembra` : `Debe Ser Macho` : ""),
     }
 
     var trigger = details.trigger.name;
@@ -134,7 +130,19 @@ function checkTrigger(details) { //Me niego totalmente a poner todas las formas 
     return TipeTrigger[trigger];
 }
 
-function levelUp(details){
+function Trade(details) {
+    var trigger = "Trade";
+
+    if (details.held_item != null) {
+        trigger = `Trade Con ${details.held_item.name[0].toUpperCase() + details.held_item.name.slice(1)} Equipado`;
+    } else if (details.trade_species != null) {
+        trigger = `Trade Con ${details.trade_species.name[0].toUpperCase() + details.trade_species.name.slice(1)}`;
+    }
+
+    return trigger;
+}
+
+function levelUp(details) {
     var trigger;
 
     var stats = {
@@ -143,40 +151,44 @@ function levelUp(details){
         1: "Ataque > Defensa"
     }
 
-    if(details.min_level != null){
+    if (details.min_level != null) {
         trigger = `Nivel => ${details.min_level}\n`;
 
         details.turn_upside_down == true ? trigger += `Girando La Pantalla\n` : trigger;
-        
+
         details.needs_overworld_rain == true ? trigger += `Necesita Que Llueva\n` : trigger;
 
-        details.gender? details.gender == 1 ? trigger += `Debe Ser Hembra\n` : trigger += `Debe Ser Macho\n` : trigger;
+        details.gender ? details.gender == 1 ? trigger += `Debe Ser Hembra\n` : trigger += `Debe Ser Macho\n` : trigger;
 
+        details.party_type ? trigger += `Debe Haber Un Pokemon Tipo ${TiposPokemon[details.party_type.name]} En El Equipo` : trigger;
+        
         details.time_of_day.length != 0 ? details.time_of_day == `day` ? trigger += `Debe Ser De Día\n` : trigger += `Debe Ser De Noche\n` : trigger;
 
         details.relative_physical_stats || details.relative_physical_stats == 0 ? trigger += `${stats[details.relative_physical_stats]}\n` : trigger;
-    }else{
+    } else {
         trigger = "Subir Nivel\n"
 
-        details.min_beauty? trigger += `Belleza => ${details.min_beauty}\n` : trigger;
+        details.min_beauty ? trigger += `Belleza => ${details.min_beauty}\n` : trigger;
 
-        details.min_happiness? trigger += `Felicidad => ${details.min_happiness}\n` : trigger;
+        details.min_happiness ? trigger += `Felicidad => ${details.min_happiness}\n` : trigger;
 
-        details.known_move_type? trigger += `Conocer Movimiento Tipo ${TiposPokemon[details.known_move_type.name]}` : trigger;
+        details.known_move_type ? trigger += `Conocer Movimiento Tipo ${TiposPokemon[details.known_move_type.name]}` : trigger;
 
-        details.location? trigger += `En ${details.location.name[0].toUpperCase() + details.location.name.slice(1)}\n` : trigger;
+        details.location ? trigger += `En ${details.location.name[0].toUpperCase() + details.location.name.slice(1)}\n` : trigger;
 
-        details.held_item? trigger += `Con ${details.held_item.name[0].toUpperCase() + details.held_item.name.slice(1)} Equipado\n` : trigger;
+        details.held_item ? trigger += `Con ${details.held_item.name[0].toUpperCase() + details.held_item.name.slice(1)} Equipado\n` : trigger;
 
-        details.known_move? trigger += `Conocer => ${details.known_move.name[0].toUpperCase() + details.known_move.name.slice(1)}\n` : trigger;
+        details.known_move ? trigger += `Conocer => ${details.known_move.name[0].toUpperCase() + details.known_move.name.slice(1)}\n` : trigger;
 
         details.time_of_day.length != 0 ? details.time_of_day == `day` ? trigger += `Debe Ser De Día\n` : trigger += `Debe Ser De Noche\n` : trigger;
+
+        details.party_species ? trigger += `Debe Estar ${details.party_species.name[0].toUpperCase() + details.party_species.name.slice(1)} En El Equipo` : trigger;
     }
 
     return trigger;
 }
 
-function other(details){
+function other(details) {
 
 }
 
@@ -186,14 +198,14 @@ function crearDatos(pokemon) {
 
     contentImage.src = pokemon.sprites.other["official-artwork"].front_default;
 
-    image.addEventListener("click", () => changeShiny(pokemon) );
+    image.addEventListener("click", () => changeShiny(pokemon));
 
     document.getElementsByClassName("name")[0].innerHTML = pokemon.species.name;
 
-    console.log(`Peso => ${pokemon.weight}kg`);
+    console.log(`Peso => ${pokemon.weight / 10}kg`);
 
-    console.log(`Altura => ${pokemon.height}m`);
-    
+    console.log(`Altura => ${pokemon.height / 10}m`);
+
     comprobarTipos(pokemon);
 
     pokemonValues(pokemon);
@@ -208,7 +220,7 @@ function pokemonValues(pokemon) {
     var statsProgress = document.getElementsByClassName("stats-progress");
     var statsNumber = document.getElementsByClassName("stats-number");
 
-    for(var i = 0; i < pokemon.stats.length; i++){
+    for (var i = 0; i < pokemon.stats.length; i++) {
         statsProgress[i].value = pokemon.stats[i].base_stat;
         statsNumber[i].innerHTML = pokemon.stats[i].base_stat;
     }
@@ -219,10 +231,10 @@ var shiny = false;
 function changeShiny(pokemon) {
     var contentImage = document.getElementById("pokemonimage");
 
-    if(shiny){
+    if (shiny) {
         contentImage.setAttribute("src", pokemon.sprites.other["official-artwork"].front_default);
         shiny = false;
-    }else{
+    } else {
         contentImage.setAttribute("src", pokemon.sprites.other["official-artwork"].front_shiny);
         shiny = true;
     }
