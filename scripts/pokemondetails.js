@@ -108,9 +108,8 @@ async function makeChainData(thisPokemon, chain) {
     }
 }
 
-function checkTrigger(details) { //Me niego totalmente a poner todas las formas del Spin, porque no te viene en la pokeapi y como que no pienso hacerlo a mano, sabes tmb hay que quererse un poco... :)
+function checkTrigger(details) {
     var TipeTrigger = {
-        shed: "Shed",
         other: other(details),
         trade: Trade(details),
         "level-up": levelUp(details),
@@ -120,6 +119,7 @@ function checkTrigger(details) { //Me niego totalmente a poner todas las formas 
         "three-critical-hits": "Realizar 3 Ataques Críticos",
         "take-damage": "Recibir Mínimo 49 De Daño De Un Golpe",
         "recoil-damage": "Recibir 294 De Daño De El Mismo Sin Ser Debilitado",
+        shed: "Al Evolucionar A Ninjask Aparecerá Si Hay Espacio Libre En El Equipo",
         "agile-style-move": `Utilizar ${details.known_move?.name[0].toUpperCase() + details.known_move?.name.slice(1)} 20 Veces En Estilo Rápido`,
         "strong-style-move": `Utilizar ${details.known_move?.name[0].toUpperCase() + details.known_move?.name.slice(1)} 20 Veces En Estilo Fuerte`,
         "use-item": `Usar => ${details.item?.name[0].toUpperCase() + details.item?.name.slice(1)}\n` + (details.gender ? details.gender == 1 ? `Debe Ser Hembra` : `Debe Ser Macho` : ""),
@@ -151,6 +151,12 @@ function levelUp(details) {
         1: "Ataque > Defensa"
     }
 
+    var time = {
+        day: "Debe Ser De Día",
+        night: "Debe Ser De Noche",
+        dusk: "Debe Ser Al Atardecer\nDebe Tener La Habilidad Ritmo Propio"
+    }
+
     if (details.min_level != null) {
         trigger = `Nivel => ${details.min_level}\n`;
 
@@ -161,12 +167,14 @@ function levelUp(details) {
         details.gender ? details.gender == 1 ? trigger += `Debe Ser Hembra\n` : trigger += `Debe Ser Macho\n` : trigger;
 
         details.party_type ? trigger += `Debe Haber Un Pokemon Tipo ${TiposPokemon[details.party_type.name]} En El Equipo` : trigger;
-        
+
         details.time_of_day.length != 0 ? details.time_of_day == `day` ? trigger += `Debe Ser De Día\n` : trigger += `Debe Ser De Noche\n` : trigger;
 
         details.relative_physical_stats || details.relative_physical_stats == 0 ? trigger += `${stats[details.relative_physical_stats]}\n` : trigger;
     } else {
         trigger = "Subir Nivel\n"
+
+        details.time_of_day.length != 0 ? time[details.time_of_day] : trigger;
 
         details.min_beauty ? trigger += `Belleza => ${details.min_beauty}\n` : trigger;
 
@@ -179,8 +187,6 @@ function levelUp(details) {
         details.held_item ? trigger += `Con ${details.held_item.name[0].toUpperCase() + details.held_item.name.slice(1)} Equipado\n` : trigger;
 
         details.known_move ? trigger += `Conocer => ${details.known_move.name[0].toUpperCase() + details.known_move.name.slice(1)}\n` : trigger;
-
-        details.time_of_day.length != 0 ? details.time_of_day == `day` ? trigger += `Debe Ser De Día\n` : trigger += `Debe Ser De Noche\n` : trigger;
 
         details.party_species ? trigger += `Debe Estar ${details.party_species.name[0].toUpperCase() + details.party_species.name.slice(1)} En El Equipo` : trigger;
     }
