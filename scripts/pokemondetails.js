@@ -102,17 +102,17 @@ async function makeChainData(thisPokemon, chain) {
 
     if (chain.evolution_details.length != 0) {
         var trigger = document.createElement("div");
-        trigger.innerHTML = checkTrigger(chain.evolution_details[chain.evolution_details.length - 1]);
+        trigger.innerHTML = checkTrigger(pokemon, chain.evolution_details[chain.evolution_details.length - 1]);
 
         element.appendChild(trigger);
     }
 }
 
-function checkTrigger(details) {
+function checkTrigger(pokemon, details) {
     var TipeTrigger = {
-        other: other(details),
+        other: other(pokemon),
         trade: Trade(details),
-        "level-up": levelUp(details),
+        "level-up": levelUp(pokemon, details),
         spin: "Dar Confite Y Girar Personaje",
         "tower-of-waters": "Ganar Torre De Agua",
         "tower-of-darkness": "Ganar Torre De Oscuridad",
@@ -142,23 +142,27 @@ function Trade(details) {
     return trigger;
 }
 
-function levelUp(details) {
+function levelUp(pokemon, details) {
     var trigger;
 
-    var stats = {
+    var name = pokemon.species.name;
+
+    var StatsNumbers = {
         "-1": "Ataque < Defensa",
         0: "Ataque == Defensa",
         1: "Ataque > Defensa"
     }
 
-    var time = {
+    var TimeOfDay = {
         day: "Debe Ser De Día",
         night: "Debe Ser De Noche",
-        dusk: "Debe Ser Al Atardecer\nDebe Tener La Habilidad Ritmo Propio"
+        dusk: "Debe Ser Al Atardecer Debe Tener La Habilidad Ritmo Propio"
     }
 
     if (details.min_level != null) {
         trigger = `Nivel => ${details.min_level}\n`;
+
+        details.time_of_day.length != 0 ? trigger += TimeOfDay[details.time_of_day] : trigger;
 
         details.turn_upside_down == true ? trigger += `Girando La Pantalla\n` : trigger;
 
@@ -168,13 +172,9 @@ function levelUp(details) {
 
         details.party_type ? trigger += `Debe Haber Un Pokemon Tipo ${TiposPokemon[details.party_type.name]} En El Equipo` : trigger;
 
-        details.time_of_day.length != 0 ? details.time_of_day == `day` ? trigger += `Debe Ser De Día\n` : trigger += `Debe Ser De Noche\n` : trigger;
-
-        details.relative_physical_stats || details.relative_physical_stats == 0 ? trigger += `${stats[details.relative_physical_stats]}\n` : trigger;
+        details.relative_physical_stats || details.relative_physical_stats == 0 ? trigger += `${StatsNumbers[details.relative_physical_stats]}\n` : trigger;
     } else {
         trigger = "Subir Nivel\n"
-
-        details.time_of_day.length != 0 ? time[details.time_of_day] : trigger;
 
         details.min_beauty ? trigger += `Belleza => ${details.min_beauty}\n` : trigger;
 
@@ -182,20 +182,41 @@ function levelUp(details) {
 
         details.known_move_type ? trigger += `Conocer Movimiento Tipo ${TiposPokemon[details.known_move_type.name]}` : trigger;
 
-        details.location ? trigger += `En ${details.location.name[0].toUpperCase() + details.location.name.slice(1)}\n` : trigger;
-
         details.held_item ? trigger += `Con ${details.held_item.name[0].toUpperCase() + details.held_item.name.slice(1)} Equipado\n` : trigger;
 
         details.known_move ? trigger += `Conocer => ${details.known_move.name[0].toUpperCase() + details.known_move.name.slice(1)}\n` : trigger;
 
         details.party_species ? trigger += `Debe Estar ${details.party_species.name[0].toUpperCase() + details.party_species.name.slice(1)} En El Equipo` : trigger;
+
+        if (details.location == null) {
+            if (name == "probopass" || name == "magnezone" || name == "vikavolt") {
+                trigger += "En Campo Magnético Enemigo";
+            }
+        } else {
+            trigger += `En ${details.location.name[0].toUpperCase() + details.location.name.slice(1)}\n`;
+        }
     }
 
     return trigger;
 }
 
-function other(details) {
+function other(pokemon) {
+    var trigger;
 
+    var Names = {
+        pawmot: "Subir Nivel Al Dar 1000 Pasos En Modo Enviar Pokemon",
+        brambleghast: "Subir Nivel Al Dar 1000 Pasos En Modo Enviar Pokemon",
+        rabsa: "Subir Nivel Al Dar 1000 Pasos En Modo Enviar Pokemon",
+        maushold: "Nivel => 25 En Combate",
+        palafin: "Nivel => 38+ Mientras Está Conectado Con Otro/s Jugador/es Mediante Círculo Unión",
+        annihilape: "Subir Nivel \n Usar 20 Veces Puño Furia En Combate",
+        kingambit: "Subir Nivel \n Derrotar 3 Bisharp Líderes",
+        gholdengo: "Subir Nivel \n Tener 999 Monedas de Gimmighoul"
+    }
+
+    trigger = pokemon.species.name;
+
+    return Names[trigger];
 }
 
 function crearDatos(pokemon) {
