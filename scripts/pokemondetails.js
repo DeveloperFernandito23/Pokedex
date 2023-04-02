@@ -100,20 +100,55 @@ async function makeChainData(thisPokemon, chain) {
     element.appendChild(pokemonName);
     imageContainer.appendChild(image);
 
-    if (chain.evolution_details.length != 0) {
-        var trigger = document.createElement("div");
-        trigger.innerHTML = checkTrigger(pokemon, chain.evolution_details[chain.evolution_details.length - 1]);
+    var length = chain.evolution_details.length;
 
+    if (length != 0) {
+        var trigger = document.createElement("div");
+        trigger.classList.add("evolution-trigger");
         element.appendChild(trigger);
+
+        if (length == 1) {
+            var check = checkTrigger(pokemon, chain.evolution_details[0]);
+
+            if (check == undefined) {
+                trigger.innerHTML = "";
+                seeMore();
+            } else {
+                trigger.innerHTML = check;
+            }
+        } else {
+            seeMore();
+
+            for (var i = 0; i < length; i++) {
+
+            }
+        }
     }
+}
+
+function seeMore() {
+    var evolutions = document.getElementsByClassName("evolution-trigger");
+    var evolutionTrigger = evolutions[evolutions.length - 1];
+    var button = document.createElement("a");
+
+    button.setAttribute("href", "#evolution-trigger");
+    button.innerHTML = "Click";
+
+    evolutionTrigger.appendChild(button);
+
+    var screen = document.getElementById("p2");
+
+    button.addEventListener("click", () => {
+        screen.style.display = "flex";
+    });
 }
 
 function checkTrigger(pokemon, details) {
     var TipeTrigger = {
         other: other(pokemon),
-        trade: Trade(details),
+        trade: trade(details),
         "level-up": levelUp(pokemon, details),
-        spin: "Dar Confite Y Girar Personaje",
+        spin: spin(details),
         "tower-of-waters": "Ganar Torre De Agua",
         "tower-of-darkness": "Ganar Torre De Oscuridad",
         "three-critical-hits": "Realizar 3 Ataques Críticos",
@@ -130,7 +165,15 @@ function checkTrigger(pokemon, details) {
     return TipeTrigger[trigger];
 }
 
-function Trade(details) {
+function spin(details) {
+
+    seeMore();
+
+    var trigger = document.getElementsByClassName("evolution-trigger")[0];
+
+}
+
+function trade(details) {
     var trigger = "Trade";
 
     if (details.held_item != null) {
@@ -140,6 +183,25 @@ function Trade(details) {
     }
 
     return trigger;
+}
+
+function other(pokemon) {
+    var trigger;
+
+    var Names = {
+        pawmot: "Subir Nivel Al Dar 1000 Pasos En Modo Enviar Pokemon",
+        brambleghast: "Subir Nivel Al Dar 1000 Pasos En Modo Enviar Pokemon",
+        rabsa: "Subir Nivel Al Dar 1000 Pasos En Modo Enviar Pokemon",
+        maushold: "Nivel => 25 En Combate",
+        palafin: "Nivel => 38+ Mientras Está Conectado Con Otro/s Jugador/es Mediante Círculo Unión",
+        annihilape: "Subir Nivel \n Usar 20 Veces Puño Furia En Combate",
+        kingambit: "Subir Nivel \n Derrotar 3 Bisharp Líderes",
+        gholdengo: "Subir Nivel \n Tener 999 Monedas de Gimmighoul"
+    }
+
+    trigger = pokemon.species.name;
+
+    return Names[trigger];
 }
 
 function levelUp(pokemon, details) {
@@ -198,25 +260,6 @@ function levelUp(pokemon, details) {
     }
 
     return trigger;
-}
-
-function other(pokemon) {
-    var trigger;
-
-    var Names = {
-        pawmot: "Subir Nivel Al Dar 1000 Pasos En Modo Enviar Pokemon",
-        brambleghast: "Subir Nivel Al Dar 1000 Pasos En Modo Enviar Pokemon",
-        rabsa: "Subir Nivel Al Dar 1000 Pasos En Modo Enviar Pokemon",
-        maushold: "Nivel => 25 En Combate",
-        palafin: "Nivel => 38+ Mientras Está Conectado Con Otro/s Jugador/es Mediante Círculo Unión",
-        annihilape: "Subir Nivel \n Usar 20 Veces Puño Furia En Combate",
-        kingambit: "Subir Nivel \n Derrotar 3 Bisharp Líderes",
-        gholdengo: "Subir Nivel \n Tener 999 Monedas de Gimmighoul"
-    }
-
-    trigger = pokemon.species.name;
-
-    return Names[trigger];
 }
 
 function crearDatos(pokemon) {

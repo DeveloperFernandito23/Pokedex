@@ -50,3 +50,8 @@
     height: 400px;
     background-color: red;
 }
+
+.evolution-trigger {
+    color: red;
+    border: 3px white solid;
+}
