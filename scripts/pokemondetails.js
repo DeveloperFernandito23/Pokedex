@@ -117,16 +117,12 @@ async function makeChainData(thisPokemon, chain) {
                 trigger.innerHTML = check;
             }
         } else {
-            seeMore();
-
-            for (var i = 0; i < length; i++) {
-
-            }
+            seeMore(pokemon, chain);
         }
     }
 }
 
-function seeMore() {
+function seeMore(pokemon, chain) {
     var evolutions = document.getElementsByClassName("evolution-trigger");
     var evolutionTrigger = evolutions[evolutions.length - 1];
     var button = document.createElement("a");
@@ -134,12 +130,41 @@ function seeMore() {
     button.setAttribute("href", "#evolution-trigger");
     button.innerHTML = "Click";
 
+    button.addEventListener("click", () => clickScreen(pokemon, chain));
+
     evolutionTrigger.appendChild(button);
+}
 
-    var screen = document.getElementById("p2");
+function clickScreen(pokemon, chain) {
+    var seeMore = document.getElementById("see-more");
+    seeMore.style.display = "flex";
 
-    button.addEventListener("click", () => {
-        screen.style.display = "flex";
+    var screen = document.getElementById("screen");
+    screen.innerHTML = "";
+
+    for (var i = 0; i < chain.evolution_details.length; i++) {
+        var detail = document.createElement("div");
+
+        detail.innerHTML = checkTrigger(pokemon, chain.evolution_details[i]);
+
+        screen.appendChild(detail);
+        console.log(detail);
+    }
+
+    var close = document.createElement("img");
+    close.setAttribute("id", "close");
+
+    screen.appendChild(close);
+
+    closeScreen();
+}
+
+function closeScreen(){
+    var screen = document.getElementById("see-more");
+    var close = document.getElementById("close");
+
+    close.addEventListener("click", () => {
+        screen.style.display = "none";
     });
 }
 
@@ -168,8 +193,13 @@ function checkTrigger(pokemon, details) {
 function spin(details) {
 
     seeMore();
-
-    var trigger = document.getElementsByClassName("evolution-trigger")[0];
+    /*
+        var trigger = document.getElementById("screen");
+    
+        var imagen = document.createElement("img");
+        imagen.setAttribute("src", "../img/alcremie.png");
+    
+        trigger.appendChild(imagen);*/
 
 }
 
@@ -224,11 +254,11 @@ function levelUp(pokemon, details) {
     if (details.min_level != null) {
         trigger = `Nivel => ${details.min_level}\n`;
 
-        details.time_of_day.length != 0 ? trigger += TimeOfDay[details.time_of_day] : trigger;
-
         details.turn_upside_down == true ? trigger += `Girando La Pantalla\n` : trigger;
 
         details.needs_overworld_rain == true ? trigger += `Necesita Que Llueva\n` : trigger;
+
+        details.time_of_day.length != 0 ? trigger += `${TimeOfDay[details.time_of_day]}\n` : trigger;
 
         details.gender ? details.gender == 1 ? trigger += `Debe Ser Hembra\n` : trigger += `Debe Ser Macho\n` : trigger;
 
@@ -242,6 +272,8 @@ function levelUp(pokemon, details) {
 
         details.min_happiness ? trigger += `Felicidad => ${details.min_happiness}\n` : trigger;
 
+        details.time_of_day.length != 0 ? trigger += `${TimeOfDay[details.time_of_day]}\n` : trigger;
+
         details.known_move_type ? trigger += `Conocer Movimiento Tipo ${TiposPokemon[details.known_move_type.name]}` : trigger;
 
         details.held_item ? trigger += `Con ${details.held_item.name[0].toUpperCase() + details.held_item.name.slice(1)} Equipado\n` : trigger;
@@ -252,7 +284,15 @@ function levelUp(pokemon, details) {
 
         if (details.location == null) {
             if (name == "probopass" || name == "magnezone" || name == "vikavolt") {
-                trigger += "En Campo Magnético Enemigo";
+                trigger += "En Campo Magnético Enemigo\n";
+            }
+
+            if (name == "leafeon") {
+                trigger += "Cerca De Roca Musgo";
+            }
+
+            if (name == "glaceon") {
+                trigger += "Cerca De Roca Hielo";
             }
         } else {
             trigger += `En ${details.location.name[0].toUpperCase() + details.location.name.slice(1)}\n`;

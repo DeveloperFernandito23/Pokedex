@@ -1,12 +1,12 @@
-#evolution-chain{
+#evolution-chain {
     display: grid;
-    grid-template-columns: repeat( auto-fill, minmax(15vw, 200px) );
+    grid-template-columns: repeat(auto-fill, minmax(15vw, 200px));
     gap: 4vw;
     margin: 10vw;
     justify-content: center;
 }
 
-.evolution-elements{
+.evolution-elements {
     text-align: center;
     padding: 10px;
     font-size: 1.5rem;
@@ -20,21 +20,21 @@
     text-decoration: none;
 }
 
-#main-image{
+#main-image {
     width: 30vw;
     height: auto;
     margin: auto;
 }
 
-#stats{
+#stats {
     display: grid;
-    grid-template-columns: repeat(3, minmax(15vw, 200px) );
+    grid-template-columns: repeat(3, minmax(15vw, 200px));
     gap: 10px;
     border: 3px black solid;
     border-radius: 30px;
 }
 
-#p2 {
+#see-more {
     display: none;
     position: fixed;
     top: 0;
@@ -45,13 +45,27 @@
     align-items: center;
 }
 
-#pantallaca {
+#screen {
+    display: grid;
+    grid-template-rows: repeat(auto-fill, 200px);
     width: 500px;
-    height: 400px;
-    background-color: red;
+    height: 500px;
+    background-color: var(--background-color);
+    border: 3px var(--text-color) solid;
+    border-radius: 15px;
 }
 
 .evolution-trigger {
     color: red;
     border: 3px white solid;
+}
+
+#close {
+    background:url(../img/close.png) no-repeat;
+    width:26px;
+    height:26px;
+    top:-9px;
+    right:-9px;
+    
+    cursor:pointer;
 }
