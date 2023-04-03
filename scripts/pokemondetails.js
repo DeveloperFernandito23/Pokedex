@@ -30,11 +30,11 @@ async function pokemonDetails() {
 
     chooseFavicon(pokemon);
 
-    crearDatos(pokemon);
+    makeData(pokemon);
 
     makeChain(pokemon, evolution);
 
-    document.title = `${pokemon.species.name.charAt(0).toUpperCase() + pokemon.species.name.slice(1)} | Pokédex`;
+    document.title = `${pokemon.species.name[0].toUpperCase() + pokemon.species.name.slice(1)} | Pokédex`;
 }
 
 async function makeChain(pokemon, evolution) {
@@ -55,6 +55,8 @@ async function makeChain(pokemon, evolution) {
         }
     }
 }
+
+var count = 0;
 
 async function makeChainData(thisPokemon, chain) {
     var id = chain.species.url.split("/")[6];
@@ -117,6 +119,7 @@ async function makeChainData(thisPokemon, chain) {
                 trigger.innerHTML = check;
             }
         } else {
+            count++;
             seeMore(pokemon, chain);
         }
     }
@@ -125,14 +128,20 @@ async function makeChainData(thisPokemon, chain) {
 function seeMore(pokemon, chain) {
     var evolutions = document.getElementsByClassName("evolution-trigger");
     var evolutionTrigger = evolutions[evolutions.length - 1];
-    var button = document.createElement("a");
 
-    button.setAttribute("href", "#evolution-trigger");
-    button.innerHTML = "Click";
+    var see = document.getElementsByClassName("click-here");
 
-    button.addEventListener("click", () => clickScreen(pokemon, chain));
+    if (see.length < count) {
+        var button = document.createElement("a");
 
-    evolutionTrigger.appendChild(button);
+        button.classList.add("click-here");
+        button.setAttribute("href", "#evolution-trigger");
+        button.innerHTML = "VER MÁS";
+
+        evolutionTrigger.appendChild(button);
+
+        button.addEventListener("click", () => clickScreen(pokemon, chain));
+    }
 }
 
 function clickScreen(pokemon, chain) {
@@ -159,7 +168,7 @@ function clickScreen(pokemon, chain) {
     closeScreen();
 }
 
-function closeScreen(){
+function closeScreen() {
     var screen = document.getElementById("see-more");
     var close = document.getElementById("close");
 
@@ -302,15 +311,27 @@ function levelUp(pokemon, details) {
     return trigger;
 }
 
-function crearDatos(pokemon) {
+function makeData(pokemon) {
     var image = document.getElementsByClassName("image")[0];
     var contentImage = document.getElementById("pokemonimage");
+    var pokemonName = document.getElementById("font-type");
+    var stats = document.getElementById("stats");
+
+    stats.style.fontWeight = "var(--bold)";
+    stats.style.color = "var(--text-color)";
 
     contentImage.src = pokemon.sprites.other["official-artwork"].front_default;
+    contentImage.alt = "Lo siento, el pokemon no ha sido encontrado :(";
 
     image.addEventListener("click", () => changeShiny(pokemon));
+    image.addEventListener("mouseover", () => {
+        contentImage.style.filter = `drop-shadow(0 0 15px var(--${pokemon.types[0].type.name}))`;
+    })
+    image.addEventListener("mouseout", () => {
+        contentImage.style.filter = `none`;
+    })
 
-    document.getElementsByClassName("name")[0].innerHTML = pokemon.species.name;
+    pokemonName.innerHTML = pokemon.species.name[0].toUpperCase() + pokemon.species.name.slice(1);
 
     console.log(`Peso => ${pokemon.weight / 10}kg`);
 
@@ -320,7 +341,7 @@ function crearDatos(pokemon) {
 
     pokemonValues(pokemon);
 
-    document.getElementById("pokemon").innerHTML = pokemon.id;
+   // document.getElementById("pokemon").innerHTML = pokemon.id;
 }
 
 function pokemonValues(pokemon) {

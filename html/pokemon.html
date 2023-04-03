@@ -1,56 +1,59 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="UTF-8">
 
     <link rel="stylesheet" href="../styles/common.css">
     <link rel="stylesheet" href="../styles/pokemondetails.css">
 </head>
+
 <body theme="light" onload="pokemonDetails()">
 
-    <a href="../index.html" id="main-title"><h1 id="font-type">Pokédex</h1></a>
-
-
-    <ul style="margin-block: 0; margin-inline: 0;">
-        <label class="switch" >
+    <nav id="top-page">
+        <label class="switch">
             <input type="checkbox" id="slide" onclick="changeTheme()">
             <span class="slider round"></span>
         </label>
-    </ul>
-    
-    <br/>
-    <br/>
+    </nav>
 
-    <div id="pokemon"></div>
-    <div class="name"></div>
-    <div id="main-image" class="image"><img id="pokemonimage"></img></div>
+    <div id="pokemon">
+        <a href="../index.html" id="main-title">
+            <h1 id="font-type"></h1>
+        </a>
+        <div id="main-image" class="image"><img id="pokemonimage"></img></div>
 
-    <div class="types"></div>
+        <div class="types"></div>
 
-    <div id="stats">
-        <div class="stats-name">Vida</div>
-        <div class="stats-number"></div>
-        <progress class="stats-progress" max="252"></progress>
-        <div class="stats-name">Ataque</div>
-        <div class="stats-number"></div>
-        <progress class="stats-progress" max="252"></progress>
-        <div class="stats-name">Defensa</div>
-        <div class="stats-number"></div>
-        <progress class="stats-progress" max="252"></progress>
-        <div class="stats-name">Ataque Especial</div>
-        <div class="stats-number"></div>
-        <progress class="stats-progress" max="252"></progress>
-        <div class="stats-name">Defensa Especial</div>
-        <div class="stats-number"></div>
-        <progress class="stats-progress" max="252"></progress>
-        <div class="stats-name">Velocidad</div>
-        <div class="stats-number"></div>
-        <progress class="stats-progress" max="252"></progress>
+        <div id="stats">
+            <div class="stats-name">Vida</div>
+            <div class="stats-number"></div>
+            <progress class="stats-progress" max="252"></progress>
+            <div class="stats-name">Ataque</div>
+            <div class="stats-number"></div>
+            <progress class="stats-progress" max="252"></progress>
+            <div class="stats-name">Defensa</div>
+            <div class="stats-number"></div>
+            <progress class="stats-progress" max="252"></progress>
+            <div class="stats-name">Ataque Especial</div>
+            <div class="stats-number"></div>
+            <progress class="stats-progress" max="252"></progress>
+            <div class="stats-name">Defensa Especial</div>
+            <div class="stats-number"></div>
+            <progress class="stats-progress" max="252"></progress>
+            <div class="stats-name">Velocidad</div>
+            <div class="stats-number"></div>
+            <progress class="stats-progress" max="252"></progress>
+        </div>
     </div>
+
+    <hr>
+    <hr>
+    <hr>
 
     <div id="evolution-chain"></div>
 
-    
+
     <div id="see-more">
         <div id="screen">
         </div>
@@ -60,4 +63,5 @@
     <script src="../scripts/common.js" type="text/javascript"></script>
     <script src="../scripts/pokemondetails.js" type="text/javascript"></script>
 </body>
+
 </html>

@@ -1,35 +1,38 @@
-body{
+body {
     background-image: url(../img/background.jpg);
     background-repeat: no-repeat;
     background-size: cover;
     background-attachment: fixed;
     margin: auto;
 }
+
 .menu {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background-color: #333;
-  padding: 20px;
-  align-items: flex-start;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #333;
+    padding: 20px;
+    align-items: flex-start;
 }
 
-#demo{
+#demo {
     display: grid;
     /* grid-template-columns: repeat( auto-fill, minmax(15vw, 200px) ); */
-    grid-template-columns: repeat( auto-fill, 250px);
+    grid-template-columns: repeat(auto-fill, 250px);
     color: var(--fuego);
     gap: 4vw;
     margin: 10vw;
-    justify-content: center ;
+    justify-content: center;
     /* vw para que sea más responsivo, es una unidad de medida relativa */
 }
+
 @media (max-width: 700px) {
-    #demo{
-        grid-template-columns: repeat( auto-fill, 200px );
+    #demo {
+        grid-template-columns: repeat(auto-fill, 200px);
         gap: 10vw;
     }
 }
+
 .alert {
     background-color: #f44336;
     color: rgb(255, 255, 255);
@@ -39,7 +42,8 @@ body{
     text-align: center;
     margin: 20px;
 }
-#search{
+
+#search {
     background-image: url(../img/search.png);
     background-repeat: no-repeat;
     padding: 1vh 2vw 1vh 2vw;
@@ -52,19 +56,22 @@ body{
     transition: all 1s ease-in-out;
 
 }
-#search:focus{
+
+#search:focus {
     background-position: 0.5vw;
     border-radius: 25px;
     width: 15vw;
     height: 2vw;
 }
-#options{
+
+#options {
     background-color: #333;
-    color:aliceblue;
+    color: aliceblue;
     border: none;
     padding: 10px;
     border-radius: 5px;
 }
+
 .buscador {
     font-size: 20px;
     border: solid 0.1em #000000;
@@ -72,6 +79,7 @@ body{
     border-radius: 2.5em;
     display: flex;
 }
+
 .buscador input[type=text] {
     font-family: inherit;
     font-weight: bold;
@@ -84,18 +92,24 @@ body{
     transition: width 0.8s ease-in-out 0.150s;
 }
 
-.buscador input[type=text]:focus, .buscador input[type=text]:not(:placeholder-shown) {
+.buscador input[type=text]:focus,
+.buscador input[type=text]:not(:placeholder-shown) {
     width: 18em;
     transition: width 0.8s ease-in-out;
 }
-.buscador input[type=text]:focus + button[type=reset], .buscador input[type=text]:not(:placeholder-shown) + button[type=reset] {
+
+.buscador input[type=text]:focus+button[type=reset],
+.buscador input[type=text]:not(:placeholder-shown)+button[type=reset] {
     transform: rotate(-45deg);
     transition: transform 0.150s ease-out 0.8s;
 }
-.buscador input[type=text]:focus + button[type=reset]:after, .buscador input[type=text]:not(:placeholder-shown) + button[type=reset]:after {
+
+.buscador input[type=text]:focus+button[type=reset]:after,
+.buscador input[type=text]:not(:placeholder-shown)+button[type=reset]:after {
     opacity: 1;
     transition: top 0.150s ease-out 1s, right 0.150s ease-out 1s, opacity 0.150s ease 1s;
 }
+
 .buscador button[type=reset] {
     width: 1.4em;
     height: 1.4em;
@@ -111,19 +125,26 @@ body{
     transition: transform 0.150s ease-out 0.150s;
     background-color: transparent;
 }
-.buscador button[type=reset]:before, .buscador button[type=reset]:after {
+
+.buscador button[type=reset]:before,
+.buscador button[type=reset]:after {
     content: "";
     background-color: #000000;
     width: 0.3em;
     height: 1.4em;
     position: absolute;
 }
+
 .buscador button[type=reset]:after {
     transform: rotate(90deg);
     opacity: 0;
     transition: transform 0.150s ease-out, opacity 0.150s ease-out;
 }
-span{
+
+span {
     margin: 100px;
 }
 
+#font-type {
+    background-color: rgb(135, 33, 15);
+}
