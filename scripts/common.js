@@ -19,6 +19,17 @@ var TiposPokemon = {
     steel: "Acero",
     dark: "Siniestro"
 }; 
+var Generaciones = {
+    1: "Primera",
+    2: "Segunda",
+    3: "Tercera",
+    4: "Cuarta",
+    5: "Quinta",
+    6: "Sexta",
+    7: "Séptima",
+    8: "Octava",
+    9: "Novena"
+}; 
 
 compruebaTema(); // Lo primero que hace es comprobar el tema activo y lo ajusta a cual sea el elegido
 

@@ -19,10 +19,12 @@ body {
     display: grid;
     /* grid-template-columns: repeat( auto-fill, minmax(15vw, 200px) ); */
     grid-template-columns: repeat(auto-fill, 250px);
+    transition: all 0.5s ease;
     color: var(--fuego);
     gap: 4vw;
     margin: 10vw;
     justify-content: center;
+    width: auto;
     /* vw para que sea más responsivo, es una unidad de medida relativa */
 }
 
@@ -145,6 +147,133 @@ span {
     margin: 100px;
 }
 
-#font-type {
-    background-color: rgb(135, 33, 15);
+.centrar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: aliceblue;
+}
+
+.loader {
+    width: 200px;
+    height: auto;
+    margin: auto;
+    align-items: center;
+}
+
+.loader div {
+    box-sizing: border-box;
+    display: block;
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    margin: 8px;
+    border: 28px solid #0b0a0a;
+    border-radius: 50%;
+    animation: loader 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+    border-color: #a72e2e transparent transparent transparent;
+}
+
+.loader div:nth-child(1) {
+    animation-delay: -0.45s;
+}
+
+.loader div:nth-child(2) {
+    animation-delay: -0.3s;
+}
+
+.loader div:nth-child(3) {
+    animation-delay: -0.15s;
+}
+
+@keyframes loader {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+#filter {
+    background-image: url("https://cdn-icons-png.flaticon.com/512/3839/3839020.png");
+    background-size: 100%;
+    width: 20px;
+    height: 20px;
+    border: none;
+}
+
+.filter-options {
+    opacity: 0;
+    z-index: 1;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    border: 1px solid #ddd;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    padding: 12px 16px;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.filter-options.show {
+    opacity: 1;
+    display: grid;
+    grid-template-columns: 2, 1fr;
+}
+
+#filter-title {
+    position: relative;
+    text-align: center;
+    font-weight: bold;
+}
+
+.filter-content {
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    align-content: center;
+    justify-content: space-evenly;
+    list-style: none;
+}
+
+.filter-hover-options {
+    display: none;
+    /* Inicialmente ocultamos el contenido */
+}
+
+.btn,
+.btn-gen {
+    border: none;
+    outline: none;
+    padding: 12px 16px;
+    background-color: #f1f1f1;
+    cursor: pointer;
+    margin: 1px 1px;
+}
+
+.btn:hover {
+    background-color: #ddd;
+}
+
+.btn.active, .btn-gen.active {
+    background-color: #666;
+    color: white;
+}
+
+#myBtnContainer,
+#myBtnContainerGen {
+    opacity: 0;
+    justify-content: center;
+    display: none;
+}
+
+#gen,
+#type {
+    cursor: pointer;
+}
+
+#prueba {
+    opacity: 0;
+    transition: opacity 0.5s;
 }

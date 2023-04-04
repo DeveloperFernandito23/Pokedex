@@ -1,5 +1,78 @@
 var pokemons = [];
 
+function crearBotones() {
+    Object.keys(TiposPokemon).forEach(type => {
+        let count = 0;
+        const types = document.getElementById("myBtnContainer");
+        var btn = document.createElement("button");
+        btn.classList.add("btn");
+        btn.setAttribute("onclick", `filterSelection("${type}")`)
+        btn.innerHTML = TiposPokemon[type];
+        types.appendChild(btn);
+        count++;
+    });
+}
+function crearBotonesGen() {
+    Object.keys(Generaciones).forEach(gen => {
+        const gene = document.getElementById("myBtnContainerGen");
+        var btn = document.createElement("button");
+        btn.classList.add("btn-gen");
+        btn.setAttribute("onclick", `filterSelectionGen("${gen}")`)
+        btn.innerHTML = Generaciones[gen];
+        gene.appendChild(btn);
+    });
+}
+function filterSelection(x) {
+    const demo = document.getElementById("demo");
+
+    demo.innerHTML = "";
+
+    for (let index = 0; index < pokemons.length; index++) {
+        for (var i = 0; i < pokemons[index].types.length; i++) {
+
+            if (pokemons[index].types[i].type.name.includes(x)) {
+                crearPokemon(pokemons[index]);
+            }
+        }
+    }
+    var element = document.getElementsByClassName("btn");
+    for (let i = 0; i < element.length; i++) {
+        element[i].innerHTML.includes(TiposPokemon[x]) ? element[i].classList.add("active") : element[i].classList.remove("active");
+    }
+}
+async function filterSelectionGen(x) {
+    const demo = document.getElementById("demo");
+
+    demo.innerHTML = "";
+    var element = document.getElementsByClassName("btn-gen");
+
+    for (let i = 0; i < element.length; i++) {
+        element[i].innerHTML.includes(Generaciones[x]) ? element[i].classList.add("active") : element[i].classList.remove("active");
+    }
+    
+    for (let index = 0; index < pokemons.length; index++) {
+        var pg = await givePokemonGeneration(pokemons[index])
+        if (pg == x) {
+            await crearPokemon(pokemons[index]);
+        }
+    }
+}
+async function givePokemonSpecie(pokemon) {
+    var urlSpecie = pokemon.species?.url;
+
+    var response = await fetch(urlSpecie);
+    var object = await response.json();
+
+    return object;
+}
+async function givePokemonGeneration(pokemon) {
+    var pokemonSpecie = await givePokemonSpecie(pokemon);
+    var generationUrl = pokemonSpecie.generation.url;
+    var generations = generationUrl.split('/');
+
+    return generations[generations.length - 2];
+}
+
 /* function comparar ( a, b ){ return a - b; }
 arr.sort( comparar );  // [ 1, 5, 40, 200 ]
 
@@ -12,10 +85,10 @@ NO BORRAR, ES PARA ORDENAR (PARA ACORDARME PARA HACERLO)
 //     console.log(estilo.getPropertyValue('background'));
 // }
 
-function orderBy(value){
+function orderBy(value) {
     var lista = pokemons.slice();
 
-    switch(value){
+    switch (value) {
         case "opt1":
             document.getElementById("demo").innerHTML = "";
 
@@ -32,19 +105,19 @@ function orderBy(value){
             });
             break;
         case "opt3":
-           orden(false);
+            orden(false);
             break;
         case "opt4":
-           orden(true);
+            orden(true);
             break;
     }
 }
 
 // ORDENA ALFABETICAMENTE
-function orden(bool){
+function orden(bool) {
     var lista = pokemons.slice();
 
-    var listaOrder = lista.sort((a, b, result = 0) =>{
+    var listaOrder = lista.sort((a, b, result = 0) => {
         if (a.name.toLowerCase() > b.name.toLowerCase()) {
             result = 1;
         }
@@ -55,22 +128,32 @@ function orden(bool){
     });
 
     document.getElementById("demo").innerHTML = "";
-    if(bool){
+    if (bool) {
         listaOrder.reverse();
     }
-    
+
     listaOrder.forEach(element => {
         crearPokemon(element);
     });
 }
 
 async function givePokemons() { //NEVER TOUCH
-    for(var i = 0; i < 1010;i++){
+
+    document.getElementById("page").style.display = "none";
+    document.getElementsByClassName("centrar")[0].style.display = "flex";
+
+    for (var i = 0; i < 1010; i++) {
         var response = await fetch(`https://pokeapi.co/api/v2/pokemon/${i + 1}/`);
         var objeto = await response.json();
         await pokemons.push(objeto);
         await crearPokemon(objeto);
     }
+
+    document.getElementById("page").style.display = "";
+    document.getElementsByClassName("centrar")[0].style.display = "none";
+
+    crearBotones();
+    crearBotonesGen();
 }
 
 function buscarPokemons(valor) {
@@ -78,18 +161,18 @@ function buscarPokemons(valor) {
 
     documento.innerHTML = "";
 
-    for(var i = 0; i < pokemons.length;i++) {
-        if(pokemons[i].name.toUpperCase().includes(valor.toUpperCase())) {
+    for (var i = 0; i < pokemons.length; i++) {
+        if (pokemons[i].name.toUpperCase().includes(valor.toUpperCase())) {
             crearPokemon(pokemons[i]);
         }
     }
 
     if (documento.innerHTML.length == 0) {
-        documento.innerHTML = "<div class='alert'>¡No se encontraron pokémons!</div>";     
+        documento.innerHTML = "<div class='alert'>¡No se encontraron pokémons!</div>";
     }
 }
 
-function crearPokemon(pokemon){
+async function crearPokemon(pokemon) {
     var enlace = document.createElement("a");
     enlace.href = `html/pokemon.html?numero=${pokemon.id}`
 
@@ -130,3 +213,53 @@ function crearPokemon(pokemon){
     comprobarTipos(pokemon);
     divImagen.appendChild(imagen);
 }
+function mostrar() {
+    const filterOptions = document.querySelector(".filter-options");
+    filterOptions.classList.toggle('show');
+
+    if (document.getElementById("myBtnContainer").style.display == "flex") {
+        document.getElementById("myBtnContainer").style.display = "none";
+        document.getElementById("myBtnContainer").style.opacity = "0";
+        show = false;
+    }
+    else {
+        show = true;
+    }
+}
+
+var show = true;
+const element = document.getElementById("type");
+element.addEventListener("click", function () {
+    if (show) {
+        document.getElementById("myBtnContainer").style.display = "flex";
+        document.getElementById("myBtnContainer").style.opacity = "1";
+        document.getElementById("prueba").style.opacity = "1";
+        document.getElementById("myBtnContainerGen").style.display = "none";
+        document.getElementById("myBtnContainerGen").style.opacity = "0";
+        show2 = true;
+        show = false;
+    } else {
+        document.getElementById("myBtnContainer").style.display = "none";
+        document.getElementById("myBtnContainer").style.opacity = "0";
+        document.getElementById("prueba").style.opacity = "0";
+        show = true;
+    }
+});
+var show2 = true;
+const element1 = document.getElementById("gen");
+element1.addEventListener("click", function () {
+    if (show2) {
+        document.getElementById("myBtnContainerGen").style.display = "flex";
+        document.getElementById("myBtnContainerGen").style.opacity = "1";
+        document.getElementById("prueba").style.opacity = "1";
+        document.getElementById("myBtnContainer").style.display = "none";
+        document.getElementById("myBtnContainer").style.opacity = "0";
+        show = true;
+        show2 = false;
+    } else {
+        document.getElementById("myBtnContainerGen").style.display = "none";
+        document.getElementById("myBtnContainerGen").style.opacity = "0";
+        document.getElementById("prueba").style.opacity = "0";
+        show2 = true;
+    }
+});
