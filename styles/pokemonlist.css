@@ -277,3 +277,7 @@ span {
     opacity: 0;
     transition: opacity 0.5s;
 }
+
+.types{
+    grid-template-columns: repeat(auto-fit, minmax(2vw, 0.5fr));
+}
