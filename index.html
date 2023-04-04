@@ -24,50 +24,55 @@
     </div>
 
     <div id="page">
-        <a href=".." id="main-title">
-            <h1 id="font-type">Pokédex</h1>
-        </a>
+        <div id="header">
+            <a href=".." id="main-title">
+                <h1 id="font-type">Pokédex</h1>
+            </a>
 
-        <nav class="menu">
-            <ul style="margin-block: 0; margin-inline: 0;">
-                <label class="switch">
-                    <input type="checkbox" id="slide" onclick="changeTheme()">
-                    <span class="slider round"></span>
-                </label>
-            </ul>
+            <nav class="menu">
+                <ul style="margin-block: 0; margin-inline: 0;">
+                    <label class="switch">
+                        <input type="checkbox" id="slide" onclick="changeTheme()">
+                        <span class="slider round"></span>
+                    </label>
+                </ul>
 
-            <form class="buscador">
-                <input type="text" placeholder=" " onkeyup="buscarPokemons(this.value)" />
-                <button type="reset"></button>
-            </form>
-            <button id="filter" onclick="mostrar()"></button>
-            <select name="options" id="options" onchange="orderBy(this.value)">
-                <option value="opt1">Ascendentemente</option>
-                <option value="opt2">Descendentemente</option>
-                <option value="opt3">A-Z</option>
-                <option value="opt4">Z-A</option>
-            </select>
-        </nav>
-
-        <div class="filter-options">
-            <p id="filter-title">Filtrar por</p>
-            <ul class="filter-content">
-                <li id="gen">Generaciones
-                    <hr />
-                </li>
-                <li id="type">Tipos de Pokémon
-                    <hr />
-                </li>
-            </ul>
-        </div>
-        <div id="prueba">
-            <div id="myBtnContainer">
-                
+                <form class="buscador">
+                    <input type="text" placeholder=" " onkeyup="buscarPokemons(this.value)" />
+                    <button type="reset"></button>
+                </form>
+                <button id="filter" onclick="mostrar()"></button>
+                <select name="options" id="options" onchange="orderBy(this.value)">
+                    <option value="opt1">Ascendentemente</option>
+                    <option value="opt2">Descendentemente</option>
+                    <option value="opt3">A-Z</option>
+                    <option value="opt4">Z-A</option>
+                </select>
+            </nav>
+            <div id="prueba1">
+                <div class="filter-options">
+                    <p id="filter-title">Filtrar por</p>
+                    <ul class="filter-content">
+                        <li id="gen">Generaciones
+                            <hr />
+                        </li>
+                        <li id="type">Tipos de Pokémon
+                            <hr />
+                        </li>
+                    </ul>
+                </div>
             </div>
-            <div id="myBtnContainerGen">
-
+            
+            <div id="prueba">
+                <div id="myBtnContainer">
+                    <button class="btn" onclick="filterSelection('all')">Todos</button>
+                </div>
+                <div id="myBtnContainerGen">
+                    <button class="btn" onclick="filterSelectionGen('all')">Todas</button>
+                </div>
             </div>
         </div>
+
 
 
         <div id="demo"></div>

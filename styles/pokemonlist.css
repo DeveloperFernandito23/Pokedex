@@ -10,7 +10,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background-color: #333;
+    background-color: #bb0606;
     padding: 20px;
     align-items: flex-start;
 }
@@ -147,7 +147,7 @@ span {
     margin: 100px;
 }
 
-.centrar {
+/* .centrar {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -195,7 +195,7 @@ span {
     100% {
         transform: rotate(360deg);
     }
-}
+} */
 
 #filter {
     background-image: url("https://cdn-icons-png.flaticon.com/512/3839/3839020.png");
@@ -207,6 +207,7 @@ span {
 
 .filter-options {
     opacity: 0;
+    display: none;
     z-index: 1;
     background-color: #f1f1f1;
     min-width: 160px;
@@ -216,10 +217,13 @@ span {
     transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
-.filter-options.show {
+.filter-options.show{
+    display: block;
     opacity: 1;
     display: grid;
     grid-template-columns: 2, 1fr;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+
 }
 
 #filter-title {
@@ -273,7 +277,11 @@ span {
     cursor: pointer;
 }
 
-#prueba {
+#prueba, #prueba1 {
     opacity: 0;
+    transition: opacity 0.5s;
+}
+#prueba1.show{
+    opacity: 1;
     transition: opacity 0.5s;
 }

@@ -1,5 +1,7 @@
 var pokemons = [];
 
+var demo, content;
+
 function crearBotones() {
     Object.keys(TiposPokemon).forEach(type => {
         let count = 0;
@@ -24,7 +26,7 @@ function crearBotonesGen() {
 }
 function filterSelection(x) {
     const demo = document.getElementById("demo");
-
+    
     demo.innerHTML = "";
 
     for (let index = 0; index < pokemons.length; index++) {
@@ -39,10 +41,12 @@ function filterSelection(x) {
     for (let i = 0; i < element.length; i++) {
         element[i].innerHTML.includes(TiposPokemon[x]) ? element[i].classList.add("active") : element[i].classList.remove("active");
     }
+    if(demo.innerHTML.length == 0){
+        demo.innerHTML = content;
+    }
 }
 async function filterSelectionGen(x) {
     const demo = document.getElementById("demo");
-
     demo.innerHTML = "";
     var element = document.getElementsByClassName("btn-gen");
 
@@ -55,6 +59,9 @@ async function filterSelectionGen(x) {
         if (pg == x) {
             await crearPokemon(pokemons[index]);
         }
+    }
+    if(demo.innerHTML.length == 0){
+        demo.innerHTML = content;
     }
 }
 async function givePokemonSpecie(pokemon) {
@@ -139,21 +146,24 @@ function orden(bool) {
 
 async function givePokemons() { //NEVER TOUCH
 
-    document.getElementById("page").style.display = "none";
+    document.getElementById("demo").style.display = "none";
+    document.getElementById("demo").style.display = "none";
     document.getElementsByClassName("centrar")[0].style.display = "flex";
 
-    for (var i = 0; i < 1010; i++) {
+    for (var i = 0; i < 900; i++) {
         var response = await fetch(`https://pokeapi.co/api/v2/pokemon/${i + 1}/`);
         var objeto = await response.json();
         await pokemons.push(objeto);
         await crearPokemon(objeto);
     }
 
-    document.getElementById("page").style.display = "";
+    document.getElementById("demo").style.display = "";
     document.getElementsByClassName("centrar")[0].style.display = "none";
 
     crearBotones();
     crearBotonesGen();
+    demo = document.getElementById("demo");
+    content = demo.innerHTML;
 }
 
 function buscarPokemons(valor) {
@@ -214,16 +224,22 @@ async function crearPokemon(pokemon) {
     divImagen.appendChild(imagen);
 }
 function mostrar() {
+    const prueba1 = document.querySelector("#prueba1");
     const filterOptions = document.querySelector(".filter-options");
     filterOptions.classList.toggle('show');
+    prueba1.classList.toggle('show');
 
-    if (document.getElementById("myBtnContainer").style.display == "flex") {
+    if (document.getElementById("myBtnContainer").style.display == "flex" ||document.getElementById("myBtnContainerGen").style.display == "flex") {
         document.getElementById("myBtnContainer").style.display = "none";
         document.getElementById("myBtnContainer").style.opacity = "0";
+        document.getElementById("myBtnContainerGen").style.display = "none";
+        document.getElementById("myBtnContainerGen").style.opacity = "0";
         show = false;
+        show2 = false;
     }
     else {
         show = true;
+        show2 = true;
     }
 }
 
