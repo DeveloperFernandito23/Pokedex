@@ -40,6 +40,11 @@ body{
     text-decoration: none;
 }
 
+#pokemon-header{
+    display: grid;
+    grid-template-rows: min-content min-content auto;
+}
+
 #main-image {
     display: flex;
     width: 15vw;
@@ -50,6 +55,10 @@ body{
     border-radius: 250px;
     text-align: center;
     padding: 33px;
+}
+
+.types{
+    grid-template-rows: repeat(auto-fit, minmax(2vw, 0.5fr));
 }
 
 #stats {
