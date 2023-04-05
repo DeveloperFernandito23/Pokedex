@@ -1,5 +1,3 @@
-changeWeight();
-
 async function givePokemonDetails(id) {
     var response = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}/`);
     var object = await response.json();
@@ -38,6 +36,8 @@ async function pokemonDetails() {
 
     document.title = `${pokemon.species.name[0].toUpperCase() + pokemon.species.name.slice(1)} | Pokédex`;
 }
+
+changeInfo();
 
 async function makeChain(pokemon, evolution) {
     var chain = evolution.chain;
@@ -323,6 +323,7 @@ function makeData(pokemon) {
     var number = document.getElementById("number");
     var pokemonName = document.getElementById("font-type");
     var weight = document.getElementById("kilos");
+    var height = document.getElementById("meters");
 
     pokemonName.innerHTML = pokemon.species.name[0].toUpperCase() + pokemon.species.name.slice(1);
 
@@ -340,8 +341,7 @@ function makeData(pokemon) {
     })
 
     weight.innerHTML = `${pokemon.weight / 10}`;
-
-    console.log(`Altura => ${pokemon.height / 10}m`);
+    height.innerHTML = `${pokemon.height / 10}`;
 
     comprobarTipos(pokemon);
 
@@ -350,15 +350,19 @@ function makeData(pokemon) {
     // document.getElementById("pokemon").innerHTML = pokemon.id;
 }
 
-function changeWeight() {
+function changeInfo() {
     var weight = document.getElementById("kilos");
+    var height = document.getElementById("meters");
+
     var local = localStorage.getItem('oscuro');
 
     if (local == "true") {
-        weight.style.backgroundImage = "url(../img/kgW.png)";
+        weight.style.backgroundImage = "url(../img/wheightWhite.png)";
+        height.style.backgroundImage = "url(../img/heightWhite.png)";
     }
     else {
-        weight.style.backgroundImage = "url(../img/kg.png)";
+        weight.style.backgroundImage = "url(../img/wheight.png)";
+        height.style.backgroundImage = "url(../img/height.png)";
     }
 }
 
@@ -403,5 +407,5 @@ function chooseFavicon(pokemon) {
 
 function callFunctions() {
     changeTheme();
-    changeWeight();
+    changeInfo();
 }

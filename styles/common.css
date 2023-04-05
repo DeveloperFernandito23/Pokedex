@@ -67,7 +67,6 @@ a {
 body {
     /* background-color: var(--background-color); Lo comento de momento porque en teoría no queremos fondo negro */
     transition: all 1s ease-in-out;
-
 }
 
 .types {

@@ -66,15 +66,13 @@ body {
 }
 
 #number {
-    margin-top: 25px;
     font-family: 'Pokemon Solid';
     color: var(--text-color);
     font-weight: var(--bold);
     letter-spacing: 8px;
-    font-size: 33px;
-    margin: 5px;
+    padding: 5px;
+    font-size: 28px;
     text-align: center;
-    height: 15vh;
     background-color: var(--background-color);
     border: 3px var(--text-color) solid;
     border-radius: 15px;
@@ -100,6 +98,7 @@ body {
     display: grid;
     grid-template-columns: max-content auto;
     margin-top: 15px;
+    gap: 1.5vw;
 }
 
 #kilos {
@@ -108,12 +107,27 @@ body {
     background-repeat: no-repeat;
     font-family: "Pokemon Solid";
     text-align: center;
+    letter-spacing: 2px;
     padding-top: 35px;
     padding-left: 15px;
     padding-right: 15px;
     padding-bottom: 30px;
     max-width: 7.7vw;
     min-width: 1.5vw;
+    font-weight: var(--bold);
+    color: var(--text-color);
+    transition: all 1s ease-in-out;
+}
+
+#meters{
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    font-family: "Pokemon Solid";
+    text-align: center;
+    letter-spacing: 2px;
+    padding-left: 15px;
+    padding-top: 10px;
     font-weight: var(--bold);
     color: var(--text-color);
     transition: all 1s ease-in-out;
