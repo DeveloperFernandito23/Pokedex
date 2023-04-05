@@ -297,3 +297,20 @@ span {
     grid-template-columns: repeat(auto-fit, minmax(2vw, 0.5fr));
     gap: 2vw;
 }
+.info-alert {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    z-index: 9999;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #c5e1a5;
+    color: #333;
+    font-weight: bold;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+  }
+  
+  .info-alert.show {
+    opacity: 1;
+  }

@@ -26,7 +26,7 @@ function crearBotonesGen() {
 }
 function filterSelection(x) {
     const demo = document.getElementById("demo");
-    
+
     demo.innerHTML = "";
 
     for (let index = 0; index < pokemons.length; index++) {
@@ -41,8 +41,15 @@ function filterSelection(x) {
     for (let i = 0; i < element.length; i++) {
         element[i].innerHTML.includes(TiposPokemon[x]) ? element[i].classList.add("active") : element[i].classList.remove("active");
     }
-    if(demo.innerHTML.length == 0){
+    if (demo.innerHTML.length == 0) {
         demo.innerHTML = content;
+    }
+}
+function removeClass(classname) {
+    var element = document.getElementsByClassName(classname);
+
+    for (let i = 0; i < element.length; i++) {
+        element[i].classList.remove(classname);
     }
 }
 async function filterSelectionGen(x) {
@@ -53,14 +60,14 @@ async function filterSelectionGen(x) {
     for (let i = 0; i < element.length; i++) {
         element[i].innerHTML.includes(Generaciones[x]) ? element[i].classList.add("active") : element[i].classList.remove("active");
     }
-    
+
     for (let index = 0; index < pokemons.length; index++) {
         var pg = await givePokemonGeneration(pokemons[index])
         if (pg == x) {
             await crearPokemon(pokemons[index]);
         }
     }
-    if(demo.innerHTML.length == 0){
+    if (demo.innerHTML.length == 0) {
         demo.innerHTML = content;
     }
 }
@@ -232,7 +239,7 @@ function mostrar() {
     filterOptions.classList.toggle('show');
     prueba1.classList.toggle('show');
 
-    if (document.getElementById("myBtnContainer").style.display == "flex" ||document.getElementById("myBtnContainerGen").style.display == "flex") {
+    if (document.getElementById("myBtnContainer").style.display == "flex" || document.getElementById("myBtnContainerGen").style.display == "flex") {
         document.getElementById("myBtnContainer").style.display = "none";
         document.getElementById("myBtnContainer").style.opacity = "0";
         document.getElementById("myBtnContainerGen").style.display = "none";
@@ -249,6 +256,10 @@ function mostrar() {
 var show = true;
 const element = document.getElementById("type");
 element.addEventListener("click", function () {
+    if(document.getElementById("myBtnContainer").style.display != "none" || document.getElementById("myBtnContainerGen").style.display != "none"){
+        resetFilters();
+    }
+
     if (show) {
         document.getElementById("myBtnContainer").style.display = "flex";
         document.getElementById("myBtnContainer").style.opacity = "1";
@@ -267,6 +278,10 @@ element.addEventListener("click", function () {
 var show2 = true;
 const element1 = document.getElementById("gen");
 element1.addEventListener("click", function () {
+    if(document.getElementById("myBtnContainerGen").style.display != "none" || document.getElementById("myBtnContainer").style.display != "none"){
+        resetFilters();
+    }
+
     if (show2) {
         document.getElementById("myBtnContainerGen").style.display = "flex";
         document.getElementById("myBtnContainerGen").style.opacity = "1";
@@ -281,4 +296,18 @@ element1.addEventListener("click", function () {
         document.getElementById("prueba").style.opacity = "0";
         show2 = true;
     }
+
 });
+function resetFilters(){
+    demo.innerHTML = content;
+    removeClass("active");
+    showAlert();
+}
+
+function showAlert() {
+    var alertBox = document.getElementById("myAlert");
+    alertBox.classList.add("show");
+    setTimeout(function() {
+      alertBox.classList.remove("show");
+    }, 3000); // Oculta la alerta después de 3 segundos
+  }
