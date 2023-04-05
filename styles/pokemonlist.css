@@ -18,7 +18,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background-color: rgb(51,51,51);
+    background-color: #333333;
     padding: 20px;
     align-items: flex-start;
 }
@@ -67,14 +67,6 @@ body {
     border-radius: 25px;
     width: 15vw;
     height: 2vw;
-}
-
-#options {
-    background-color: #333;
-    color: aliceblue;
-    border: none;
-    padding: 10px;
-    border-radius: 5px;
 }
 
 .buscador {

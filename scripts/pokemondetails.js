@@ -29,7 +29,11 @@ async function pokemonDetails() {
 
     chooseFavicon(pokemon);
 
+    detailsPokemon(pokemon);
+
     makeData(pokemon);
+
+    megaEvolutions(pokemon);
 
     makeChain(pokemon, evolution);
 
@@ -61,7 +65,7 @@ async function makeChain(pokemon, evolution) {
     }
 }
 
-var count = 0;
+var seeCount = 0;
 
 async function makeChainData(thisPokemon, chain) {
     var id = chain.species.url.split("/")[6];
@@ -124,7 +128,7 @@ async function makeChainData(thisPokemon, chain) {
                 trigger.innerHTML = check;
             }
         } else {
-            count++;
+            seeCount++;
             seeMore(pokemon, chain);
         }
     }
@@ -136,7 +140,7 @@ function seeMore(pokemon, chain) {
 
     var see = document.getElementsByClassName("click-here");
 
-    if (see.length < count) {
+    if (see.length < seeCount) {
         var button = document.createElement("a");
 
         button.classList.add("click-here");
@@ -316,31 +320,32 @@ function levelUp(pokemon, details) {
     return trigger;
 }
 
+async function detailsPokemon(pokemon) {
+    var species = await givePokemonSpecie(pokemon);
+
+    var details = document.getElementById("details");
+    var elements = species.flavor_text_entries.length;
+    var spanish = false;
+
+    for (var i = 0; !spanish && i < elements; i++) {
+        if (species.flavor_text_entries[i].language.name == "es") {
+            spanish = true;
+            details.innerHTML = species.flavor_text_entries[i].flavor_text;
+        }
+    }
+}
+
 function makeData(pokemon) {
-    var image = document.getElementsByClassName("image")[0];
-    var contentImage = document.getElementById("pokemonimage");
     var number = document.getElementById("number");
     var pokemonName = document.getElementById("font-type");
     var weight = document.getElementById("kilos");
     var height = document.getElementById("meters");
-    var details = document.getElementById("details");
 
-    details.innerHTML = 
+    changeImage(pokemon);
 
     pokemonName.innerHTML = pokemon.species.name[0].toUpperCase() + pokemon.species.name.slice(1);
 
     number.innerHTML = '#' + pokemon.id.toString().padStart(3, 0);
-
-    contentImage.src = pokemon.sprites.other["official-artwork"].front_default;
-    contentImage.alt = "Lo siento, el pokemon no ha sido encontrado :(";
-
-    image.addEventListener("click", () => changeShiny(pokemon));
-    image.addEventListener("mouseover", () => {
-        contentImage.style.filter = `drop-shadow(0 0 15px var(--${pokemon.types[0].type.name}))`;
-    })
-    image.addEventListener("mouseout", () => {
-        contentImage.style.filter = `none`;
-    })
 
     weight.innerHTML = `${pokemon.weight / 10}`;
     height.innerHTML = `${pokemon.height / 10}`;
@@ -350,6 +355,110 @@ function makeData(pokemon) {
     pokemonValues(pokemon);
 
     // document.getElementById("pokemon").innerHTML = pokemon.id;
+}
+
+function changeImage(pokemon) {
+    var image = document.getElementsByClassName("image")[0];
+    var contentImage = document.getElementById("pokemonimage");
+    shiny = false;
+
+    if (typeof pokemon === "string") {
+        pokemon = JSON.parse(pokemon);
+        image.onclick = () => changeShiny(pokemon);
+    } else {
+        image.addEventListener("click", () => changeShiny(pokemon));
+        image.addEventListener("mouseover", () => {
+            contentImage.style.filter = `drop-shadow(0 0 15px var(--${pokemon.types[0].type.name}))`;
+        })
+        image.addEventListener("mouseout", () => {
+            contentImage.style.filter = `none`;
+        })
+    }
+
+    contentImage.src = pokemon.sprites.other["official-artwork"].front_default;
+    contentImage.alt = "Lo siento, el pokemon no ha sido encontrado :(";
+}
+
+var megaCount;
+
+async function megaEvolutions(pokemon) {
+    var species = await givePokemonSpecie(pokemon);
+
+    var seeCount = species.varieties.length;
+    var megas = [];
+
+    for (var i = 0; i < seeCount; i++) {
+        if (species.varieties[i].pokemon.name.includes("mega")) {
+            megas.push(species.varieties[i].pokemon.url);
+        }
+    }
+
+    if (megas.length != 0) {
+        var mainPage = document.getElementById("top-page");
+        var button = document.createElement("select");
+        var option = document.createElement("option");
+
+        var je = button.value;
+
+        button.setAttribute("id", "options");
+        button.addEventListener("change", () => changeImage(button.value));
+
+        option.value = pokemon;
+        option.innerHTML = pokemon.name;
+
+        mainPage.appendChild(button);
+
+        button.appendChild(option);
+
+        for (var i = 0; i < megas.length; i++) {
+            var response = await fetch(megas[i]);
+            var data = await response.json();
+            megaCount = i;
+
+            await makeMega(data);
+        }
+    }
+}
+
+function makeMega(pokemon) {
+    var button = document.getElementById("options");
+
+    var option = document.createElement("option");
+    option.value = JSON.stringify(pokemon);
+    option.innerHTML = pokemon.name;
+
+    button.appendChild(option);
+
+    /*var poke = document.createElement("div");
+    poke.classList.add("mega-element");
+
+    var divImage = document.createElement("div");
+    divImage.classList.add("image");
+
+    var image = document.createElement("img");
+    image.src = pokemon.sprites.other["official-artwork"].front_default;
+    image.alt = "Lo siento, el pokemon no ha sido encontrado :(";
+
+    image.addEventListener("mouseover", () => {
+        image.style.filter = `drop-shadow(0 0 15px var(--${pokemon.types[0].type.name}))`;
+    })
+    image.addEventListener("mouseout", () => {
+        image.style.filter = `none`;
+    })
+
+    var name = document.createElement("div");
+    name.classList.add("name");
+    name.innerHTML = pokemon.name;
+
+    var types = document.createElement("div");
+    types.classList.add("types");
+
+    document.getElementById("mega").appendChild(poke);
+    poke.appendChild(divImage);
+    poke.appendChild(name);
+    poke.appendChild(types);
+    divImage.appendChild(image);
+    comprobarTipos(pokemon);*/
 }
 
 function changeInfo() {
@@ -381,7 +490,7 @@ function pokemonValues(pokemon) {
     }
 }
 
-var shiny = false;
+var shiny;
 
 function changeShiny(pokemon) {
     var contentImage = document.getElementById("pokemonimage");

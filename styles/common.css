@@ -96,6 +96,14 @@ img {
     text-transform: uppercase;
 }
 
+#options {
+    background-color: #333;
+    color: aliceblue;
+    border: none;
+    /* padding: 10px; */
+    border-radius: 5px;
+}
+
 .poke {
     /*background-color: rgb(255, 255, 255); */
     text-align: center;
