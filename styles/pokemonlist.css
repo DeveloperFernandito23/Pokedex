@@ -36,12 +36,7 @@ body {
     /* vw para que sea más responsivo, es una unidad de medida relativa */
 }
 
-@media (max-width: 700px) {
-    #demo {
-        grid-template-columns: repeat(auto-fill, 200px);
-        gap: 10vw;
-    }
-}
+
 
 .alert {
     background-color: #f44336;
@@ -278,8 +273,11 @@ span {
     opacity: 0;
     justify-content: center;
     display: none;
+    overflow: auto;
 }
-
+#myBtnContainerGen::-webkit-scrollbar, #myBtnContainer::-webkit-scrollbar {
+    display: none;
+  }
 #gen,
 #type {
     cursor: pointer;
@@ -314,3 +312,14 @@ span {
   .info-alert.show {
     opacity: 1;
   }
+  @media (max-width: 768px) {
+    #demo {
+        grid-template-columns: repeat(auto-fill, 200px);
+        gap: 10vw;
+    }
+    #myBtnContainer,
+    #myBtnContainerGen {
+        justify-content: flex-start;
+    }
+
+}
