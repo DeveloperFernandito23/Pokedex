@@ -48,6 +48,15 @@ function comprobarTipos(pokemon) {
     }
 }
 
+async function givePokemonSpecie(pokemon) {
+    var urlSpecie = pokemon.species?.url;
+
+    var response = await fetch(urlSpecie);
+    var object = await response.json();
+
+    return object;
+}
+
 function compruebaTema(){
     const bodyAttributes = document.getElementsByTagName("body")[0];
     const slider = document.getElementById("slide");

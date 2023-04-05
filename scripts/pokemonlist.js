@@ -71,14 +71,7 @@ async function filterSelectionGen(x) {
         demo.innerHTML = content;
     }
 }
-async function givePokemonSpecie(pokemon) {
-    var urlSpecie = pokemon.species?.url;
 
-    var response = await fetch(urlSpecie);
-    var object = await response.json();
-
-    return object;
-}
 async function givePokemonGeneration(pokemon) {
     var pokemonSpecie = await givePokemonSpecie(pokemon);
     var generationUrl = pokemonSpecie.generation.url;

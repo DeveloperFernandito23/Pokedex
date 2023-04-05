@@ -5,12 +5,11 @@ async function givePokemonDetails(id) {
     return object;
 }
 
-async function evolutionChain(speciePokemon) {
-    var response = await fetch(speciePokemon);
-    var object = await response.json();
+async function evolutionChain(pokemon) {
+    var species = await givePokemonSpecie(pokemon)
 
-    response = await fetch(object.evolution_chain.url);
-    object = await response.json();
+    var response = await fetch(species.evolution_chain.url);
+    var object = await response.json();
 
     return object;
 }
@@ -26,7 +25,7 @@ async function pokemonDetails() {
 
     var pokemon = await givePokemonDetails(number);
 
-    var evolution = await evolutionChain(pokemon.species.url);
+    var evolution = await evolutionChain(pokemon);
 
     chooseFavicon(pokemon);
 
@@ -324,6 +323,9 @@ function makeData(pokemon) {
     var pokemonName = document.getElementById("font-type");
     var weight = document.getElementById("kilos");
     var height = document.getElementById("meters");
+    var details = document.getElementById("details");
+
+    details.innerHTML = 
 
     pokemonName.innerHTML = pokemon.species.name[0].toUpperCase() + pokemon.species.name.slice(1);
 

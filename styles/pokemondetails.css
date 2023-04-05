@@ -40,6 +40,19 @@ body {
     text-decoration: none;
 }
 
+#main-page{
+    display: grid;
+    grid-template-columns: max-content auto;
+}
+
+#details{
+    background-color: var(--background-color);
+    color: var(--text-color);
+    font-weight: var(--bold);
+    border: 3px var(--text-color) solid;
+    border-radius: 15px;
+}
+
 #pokemon-header {
     display: grid;
     margin-left: 1.8vw;
