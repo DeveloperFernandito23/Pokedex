@@ -72,13 +72,13 @@ body {
 .types {
     color: white;
     display: grid;
-    gap: 2vw;
     justify-content: center;
 }
 
 .type {
     outline: auto black;
     border-radius: 25px;
+    padding: 3px;
     /*-webkit-text-stroke: .5px black; */
     text-shadow: -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
 }

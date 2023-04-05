@@ -1,3 +1,5 @@
+changeWeight();
+
 async function givePokemonDetails(id) {
     var response = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}/`);
     var object = await response.json();
@@ -40,8 +42,12 @@ async function pokemonDetails() {
 async function makeChain(pokemon, evolution) {
     var chain = evolution.chain;
     var numberEvolutions = chain.evolves_to.length;
+    var evolutionChain = document.getElementById("evolution-chain");
 
-    await makeChainData(pokemon, chain);
+    if (numberEvolutions != 0) {
+        await makeChainData(pokemon, chain);
+        evolutionChain.style.display = "grid";
+    }
 
     for (var i = 0; i < numberEvolutions; i++) {
         var chainCopy = chain.evolves_to[i];
@@ -314,11 +320,13 @@ function levelUp(pokemon, details) {
 function makeData(pokemon) {
     var image = document.getElementsByClassName("image")[0];
     var contentImage = document.getElementById("pokemonimage");
+    var number = document.getElementById("number");
     var pokemonName = document.getElementById("font-type");
-    var stats = document.getElementById("stats");
+    var weight = document.getElementById("kilos");
 
-    stats.style.fontWeight = "var(--bold)";
-    stats.style.color = "var(--text-color)";
+    pokemonName.innerHTML = pokemon.species.name[0].toUpperCase() + pokemon.species.name.slice(1);
+
+    number.innerHTML = '#' + pokemon.id.toString().padStart(3, 0);
 
     contentImage.src = pokemon.sprites.other["official-artwork"].front_default;
     contentImage.alt = "Lo siento, el pokemon no ha sido encontrado :(";
@@ -331,9 +339,7 @@ function makeData(pokemon) {
         contentImage.style.filter = `none`;
     })
 
-    pokemonName.innerHTML = pokemon.species.name[0].toUpperCase() + pokemon.species.name.slice(1);
-
-    console.log(`Peso => ${pokemon.weight / 10}kg`);
+    weight.innerHTML = `${pokemon.weight / 10}`;
 
     console.log(`Altura => ${pokemon.height / 10}m`);
 
@@ -341,7 +347,19 @@ function makeData(pokemon) {
 
     pokemonValues(pokemon);
 
-   // document.getElementById("pokemon").innerHTML = pokemon.id;
+    // document.getElementById("pokemon").innerHTML = pokemon.id;
+}
+
+function changeWeight() {
+    var weight = document.getElementById("kilos");
+    var local = localStorage.getItem('oscuro');
+
+    if (local == "true") {
+        weight.style.backgroundImage = "url(../img/kgW.png)";
+    }
+    else {
+        weight.style.backgroundImage = "url(../img/kg.png)";
+    }
 }
 
 function pokemonValues(pokemon) {
@@ -381,4 +399,9 @@ function chooseFavicon(pokemon) {
     favicon.href = `../img/favicons/${href}.ico`;
 
     head.appendChild(favicon);
+}
+
+function callFunctions() {
+    changeTheme();
+    changeWeight();
 }

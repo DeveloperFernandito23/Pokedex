@@ -1,5 +1,5 @@
-body{
-    background-color: rgb(135,33,15);
+body {
+    background-color: rgb(135, 33, 15);
 }
 
 #top-page {
@@ -19,7 +19,7 @@ body{
 }
 
 #evolution-chain {
-    display: grid;
+    display: none;
     grid-template-columns: repeat(auto-fill, minmax(15vw, 200px));
     gap: 4vw;
     margin: 10vw;
@@ -40,9 +40,11 @@ body{
     text-decoration: none;
 }
 
-#pokemon-header{
+#pokemon-header {
     display: grid;
-    grid-template-rows: min-content min-content auto;
+    margin-left: 1.8vw;
+    grid-template-columns: max-content auto;
+    gap: 2vw;
 }
 
 #main-image {
@@ -55,31 +57,89 @@ body{
     border-radius: 250px;
     text-align: center;
     padding: 33px;
+    cursor: pointer;
+    transition: all 1s ease-in-out;
 }
 
-.types{
-    grid-template-rows: repeat(auto-fit, minmax(2vw, 0.5fr));
+#data {
+    display: grid;
+}
+
+#number {
+    margin-top: 25px;
+    font-family: 'Pokemon Solid';
+    color: var(--text-color);
+    font-weight: var(--bold);
+    letter-spacing: 8px;
+    font-size: 33px;
+    margin: 5px;
+    text-align: center;
+    height: 15vh;
+    background-color: var(--background-color);
+    border: 3px var(--text-color) solid;
+    border-radius: 15px;
+    transition: all 1s ease-in-out;
+}
+
+.types {
+    gap: 2vh;
+    align-items: center;
+    justify-content: center;
+    margin-top: 15px;
+    height: 13vh;
+    width: 10vw;
+}
+
+.type {
+    padding: 4.5px;
+    text-align: center;
+    font-size: 25px
+}
+
+#info {
+    display: grid;
+    grid-template-columns: max-content auto;
+    margin-top: 15px;
+}
+
+#kilos {
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    font-family: "Pokemon Solid";
+    text-align: center;
+    padding-top: 35px;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-bottom: 30px;
+    max-width: 7.7vw;
+    min-width: 1.5vw;
+    font-weight: var(--bold);
+    color: var(--text-color);
+    transition: all 1s ease-in-out;
 }
 
 #stats {
     display: grid;
     grid-template-columns: min-content min-content auto;
     align-items: center;
+    font-weight: var(--bold);
+    color: var(--text-color);
     padding: 15px;
     white-space: nowrap;
     margin-top: 20px;
     gap: 5px 80px;
-    border: 3px black solid;
+    border: 3px var(--background-color) solid;
     border-radius: 30px;
+    transition: all 1s ease-in-out;
 }
 
-#stats > 
-
-.stats-number{
+.stats-number {
     text-align: right;
 }
 
-.stats-name, .stats-number{
+.stats-name,
+.stats-number {
     font-size: 16.5px;
 }
 
@@ -122,15 +182,18 @@ body{
     background-color: var(--background-color);
     border: 3px var(--background-color) solid;
     border-radius: 10px;
+    transition: all 1s ease-in-out;
 }
 
 .stats-progress::-webkit-progress-bar {
     background-color: var(--background-color);
     border-radius: 5px;
+    transition: all 1s ease-in-out;
 }
 
 .stats-progress::-webkit-progress-value {
     background-color: var(--text-color);
     border-radius: 5px;
     transition: width .8s ease-in-out;
+    transition: all 1s ease-in-out;
 }
