@@ -6,8 +6,12 @@ body {
     margin: auto;
 }
 
-#font-type{
+#font-type, #loading-footer{
     background-color: rgb(135,33,15);
+    transition: all .5s ease-in-out;
+}
+#loading-footer{
+    height: 150px;
 }
 
 .menu {
@@ -286,7 +290,9 @@ span {
     opacity: 0;
     transition: opacity 0.5s;
 }
-
+#prueba1.show{
+    opacity: 1;
+}
 .types{
     grid-template-columns: repeat(auto-fit, minmax(2vw, 0.5fr));
     gap: 2vw;
