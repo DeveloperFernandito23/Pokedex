@@ -361,3 +361,30 @@ span {
 #search-input:focus {
     width: 90%;
 }
+.loader{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 25vh;
+}
+.loader .loading-content{
+    font-size: 2rem;
+    position: relative;
+    color: red;
+    animation: animate 2s ease-in-out infinite;
+    display: inline-block;
+    animation-delay: calc(0.1s * var(--z));
+    margin: 0;
+}
+@keyframes animate {
+    0%,40%,100%{
+        transform: translateY(0px);
+    }
+    20%{
+        transform: translateY(-50px);
+        filter: drop-shadow(0 0 20px rgb(255, 21, 0));
+        box-shadow: 0 30px 0 rgb(31, 34, 34), 0 -30px 0 rgb(37, 41, 41);
+    }
+
+    
+}

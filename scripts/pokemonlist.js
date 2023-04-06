@@ -149,7 +149,7 @@ async function givePokemons() { //NEVER TOUCH
     document.getElementById("demo").style.display = "none";
     document.getElementsByTagName("body")[0].style.top = "25vh";
     document.getElementsByTagName("body")[0].style.position = "relative";
-    document.getElementsByClassName("centrar")[0].style.display = "flex";
+    document.getElementsByClassName("loader")[0].style.display = "flex";
 
     for (var i = 0; i < 900; i++) {
         var response = await fetch(`https://pokeapi.co/api/v2/pokemon/${i + 1}/`);
@@ -160,7 +160,7 @@ async function givePokemons() { //NEVER TOUCH
 
     document.getElementById("demo").style.display = "";
     document.getElementsByTagName("body")[0].style.top = "0";
-    document.getElementsByClassName("centrar")[0].style.display = "none";
+    document.getElementsByClassName("loader")[0].style.display = "none";
     document.getElementById("loading-footer").style.display = "none";
 
     crearBotones();
