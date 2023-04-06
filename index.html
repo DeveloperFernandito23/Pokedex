@@ -30,18 +30,24 @@
             </a>
 
             <nav class="menu">
-                <ul style="margin-block: 0; margin-inline: 0;">
+                <ul style="margin-block: 0; margin-inline: 0;width: 60px;height: 34px;">
                     <label class="switch">
                         <input type="checkbox" id="slide" onclick="changeTheme()">
                         <span class="slider round"></span>
                     </label>
                 </ul>
-
-                <form class="buscador">
-                    <input type="text" placeholder=" " onkeyup="buscarPokemons(this.value)" />
-                    <button type="reset"></button>
-                </form>
-                <button id="filter" onclick="mostrar()"></button>
+                <div class="search-filters">
+                    <div class="search-container">
+                        <form>
+                          <input type="text" placeholder="Buscar Pokemon..." name="search" id="search-input" autocomplete="off" onkeyup="buscarPokemons(this.value)"/>
+                        </form>
+                      </div>
+                    <!-- <form class="buscador">
+                        <input type="text" placeholder=" " onkeyup="buscarPokemons(this.value)" />
+                        <button type="reset"></button>
+                    </form> -->
+                    <button id="filter" onclick="mostrar()"></button>
+                </div>
                 <select name="options" id="options" onchange="orderBy(this.value)">
                     <option value="opt1">Ascendentemente</option>
                     <option value="opt2">Descendentemente</option>

@@ -6,21 +6,23 @@ body {
     margin: auto;
 }
 
-#font-type, #loading-footer{
-    background-color: rgb(135,33,15);
+#font-type,
+#loading-footer {
+    background-color: rgb(135, 33, 15);
     transition: all .5s ease-in-out;
 }
-#loading-footer{
+
+#loading-footer {
     height: 150px;
 }
 
 .menu {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
     background-color: #333333;
     padding: 20px;
-    align-items: flex-start;
 }
 
 #demo {
@@ -191,13 +193,18 @@ span {
         transform: rotate(360deg);
     }
 } */
-
+.search-filters{
+    display: flex;
+    align-items: center;
+}
 #filter {
     background-image: url("https://cdn-icons-png.flaticon.com/512/3839/3839020.png");
+    background-color: transparent;
     background-size: 100%;
     width: 20px;
     height: 20px;
     border: none;
+    cursor: pointer;
 }
 
 .filter-options {
@@ -212,7 +219,7 @@ span {
     transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
-.filter-options.show{
+.filter-options.show {
     display: block;
     opacity: 1;
     display: grid;
@@ -255,7 +262,8 @@ span {
     background-color: #ddd;
 }
 
-.btn.active, .btn-gen.active {
+.btn.active,
+.btn-gen.active {
     background-color: #666;
     color: white;
 }
@@ -267,26 +275,33 @@ span {
     display: none;
     overflow: auto;
 }
-#myBtnContainerGen::-webkit-scrollbar, #myBtnContainer::-webkit-scrollbar {
+
+#myBtnContainerGen::-webkit-scrollbar,
+#myBtnContainer::-webkit-scrollbar {
     display: none;
-  }
+}
+
 #gen,
 #type {
     cursor: pointer;
     padding: 3px;
 }
 
-#prueba, #prueba1 {
+#prueba,
+#prueba1 {
     opacity: 0;
     transition: opacity 0.5s;
 }
-#prueba1.show{
+
+#prueba1.show {
     opacity: 1;
 }
-.types{
+
+.types {
     grid-template-columns: repeat(auto-fit, minmax(2vw, 0.5fr));
     gap: 2vw;
 }
+
 .info-alert {
     position: fixed;
     top: 10px;
@@ -299,19 +314,50 @@ span {
     font-weight: bold;
     opacity: 0;
     transition: opacity 0.3s ease-in-out;
-  }
-  
-  .info-alert.show {
+}
+
+.info-alert.show {
     opacity: 1;
-  }
-  @media (max-width: 768px) {
+}
+
+@media (max-width: 768px) {
     #demo {
         grid-template-columns: repeat(auto-fill, 200px);
         gap: 10vw;
     }
+
     #myBtnContainer,
     #myBtnContainerGen {
         justify-content: flex-start;
     }
+    .menu{
+        justify-content: space-around;
+        padding-left: 0;
+        padding-right: 0;
+    }
+    #options{
+        margin-top: 10px;
+    }
 
+}
+
+.search-container {
+    display: flex;
+    justify-content: center;
+}
+
+/* Estilos del input de búsqueda */
+.search-container #search-input {
+    padding: 10px;
+    border: white;
+    font-size: 17px;
+    border-radius: 5px 0 0 5px;
+    width: 60%;
+    background-color: #f1f1f1;
+    border-radius: 10px;
+    transition: width .5s ease-in-out;
+}
+
+#search-input:focus {
+    width: 90%;
 }
