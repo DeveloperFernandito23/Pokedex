@@ -14,7 +14,7 @@ async function evolutionChain(pokemon) {
     return object;
 }
 
-var megaDefault;
+var varietyDefault;
 
 async function pokemonDetails() {
     var parameters = window.location.search;
@@ -35,9 +35,9 @@ async function pokemonDetails() {
 
     makeData(pokemon);
 
-    megaDefault = pokemon;
+    varietyDefault = pokemon;
 
-    megaEvolutions(pokemon);
+    pokemonVarieties(pokemon);
 
     makeChain(pokemon, evolution);
 
@@ -125,12 +125,8 @@ async function makeChainData(thisPokemon, chain) {
         if (length == 1) {
             var check = checkTrigger(pokemon, chain.evolution_details[0]);
 
-            if (check == undefined) {
-                trigger.innerHTML = "";
-                seeMore();
-            } else {
-                trigger.innerHTML = check;
-            }
+            trigger.innerHTML = check;
+
         } else {
             seeCount++;
             seeMore(pokemon, chain);
@@ -195,7 +191,7 @@ function checkTrigger(pokemon, details) {
         other: other(pokemon),
         trade: trade(details),
         "level-up": levelUp(pokemon, details),
-        spin: spin(details),
+        spin: "Girar Personaje\nDar Confite",
         "tower-of-waters": "Ganar Torre De Agua",
         "tower-of-darkness": "Ganar Torre De Oscuridad",
         "three-critical-hits": "Realizar 3 Ataques Críticos",
@@ -210,19 +206,6 @@ function checkTrigger(pokemon, details) {
     var trigger = details.trigger.name;
 
     return TipeTrigger[trigger];
-}
-
-function spin(details) {
-
-    seeMore();
-    /*
-        var trigger = document.getElementById("screen");
-    
-        var imagen = document.createElement("img");
-        imagen.setAttribute("src", "../img/alcremie.png");
-    
-        trigger.appendChild(imagen);*/
-
 }
 
 function trade(details) {
@@ -241,14 +224,14 @@ function other(pokemon) {
     var trigger;
 
     var Names = {
-        pawmot: "Subir Nivel Al Dar 1000 Pasos En Modo Enviar Pokemon",
-        brambleghast: "Subir Nivel Al Dar 1000 Pasos En Modo Enviar Pokemon",
-        rabsa: "Subir Nivel Al Dar 1000 Pasos En Modo Enviar Pokemon",
         maushold: "Nivel => 25 En Combate",
-        palafin: "Nivel => 38+ Mientras Está Conectado Con Otro/s Jugador/es Mediante Círculo Unión",
-        annihilape: "Subir Nivel \n Usar 20 Veces Puño Furia En Combate",
         kingambit: "Subir Nivel \n Derrotar 3 Bisharp Líderes",
-        gholdengo: "Subir Nivel \n Tener 999 Monedas de Gimmighoul"
+        gholdengo: "Subir Nivel \n Tener 999 Monedas de Gimmighoul",
+        rabsa: "Subir Nivel Al Dar 1000 Pasos En Modo Enviar Pokemon",
+        pawmot: "Subir Nivel Al Dar 1000 Pasos En Modo Enviar Pokemon",
+        annihilape: "Subir Nivel \n Usar 20 Veces Puño Furia En Combate",
+        brambleghast: "Subir Nivel Al Dar 1000 Pasos En Modo Enviar Pokemon",
+        palafin: "Nivel => 38+ Mientras Está Conectado Con Otro/s Jugador/es Mediante Círculo Unión"
     }
 
     trigger = pokemon.species.name;
@@ -353,7 +336,7 @@ function makeData(pokemon) {
 
     pokemonName.innerHTML = pokemon.species.name[0].toUpperCase() + pokemon.species.name.slice(1);
 
-    if(number.innerHTML == ""){
+    if (number.innerHTML == "") {
         number.innerHTML = '#' + pokemon.id.toString().padStart(3, 0);
     }
 
@@ -365,7 +348,7 @@ function makeData(pokemon) {
     pokemonValues(pokemon);
 }
 
-function removeImage(){
+function removeImage() {
     var image = document.getElementsByClassName("image")[0];
     var imageClon = image.cloneNode(true);
 
@@ -391,21 +374,21 @@ async function changeImage(pokemon) {
     contentImage.alt = "Lo siento, el pokemon no ha sido encontrado :(";
 }
 
-var megaCount;
+var varietyCount;
 
-async function megaEvolutions(pokemon) {
+async function pokemonVarieties(pokemon) {
     var species = await givePokemonSpecie(pokemon);
 
     var seeCount = species.varieties.length;
-    var megas = [];
+    var varieties = [];
 
     for (var i = 0; i < seeCount; i++) {
-        if (species.varieties[i].pokemon.name.includes("mega")) {
-            megas.push(species.varieties[i].pokemon.url);
+        if (i != 0) {
+            varieties.push(species.varieties[i].pokemon.url);
         }
     }
 
-    if (megas.length != 0) {
+    if (varieties.length != 0) {
         var mainPage = document.getElementsByClassName("menu")[0];
         var button = document.createElement("select");
         var option = document.createElement("option")
@@ -413,24 +396,24 @@ async function megaEvolutions(pokemon) {
         button.setAttribute("id", "options");
         button.addEventListener("change", () => makeData(button.value));
 
-        option.value = JSON.stringify(megaDefault);
+        option.value = JSON.stringify(varietyDefault);
         option.innerHTML = pokemon.name[0].toUpperCase() + pokemon.name.slice(1);
 
         mainPage.appendChild(button);
 
         button.appendChild(option);
 
-        for (var i = 0; i < megas.length; i++) {
-            var response = await fetch(megas[i]);
+        for (var i = 0; i < varieties.length; i++) {
+            var response = await fetch(varieties[i]);
             var data = await response.json();
-            megaCount = i;
+            varietyCount = i;
 
-            await makeMega(data);
+            await makeVariety(data);
         }
     }
 }
 
-function makeMega(pokemon) {
+function makeVariety(pokemon) {
     var button = document.getElementById("options");
 
     var option = document.createElement("option");
