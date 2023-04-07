@@ -96,12 +96,27 @@ img {
     text-transform: uppercase;
 }
 
+.menu {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #333333;
+    padding: 20px;
+}
+
 #options {
     background-color: #333;
     color: aliceblue;
     border: none;
-    /* padding: 10px; */
+    padding: 10px;
     border-radius: 5px;
+    border: 3px rgb(80, 74, 74) solid;
+    font-weight: var(--bold);
+}
+
+option{
+    font-weight: var(--bold);
 }
 
 .poke {

@@ -14,6 +14,8 @@ async function evolutionChain(pokemon) {
     return object;
 }
 
+var megaDefault;
+
 async function pokemonDetails() {
     var parameters = window.location.search;
 
@@ -32,6 +34,8 @@ async function pokemonDetails() {
     detailsPokemon(pokemon);
 
     makeData(pokemon);
+
+    megaDefault = pokemon;
 
     megaEvolutions(pokemon);
 
@@ -336,6 +340,10 @@ async function detailsPokemon(pokemon) {
 }
 
 function makeData(pokemon) {
+    if (typeof pokemon === "string") {
+        pokemon = JSON.parse(pokemon);
+    }
+
     var number = document.getElementById("number");
     var pokemonName = document.getElementById("font-type");
     var weight = document.getElementById("kilos");
@@ -345,7 +353,9 @@ function makeData(pokemon) {
 
     pokemonName.innerHTML = pokemon.species.name[0].toUpperCase() + pokemon.species.name.slice(1);
 
-    number.innerHTML = '#' + pokemon.id.toString().padStart(3, 0);
+    if(number.innerHTML == ""){
+        number.innerHTML = '#' + pokemon.id.toString().padStart(3, 0);
+    }
 
     weight.innerHTML = `${pokemon.weight / 10}`;
     height.innerHTML = `${pokemon.height / 10}`;
@@ -353,29 +363,31 @@ function makeData(pokemon) {
     comprobarTipos(pokemon);
 
     pokemonValues(pokemon);
-
-    // document.getElementById("pokemon").innerHTML = pokemon.id;
 }
 
-function changeImage(pokemon) {
+function removeImage(){
+    var image = document.getElementsByClassName("image")[0];
+    var imageClon = image.cloneNode(true);
+
+    image.replaceWith(imageClon);
+}
+
+async function changeImage(pokemon) {
+    removeImage();
+
     var image = document.getElementsByClassName("image")[0];
     var contentImage = document.getElementById("pokemonimage");
+    var color = () => { contentImage.style.filter = `drop-shadow(0 0 15px var(--${pokemon.types[0].type.name}))` };
+    var addShiny = () => { changeShiny(pokemon) }
     shiny = false;
 
-    if (typeof pokemon === "string") {
-        pokemon = JSON.parse(pokemon);
-        image.onclick = () => changeShiny(pokemon);
-    } else {
-        image.addEventListener("click", () => changeShiny(pokemon));
-        image.addEventListener("mouseover", () => {
-            contentImage.style.filter = `drop-shadow(0 0 15px var(--${pokemon.types[0].type.name}))`;
-        })
-        image.addEventListener("mouseout", () => {
-            contentImage.style.filter = `none`;
-        })
-    }
+    image.addEventListener("click", addShiny);
+    image.addEventListener("mouseover", color);
+    image.addEventListener("mouseout", () => {
+        contentImage.style.filter = `none`;
+    })
 
-    contentImage.src = pokemon.sprites.other["official-artwork"].front_default;
+    contentImage.src = await pokemon.sprites.other["official-artwork"].front_default;
     contentImage.alt = "Lo siento, el pokemon no ha sido encontrado :(";
 }
 
@@ -394,17 +406,15 @@ async function megaEvolutions(pokemon) {
     }
 
     if (megas.length != 0) {
-        var mainPage = document.getElementById("top-page");
+        var mainPage = document.getElementsByClassName("menu")[0];
         var button = document.createElement("select");
-        var option = document.createElement("option");
-
-        var je = button.value;
+        var option = document.createElement("option")
 
         button.setAttribute("id", "options");
-        button.addEventListener("change", () => changeImage(button.value));
+        button.addEventListener("change", () => makeData(button.value));
 
-        option.value = pokemon;
-        option.innerHTML = pokemon.name;
+        option.value = JSON.stringify(megaDefault);
+        option.innerHTML = pokemon.name[0].toUpperCase() + pokemon.name.slice(1);
 
         mainPage.appendChild(button);
 
@@ -425,40 +435,9 @@ function makeMega(pokemon) {
 
     var option = document.createElement("option");
     option.value = JSON.stringify(pokemon);
-    option.innerHTML = pokemon.name;
+    option.innerHTML = pokemon.name[0].toUpperCase() + pokemon.name.slice(1);
 
     button.appendChild(option);
-
-    /*var poke = document.createElement("div");
-    poke.classList.add("mega-element");
-
-    var divImage = document.createElement("div");
-    divImage.classList.add("image");
-
-    var image = document.createElement("img");
-    image.src = pokemon.sprites.other["official-artwork"].front_default;
-    image.alt = "Lo siento, el pokemon no ha sido encontrado :(";
-
-    image.addEventListener("mouseover", () => {
-        image.style.filter = `drop-shadow(0 0 15px var(--${pokemon.types[0].type.name}))`;
-    })
-    image.addEventListener("mouseout", () => {
-        image.style.filter = `none`;
-    })
-
-    var name = document.createElement("div");
-    name.classList.add("name");
-    name.innerHTML = pokemon.name;
-
-    var types = document.createElement("div");
-    types.classList.add("types");
-
-    document.getElementById("mega").appendChild(poke);
-    poke.appendChild(divImage);
-    poke.appendChild(name);
-    poke.appendChild(types);
-    divImage.appendChild(image);
-    comprobarTipos(pokemon);*/
 }
 
 function changeInfo() {
@@ -477,7 +456,7 @@ function changeInfo() {
     }
 }
 
-function pokemonValues(pokemon) {
+async function pokemonValues(pokemon) {
     var listStats = document.getElementById("stats");
     listStats.style.backgroundColor = `var(--${pokemon.types[0].type.name})`;
 
@@ -485,21 +464,21 @@ function pokemonValues(pokemon) {
     var statsNumber = document.getElementsByClassName("stats-number");
 
     for (var i = 0; i < pokemon.stats.length; i++) {
-        statsProgress[i].value = pokemon.stats[i].base_stat;
-        statsNumber[i].innerHTML = pokemon.stats[i].base_stat;
+        statsProgress[i].value = await pokemon.stats[i].base_stat;
+        statsNumber[i].innerHTML = await pokemon.stats[i].base_stat;
     }
 }
 
 var shiny;
 
-function changeShiny(pokemon) {
+async function changeShiny(pokemon) {
     var contentImage = document.getElementById("pokemonimage");
 
     if (shiny) {
-        contentImage.setAttribute("src", pokemon.sprites.other["official-artwork"].front_default);
+        await contentImage.setAttribute("src", pokemon.sprites.other["official-artwork"].front_default);
         shiny = false;
     } else {
-        contentImage.setAttribute("src", pokemon.sprites.other["official-artwork"].front_shiny);
+        await contentImage.setAttribute("src", pokemon.sprites.other["official-artwork"].front_shiny);
         shiny = true;
     }
 }

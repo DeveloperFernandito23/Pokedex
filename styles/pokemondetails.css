@@ -8,17 +8,21 @@ body {
     align-items: center;
     justify-content: space-between;
     background-color: #333;
-    padding: 20px;
-    padding-bottom: 57px;
-    align-items: flex-start;
+    flex-wrap: wrap;
 }
 
 #pokemon {
     margin: auto;
-    max-width: 500px;
+    margin-top: -25px;
+    height: auto;
+    width: auto;
 }
 
 #evolution-chain {
+    background-image: url("../img/fondo.png");
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
     display: none;
     grid-template-columns: repeat(auto-fill, minmax(15vw, 200px));
     gap: 4vw;
@@ -40,23 +44,32 @@ body {
     text-decoration: none;
 }
 
-#main-page{
-    display: grid;
-    grid-template-columns: max-content auto;
-    gap: 2vw;
+.menu {
+    padding: 30px;
 }
 
-#details{
+#options {
+    position: absolute;
+    right: 20px;
+}
+
+#main-page {
+    display: grid;
+    grid-template-columns: max-content auto;
+    padding-bottom: 100px;
+    height: 90vh;
+}
+
+#details {
+    text-align: center;
+    justify-content: center;
     background-color: var(--background-color);
     color: var(--text-color);
     font-weight: var(--bold);
     border: 3px var(--text-color) solid;
     border-radius: 15px;
-    font-size: 35px;
     padding: 5px;
-    width: 10vw;
     margin: auto;
-    max-width: 500px;
     transition: all 1s ease-in-out;
 }
 
@@ -139,7 +152,7 @@ body {
     transition: all 1s ease-in-out;
 }
 
-#meters{
+#meters {
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
@@ -155,14 +168,14 @@ body {
 
 #stats {
     display: grid;
-    grid-template-columns: min-content min-content auto;
+    grid-template-columns: 1fr 0.25fr 0.5fr;
     align-items: center;
     font-weight: var(--bold);
     color: var(--text-color);
     padding: 15px;
     white-space: nowrap;
     margin-top: 20px;
-    gap: 5px 80px;
+    gap: 15px 35px;
     border: 3px var(--background-color) solid;
     border-radius: 30px;
     transition: all 1s ease-in-out;

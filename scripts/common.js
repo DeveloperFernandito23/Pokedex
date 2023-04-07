@@ -35,6 +35,7 @@ compruebaTema(); // Lo primero que hace es comprobar el tema activo y lo ajusta 
 
 function comprobarTipos(pokemon) {
     var tipos = document.getElementsByClassName("types");
+    tipos[0].innerHTML = "";
 
     for(var i = 0; i < pokemon.types.length;i++){
         var tipo = document.createElement("div");

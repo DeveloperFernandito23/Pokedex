@@ -16,15 +16,6 @@ body {
     height: 150px;
 }
 
-.menu {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-between;
-    background-color: #333333;
-    padding: 20px;
-}
-
 #demo {
     display: grid;
     /* grid-template-columns: repeat( auto-fill, minmax(15vw, 200px) ); */
