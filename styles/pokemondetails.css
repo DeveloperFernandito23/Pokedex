@@ -25,9 +25,14 @@ footer{
 
 #evolution-chain {
     display: none;
-    grid-template-columns: repeat(auto-fill, minmax(15vw, 200px));
+}
+
+#evolution-pokemons {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(15vw, 200px));
     gap: 4vw;
     margin: 10vw;
+    margin-top: 0;
     justify-content: center;
 }
 
@@ -39,6 +44,11 @@ footer{
     box-shadow: 0px 0px 10px black;
     width: 100%;
     height: 100%;
+}
+
+.evolution-trigger {
+    color: red;
+    border: 3px white solid;
 }
 
 #evolution-chain a {
@@ -71,10 +81,6 @@ footer{
     border: 3px var(--text-color) solid;
     border-radius: 15px;
     transition: all 1s ease-in-out;
-}
-
-
-#pokemon {
 }
 
 #pokemon-header {
@@ -208,17 +214,10 @@ footer{
     display: grid;
     grid-template-rows: repeat(auto-fill, 200px);
     padding: 5px;
-    width: 500px;
-    height: 500px;
     color: var(--text-color);
     background-color: var(--background-color);
     border: 3px var(--text-color) solid;
     border-radius: 15px;
-}
-
-.evolution-trigger {
-    color: red;
-    border: 3px white solid;
 }
 
 #close {

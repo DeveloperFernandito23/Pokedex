@@ -6,7 +6,7 @@ body {
     margin: auto;
 }
 
-#font-type,
+.font-type,
 #loading-footer {
     background-color: rgb(135, 33, 15);
     transition: all .5s ease-in-out;

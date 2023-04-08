@@ -54,7 +54,7 @@ a {
     text-decoration: none;
 }
 
-#font-type {
+.font-type {
     font-family: "Pokemon Solid";
     text-align: center;
     color: #FFCB05;

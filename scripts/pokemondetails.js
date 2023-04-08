@@ -1,3 +1,10 @@
+var seeMoreCount = 0;
+var varietyDefault;
+var varietyCount;
+var shiny;
+
+changeInfo();
+
 async function givePokemonDetails(id) {
     var response = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}/`);
     var object = await response.json();
@@ -13,8 +20,6 @@ async function evolutionChain(pokemon) {
 
     return object;
 }
-
-var varietyDefault;
 
 async function pokemonDetails() {
     var parameters = window.location.search;
@@ -44,8 +49,6 @@ async function pokemonDetails() {
     document.title = `${pokemon.species.name[0].toUpperCase() + pokemon.species.name.slice(1)} | Pokédex`;
 }
 
-changeInfo();
-
 async function makeChain(pokemon, evolution) {
     var chain = evolution.chain;
     var numberEvolutions = chain.evolves_to.length;
@@ -69,14 +72,12 @@ async function makeChain(pokemon, evolution) {
     }
 }
 
-var seeCount = 0;
-
 async function makeChainData(thisPokemon, chain) {
     var id = chain.species.url.split("/")[6];
 
     var pokemon = await givePokemonDetails(id);
 
-    var chainSpace = document.getElementById("evolution-chain");
+    var chainSpace = document.getElementById("evolution-pokemons");
 
     var link = document.createElement("a");
     link.href = `pokemon.html?numero=${id}`;
@@ -128,7 +129,7 @@ async function makeChainData(thisPokemon, chain) {
             trigger.innerHTML = check;
 
         } else {
-            seeCount++;
+            seeMoreCount++;
             seeMore(pokemon, chain);
         }
     }
@@ -140,7 +141,7 @@ function seeMore(pokemon, chain) {
 
     var see = document.getElementsByClassName("click-here");
 
-    if (see.length < seeCount) {
+    if (see.length < seeMoreCount) {
         var button = document.createElement("a");
 
         button.classList.add("click-here");
@@ -331,7 +332,7 @@ function makeData(pokemon) {
     }
 
     var number = document.getElementById("number");
-    var pokemonName = document.getElementById("font-type");
+    var pokemonName = document.getElementsByClassName("font-type")[0];
     var weight = document.getElementById("kilos");
     var height = document.getElementById("meters");
 
@@ -377,15 +378,13 @@ async function changeImage(pokemon) {
     contentImage.alt = "Lo siento, el pokemon no ha sido encontrado :(";
 }
 
-var varietyCount;
-
 async function pokemonVarieties(pokemon) {
     var species = await givePokemonSpecie(pokemon);
 
-    var seeCount = species.varieties.length;
+    var seeMoreCount = species.varieties.length;
     var varieties = [];
 
-    for (var i = 0; i < seeCount; i++) {
+    for (var i = 0; i < seeMoreCount; i++) {
         varieties.push(species.varieties[i].pokemon.url);
     }
 
@@ -446,8 +445,6 @@ async function pokemonValues(pokemon) {
         statsNumber[i].innerHTML = await pokemon.stats[i].base_stat;
     }
 }
-
-var shiny;
 
 async function changeShiny(pokemon) {
     var contentImage = document.getElementById("pokemonimage");
