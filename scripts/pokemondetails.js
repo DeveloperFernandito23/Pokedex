@@ -169,10 +169,13 @@ function clickScreen(pokemon, chain) {
         console.log(detail);
     }
 
-    var close = document.createElement("img");
+    var close = document.createElement("div");
+
+    var image = document.createElement("img");
     close.setAttribute("id", "close");
 
     screen.appendChild(close);
+    close.appendChild(image);
 
     closeScreen();
 }
@@ -191,7 +194,7 @@ function checkTrigger(pokemon, details) {
         other: other(pokemon),
         trade: trade(details),
         "level-up": levelUp(pokemon, details),
-        spin: "Girar Personaje\nDar Confite",
+        spin: "Dar Confite Y Girar Personaje",
         "tower-of-waters": "Ganar Torre De Agua",
         "tower-of-darkness": "Ganar Torre De Oscuridad",
         "three-critical-hits": "Realizar 3 Ataques Críticos",
@@ -383,25 +386,17 @@ async function pokemonVarieties(pokemon) {
     var varieties = [];
 
     for (var i = 0; i < seeCount; i++) {
-        if (i != 0) {
-            varieties.push(species.varieties[i].pokemon.url);
-        }
+        varieties.push(species.varieties[i].pokemon.url);
     }
 
-    if (varieties.length != 0) {
+    if (varieties.length > 1) {
         var mainPage = document.getElementsByClassName("menu")[0];
         var button = document.createElement("select");
-        var option = document.createElement("option")
 
         button.setAttribute("id", "options");
         button.addEventListener("change", () => makeData(button.value));
 
-        option.value = JSON.stringify(varietyDefault);
-        option.innerHTML = pokemon.name[0].toUpperCase() + pokemon.name.slice(1);
-
         mainPage.appendChild(button);
-
-        button.appendChild(option);
 
         for (var i = 0; i < varieties.length; i++) {
             var response = await fetch(varieties[i]);

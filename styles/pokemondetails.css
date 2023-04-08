@@ -2,6 +2,11 @@ body {
     background-color: rgb(135, 33, 15);
 }
 
+footer{
+    background-color: #333;
+    padding: 20px;
+}
+
 #top-page {
     background-color: #333;
     display: flex;
@@ -11,18 +16,14 @@ body {
     flex-wrap: wrap;
 }
 
-#pokemon {
-    margin: auto;
-    margin-top: -25px;
-    height: auto;
+#main-title{
+    display: flex;
     width: auto;
+    height: auto;
+    justify-content: center;
 }
 
 #evolution-chain {
-    background-image: url("../img/fondo.png");
-    background-size: contain;
-    background-position: center;
-    background-repeat: no-repeat;
     display: none;
     grid-template-columns: repeat(auto-fill, minmax(15vw, 200px));
     gap: 4vw;
@@ -45,8 +46,7 @@ body {
 }
 
 .menu {
-    padding: 30px;
-    padding-bottom: 40px;
+    padding: 40px;
 }
 
 #options {
@@ -56,21 +56,25 @@ body {
 
 #main-page {
     display: flex;
-    /* padding-bottom: 100px; */
-    /* height: 90vh; */
 }
 
 #details {
-    text-align: center;
-    justify-content: center;
+    flex-basis: 32vw;
+    margin-left: 1vw;
+    margin-top: 25vh;
+    width: max-content;
+    height: max-content;
+    padding: 5px;
     background-color: var(--background-color);
     color: var(--text-color);
     font-weight: var(--bold);
     border: 3px var(--text-color) solid;
     border-radius: 15px;
-    padding: 5px;
-    margin: auto;
     transition: all 1s ease-in-out;
+}
+
+
+#pokemon {
 }
 
 #pokemon-header {
@@ -145,8 +149,6 @@ body {
     padding-left: 15px;
     padding-right: 15px;
     padding-bottom: 30px;
-    max-width: 7.7vw;
-    min-width: 1.5vw;
     font-weight: var(--bold);
     color: var(--text-color);
     transition: all 1s ease-in-out;
@@ -202,10 +204,13 @@ body {
 }
 
 #screen {
+    position: relative;
     display: grid;
     grid-template-rows: repeat(auto-fill, 200px);
+    padding: 5px;
     width: 500px;
     height: 500px;
+    color: var(--text-color);
     background-color: var(--background-color);
     border: 3px var(--text-color) solid;
     border-radius: 15px;
@@ -217,11 +222,12 @@ body {
 }
 
 #close {
-    background: url(../img/close.png) no-repeat;
+    position: absolute;
+    top: -12px;
+    right: -10px;
+    background-image: url(../img/close.png);
     width: 26px;
     height: 26px;
-    top: -9px;
-    right: -9px;
     cursor: pointer;
 }
 
