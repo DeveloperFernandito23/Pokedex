@@ -38,11 +38,13 @@ body {
 body[theme="dark"] {
     --background-color: black;
     --text-color: white;
+    --hover-color: ;
 }
 
 body[theme="light"] {
     --background-color: white;
     --text-color: black;
+    --hover-color: ;
 }
 
 a {
@@ -65,7 +67,7 @@ a {
 }
 
 body {
-    /* background-color: var(--background-color); Lo comento de momento porque en teoría no queremos fondo negro */
+    /*background-color: var(--background-color); Lo comento de momento porque en teoría no queremos fondo negro */
     transition: all 1s ease-in-out;
 }
 
@@ -90,6 +92,8 @@ body {
 
 img {
     vertical-align: middle;
+    /*transition: all 1s ease-in-out; Lo comento porque estaría bien que tuviese una transición a la hora de que saliese el color de los textos, pero al ponerlo, también se aplica al hover*/
+    color: var(--text-color);
 }
 
 .name:first-letter {
@@ -120,15 +124,15 @@ option{
 }
 
 .poke {
-    /*background-color: rgb(255, 255, 255); */
+    /*background-color: rgb(255, 255, 255);*/
     text-align: center;
     padding: 10px;
     font-size: 1.5rem;
+    font-weight: var(--bold);
     border-radius: 55px;
     box-shadow: 0px 0px 10px black;
     width: 100%;
     height: 100%;
-    color: var(--text-color);
     background-color: var(--background-color);
     transition: all 1s ease-in-out;
 }

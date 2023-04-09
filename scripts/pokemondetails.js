@@ -103,11 +103,11 @@ async function makeChainData(thisPokemon, chain) {
     pokemonName.classList.add("name");
 
     if (chain.species.name == thisPokemon.species.name) {
-        pokemonName.innerHTML = `*${chain.species.name}*`;
-        link.style.color = "black";
+        link.style.color = "var(--text-color)";
+        pokemonName.innerHTML = chain.species.name.italics();
     } else {
-        pokemonName.innerHTML = chain.species.name;
         link.style.color = `var(--${pokemon.types[0].type.name})`;
+        pokemonName.innerHTML = chain.species.name;
     }
 
     chainSpace.appendChild(link);
@@ -148,10 +148,23 @@ function seeMore(pokemon, chain) {
         button.setAttribute("href", "#evolution-trigger");
         button.innerHTML = "VER MÁS";
 
+        hoverSeeMore(evolutionTrigger);
+
         evolutionTrigger.appendChild(button);
 
         button.addEventListener("click", () => clickScreen(pokemon, chain));
     }
+}
+
+function hoverSeeMore(evolutionTrigger){
+    evolutionTrigger.addEventListener("mouseover", () => {
+        evolutionTrigger.style.backgroundColor = "var(--text-color)";
+        evolutionTrigger.style.color = "var(--background-color)";
+    });
+    evolutionTrigger.addEventListener("mouseout", () => {
+        evolutionTrigger.style.backgroundColor = "transparent";
+        evolutionTrigger.style.color = "var(--text-color)";
+    });
 }
 
 function clickScreen(pokemon, chain) {
@@ -161,13 +174,19 @@ function clickScreen(pokemon, chain) {
     var screen = document.getElementById("screen");
     screen.innerHTML = "";
 
-    for (var i = 0; i < chain.evolution_details.length; i++) {
+    var length = chain.evolution_details.length;
+
+    for (var i = 0; i < length; i++) {
         var detail = document.createElement("div");
+        var line = document.createElement("hr");
 
         detail.innerHTML = checkTrigger(pokemon, chain.evolution_details[i]);
 
         screen.appendChild(detail);
-        console.log(detail);
+        
+        if(i != length - 1){
+            screen.appendChild(line);
+        }
     }
 
     var close = document.createElement("div");
@@ -211,19 +230,6 @@ function checkTrigger(pokemon, details) {
 
     return TipeTrigger[trigger];
 }
-
-function trade(details) {
-    var trigger = "Trade";
-
-    if (details.held_item != null) {
-        trigger = `Trade Con ${details.held_item.name[0].toUpperCase() + details.held_item.name.slice(1)} Equipado`;
-    } else if (details.trade_species != null) {
-        trigger = `Trade Con ${details.trade_species.name[0].toUpperCase() + details.trade_species.name.slice(1)}`;
-    }
-
-    return trigger;
-}
-
 function other(pokemon) {
     var trigger;
 
@@ -241,6 +247,18 @@ function other(pokemon) {
     trigger = pokemon.species.name;
 
     return Names[trigger];
+}
+
+function trade(details) {
+    var trigger = "Trade";
+
+    if (details.held_item != null) {
+        trigger = `Trade Con ${details.held_item.name[0].toUpperCase() + details.held_item.name.slice(1)} Equipado`;
+    } else if (details.trade_species != null) {
+        trigger = `Trade Con ${details.trade_species.name[0].toUpperCase() + details.trade_species.name.slice(1)}`;
+    }
+
+    return trigger;
 }
 
 function levelUp(pokemon, details) {
@@ -446,14 +464,14 @@ async function pokemonValues(pokemon) {
     }
 }
 
-async function changeShiny(pokemon) {
+function changeShiny(pokemon) {
     var contentImage = document.getElementById("pokemonimage");
 
     if (shiny) {
-        await contentImage.setAttribute("src", pokemon.sprites.other["official-artwork"].front_default);
+        contentImage.setAttribute("src", pokemon.sprites.other["official-artwork"].front_default);
         shiny = false;
     } else {
-        await contentImage.setAttribute("src", pokemon.sprites.other["official-artwork"].front_shiny);
+        contentImage.setAttribute("src", pokemon.sprites.other["official-artwork"].front_shiny);
         shiny = true;
     }
 }

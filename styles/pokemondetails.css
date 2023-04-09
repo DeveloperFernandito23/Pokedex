@@ -2,7 +2,7 @@ body {
     background-color: rgb(135, 33, 15);
 }
 
-footer{
+footer {
     background-color: #333;
     padding: 20px;
 }
@@ -16,7 +16,7 @@ footer{
     flex-wrap: wrap;
 }
 
-#main-title{
+#main-title {
     display: flex;
     width: auto;
     height: auto;
@@ -47,12 +47,11 @@ footer{
 }
 
 .evolution-trigger {
-    color: red;
-    border: 3px white solid;
-}
-
-#evolution-chain a {
-    text-decoration: none;
+    color: var(--text-color);
+    font-weight: var(--bold);
+    border: 3px var(--text-color) solid;
+    margin-top: 2px;
+    border-radius: 15px;
 }
 
 .menu {
@@ -81,6 +80,10 @@ footer{
     border: 3px var(--text-color) solid;
     border-radius: 15px;
     transition: all 1s ease-in-out;
+}
+
+#pokemon{
+    margin-top: -30px;
 }
 
 #pokemon-header {
@@ -211,11 +214,10 @@ footer{
 
 #screen {
     position: relative;
-    display: grid;
-    grid-template-rows: repeat(auto-fill, 200px);
     padding: 5px;
     color: var(--text-color);
     background-color: var(--background-color);
+    font-weight: var(--bold);
     border: 3px var(--text-color) solid;
     border-radius: 15px;
 }

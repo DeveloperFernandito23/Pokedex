@@ -18,7 +18,7 @@ var TiposPokemon = {
     fairy: "Hada",
     steel: "Acero",
     dark: "Siniestro"
-}; 
+};
 var Generaciones = {
     1: "Primera",
     2: "Segunda",
@@ -29,15 +29,18 @@ var Generaciones = {
     7: "Séptima",
     8: "Octava",
     9: "Novena"
-}; 
+};
 
 compruebaTema(); // Lo primero que hace es comprobar el tema activo y lo ajusta a cual sea el elegido
 
 function comprobarTipos(pokemon) {
     var tipos = document.getElementsByClassName("types");
-    tipos[0].innerHTML = "";
 
-    for(var i = 0; i < pokemon.types.length;i++){
+    if (tipos.length == 1) {
+        tipos[0].innerHTML = "";
+    }
+
+    for (var i = 0; i < pokemon.types.length; i++) {
         var tipo = document.createElement("div");
         tipo.classList.add("type");
 
@@ -58,15 +61,15 @@ async function givePokemonSpecie(pokemon) {
     return object;
 }
 
-function compruebaTema(){
+function compruebaTema() {
     const bodyAttributes = document.getElementsByTagName("body")[0];
     const slider = document.getElementById("slide");
 
-    if(localStorage.getItem('oscuro') == "true"){ // cuando está enabled me llama a cambiar el tema
+    if (localStorage.getItem('oscuro') == "true") { // cuando está enabled me llama a cambiar el tema
         bodyAttributes.attributes.theme.nodeValue = "light";
         slider.checked = false;
     }
-    else{
+    else {
         bodyAttributes.attributes.theme.nodeValue = "dark";
         slider.checked = true;
     }
@@ -78,10 +81,10 @@ function changeTheme() {
 
     const localValue = localStorage.getItem('oscuro');
 
-    if(localValue == "true"){
+    if (localValue == "true") {
         localStorage.setItem('oscuro', false);
     }
-    else{
+    else {
         localStorage.setItem('oscuro', true);
     }
 

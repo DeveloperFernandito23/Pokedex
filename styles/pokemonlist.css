@@ -29,8 +29,6 @@ body {
     /* vw para que sea más responsivo, es una unidad de medida relativa */
 }
 
-
-
 .alert {
     background-color: #f44336;
     color: rgb(255, 255, 255);
@@ -378,4 +376,8 @@ span {
     }
 
     
+}
+
+.poke{
+    color: var(--text-color);
 }
