@@ -5,18 +5,26 @@ var shiny;
 
 async function givePokemonDetails(id) {
     var response = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}/`);
-    var object = await response.json();
+    var data = await response.json();
 
-    return object;
+    return data;
 }
 
 async function evolutionChain(pokemon) {
     var species = await givePokemonSpecie(pokemon)
 
     var response = await fetch(species.evolution_chain.url);
-    var object = await response.json();
+    var data = await response.json();
 
-    return object;
+    return data;
+}
+
+async function giveItem(urlItem) {
+    var response = await fetch(urlItem);
+    var data = await response.json();
+    var itemName = translateItem(data);
+
+    return itemName;
 }
 
 async function pokemonDetails() {
@@ -124,7 +132,7 @@ async function makeChainData(thisPokemon, chain) {
         element.appendChild(trigger);
 
         if (length == 1) {
-            var check = checkTrigger(pokemon, chain.evolution_details[0]);
+            var check = await checkTrigger(pokemon, chain.evolution_details[0]);
 
             trigger.innerHTML = check;
 
@@ -209,7 +217,7 @@ function closeScreen() {
     });
 }
 
-function checkTrigger(pokemon, details) {
+async function checkTrigger(pokemon, details) {
     var TipeTrigger = {
         other: other(pokemon),
         trade: trade(details),
@@ -223,12 +231,13 @@ function checkTrigger(pokemon, details) {
         shed: "Al Evolucionar A Ninjask Aparecerá Si Hay Espacio Libre En El Equipo",
         "agile-style-move": `Utilizar ${details.known_move?.name[0].toUpperCase() + details.known_move?.name.slice(1)} 20 Veces En Estilo Rápido`,
         "strong-style-move": `Utilizar ${details.known_move?.name[0].toUpperCase() + details.known_move?.name.slice(1)} 20 Veces En Estilo Fuerte`,
-        "use-item": `Usar => ${details.item?.name[0].toUpperCase() + details.item?.name.slice(1)}\n` + (details.gender ? details.gender == 1 ? `Debe Ser Hembra` : `Debe Ser Macho` : ""),
+        "use-item": await useItem(details),
     }
 
     var trigger = details.trigger.name;
+    var joi = TipeTrigger[trigger];
 
-    return TipeTrigger[trigger];
+    return joi;
 }
 function other(pokemon) {
     var trigger;
@@ -327,6 +336,31 @@ function levelUp(pokemon, details) {
     }
 
     return trigger;
+}
+
+async function useItem(details){
+    if(details.item != null){
+        var itemName = await giveItem(details.item?.url);
+
+        var trigger = `Usar => ${itemName}\n` + (details.gender ? details.gender == 1 ? `Debe Ser Hembra` : `Debe Ser Macho` : "");
+    }
+
+    return trigger;
+}
+
+function translateItem(item){
+    var length = item.names.length;
+    var spanish = false;
+    var itemName;
+
+    for(var i = 0; !spanish && i < length; i++){
+        if(item.names[i].language.name == "es"){
+            spanish = true;
+            itemName = item.names[i].name;
+        }
+    }
+
+    return itemName;
 }
 
 async function detailsPokemon(pokemon) {

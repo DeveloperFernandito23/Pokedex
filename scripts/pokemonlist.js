@@ -254,8 +254,8 @@ function mostrar() {
 
 var show = true;
 const element = document.getElementById("type");
-element.addEventListener("click", function () {
-    if (document.getElementById("myBtnContainer").style.display != "none" || document.getElementById("myBtnContainerGen").style.display != "none") {
+element.addEventListener("click", () => {
+    if (document.getElementById("myBtnContainer").style.display != "" || document.getElementById("myBtnContainerGen").style.display != "") {
         resetFilters();
     }
 
@@ -276,8 +276,8 @@ element.addEventListener("click", function () {
 });
 var show2 = true;
 const element1 = document.getElementById("gen");
-element1.addEventListener("click", function () {
-    if (document.getElementById("myBtnContainerGen").style.display != "none" || document.getElementById("myBtnContainer").style.display != "none") {
+element1.addEventListener("click", () => {
+    if (document.getElementById("myBtnContainerGen").style.display != "" || document.getElementById("myBtnContainer").style.display != "") {
         resetFilters();
     }
 
