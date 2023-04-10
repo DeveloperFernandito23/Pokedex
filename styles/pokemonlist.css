@@ -1,3 +1,4 @@
+
 body {
     background-image: url(../img/background.jpg);
     background-repeat: no-repeat;
@@ -187,15 +188,20 @@ span {
     align-items: center;
 }
 #filter {
-    background-image: url("https://cdn-icons-png.flaticon.com/512/3839/3839020.png");
+    background-image: url(../img/filterblack.png);
     background-color: transparent;
     background-size: 100%;
     width: 20px;
     height: 20px;
     border: none;
     cursor: pointer;
+    transition: all 1s ease-in-out;
+    filter: drop-shadow(0px 0px 2px white);
 }
-
+body[theme="light"] #filter{
+    background-image: url(../img/filterwhite.png);
+    transition: all 1s ease-in-out;
+}
 .filter-options {
     opacity: 0;
     display: none;

@@ -167,6 +167,7 @@ async function givePokemons() { //NEVER TOUCH
     crearBotonesGen();
     demo = document.getElementById("demo");
     content = demo.innerHTML;
+    filterSelectionGen(1);
 }
 
 function buscarPokemons(valor) {
@@ -249,7 +250,7 @@ function mostrar() {
 var show = true;
 const element = document.getElementById("type");
 element.addEventListener("click", function () {
-    if(document.getElementById("myBtnContainer").style.display != "none" || document.getElementById("myBtnContainerGen").style.display != "none"){
+    if (document.getElementById("myBtnContainer").style.display != "none" || document.getElementById("myBtnContainerGen").style.display != "none") {
         resetFilters();
     }
 
@@ -271,7 +272,7 @@ element.addEventListener("click", function () {
 var show2 = true;
 const element1 = document.getElementById("gen");
 element1.addEventListener("click", function () {
-    if(document.getElementById("myBtnContainerGen").style.display != "none" || document.getElementById("myBtnContainer").style.display != "none"){
+    if (document.getElementById("myBtnContainerGen").style.display != "none" || document.getElementById("myBtnContainer").style.display != "none") {
         resetFilters();
     }
 
@@ -289,9 +290,9 @@ element1.addEventListener("click", function () {
         document.getElementById("prueba").style.opacity = "0";
         show2 = true;
     }
-
+    document.getElementsByClassName("btn-gen")[0].classList.add("active");
 });
-function resetFilters(){
+function resetFilters() {
     demo.innerHTML = content;
     removeClass("active");
     showAlert();
@@ -300,7 +301,7 @@ function resetFilters(){
 function showAlert() {
     var alertBox = document.getElementById("myAlert");
     alertBox.classList.add("show");
-    setTimeout(function() {
-      alertBox.classList.remove("show");
+    setTimeout(function () {
+        alertBox.classList.remove("show");
     }, 3000); // Oculta la alerta después de 3 segundos
-  }
+}
