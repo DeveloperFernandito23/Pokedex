@@ -214,7 +214,7 @@ footer {
 
 #screen {
     position: relative;
-    padding: 5px;
+    padding: 10px;
     color: var(--text-color);
     background-color: var(--background-color);
     font-weight: var(--bold);

@@ -188,7 +188,12 @@ function buscarPokemons(valor) {
 
 async function crearPokemon(pokemon) {
     var enlace = document.createElement("a");
-    enlace.href = `html/pokemon.html?numero=${pokemon.id}`
+    enlace.classList.add(`link-${pokemon.id}`);
+    enlace.href = `html/pokemon.html?numero=${pokemon.id}`;
+
+    enlace.addEventListener("click", () => {
+        sessionStorage.setItem("position", pokemon.id);
+    })
 
     var bicho = document.createElement("div");
     bicho.classList.add("poke");
@@ -304,4 +309,20 @@ function showAlert() {
     setTimeout(function () {
         alertBox.classList.remove("show");
     }, 3000); // Oculta la alerta después de 3 segundos
+  }
+
+function restorePosition(){
+    var position = sessionStorage.getItem("position");
+    var poke = document.getElementsByClassName(`link-${position}`)[0];
+
+    if(position != null){
+        poke.scrollIntoView({
+            behavior: 'smooth'
+        });
+    }
+}
+
+async function startPokedex(){
+    await givePokemons();
+    await restorePosition();
 }
