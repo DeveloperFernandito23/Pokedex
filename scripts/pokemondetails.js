@@ -3,8 +3,6 @@ var varietyDefault;
 var varietyCount;
 var shiny;
 
-changeInfo();
-
 async function givePokemonDetails(id) {
     var response = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}/`);
     var object = await response.json();
@@ -29,6 +27,8 @@ async function pokemonDetails() {
     var number = newUrl.get('numero');
 
     compruebaTema();
+
+    changeInfo();
 
     var pokemon = await givePokemonDetails(number);
 
@@ -156,7 +156,7 @@ function seeMore(pokemon, chain) {
     }
 }
 
-function hoverSeeMore(evolutionTrigger){
+function hoverSeeMore(evolutionTrigger) {
     evolutionTrigger.addEventListener("mouseover", () => {
         evolutionTrigger.style.backgroundColor = "var(--text-color)";
         evolutionTrigger.style.color = "var(--background-color)";
@@ -183,8 +183,8 @@ function clickScreen(pokemon, chain) {
         detail.innerHTML = checkTrigger(pokemon, chain.evolution_details[i]);
 
         screen.appendChild(detail);
-        
-        if(i != length - 1){
+
+        if (i != length - 1) {
             screen.appendChild(line);
         }
     }
