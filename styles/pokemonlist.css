@@ -212,6 +212,7 @@ body[theme="light"] #filter{
     box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
     padding: 12px 16px;
     transition: opacity 0.3s ease, transform 0.3s ease;
+    font-weight: var(--bold);
 }
 
 .filter-options.show {

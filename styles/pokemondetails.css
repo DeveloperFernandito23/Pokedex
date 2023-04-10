@@ -52,6 +52,7 @@ footer {
     border: 3px var(--text-color) solid;
     margin-top: 2px;
     border-radius: 15px;
+    padding: 5px;
 }
 
 .menu {

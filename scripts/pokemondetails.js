@@ -27,6 +27,14 @@ async function giveItem(urlItem) {
     return itemName;
 }
 
+async function giveLocation(urlLocation){
+    var response = await fetch(urlLocation);
+    var data = await response.json();
+    var locationName = translateItem(data);
+
+    return locationName;
+}
+
 async function pokemonDetails() {
     var parameters = window.location.search;
 
@@ -175,7 +183,7 @@ function hoverSeeMore(evolutionTrigger) {
     });
 }
 
-function clickScreen(pokemon, chain) {
+async function clickScreen(pokemon, chain) {
     var seeMore = document.getElementById("see-more");
     seeMore.style.display = "flex";
 
@@ -188,7 +196,7 @@ function clickScreen(pokemon, chain) {
         var detail = document.createElement("div");
         var line = document.createElement("hr");
 
-        detail.innerHTML = checkTrigger(pokemon, chain.evolution_details[i]);
+        detail.innerHTML = await checkTrigger(pokemon, chain.evolution_details[i]);
 
         screen.appendChild(detail);
 
@@ -221,7 +229,7 @@ async function checkTrigger(pokemon, details) {
     var TipeTrigger = {
         other: other(pokemon),
         trade: trade(details),
-        "level-up": levelUp(pokemon, details),
+        "level-up": await levelUp(pokemon, details),
         spin: "Dar Confite Y Girar Personaje",
         "tower-of-waters": "Ganar Torre De Agua",
         "tower-of-darkness": "Ganar Torre De Oscuridad",
@@ -235,9 +243,8 @@ async function checkTrigger(pokemon, details) {
     }
 
     var trigger = details.trigger.name;
-    var joi = TipeTrigger[trigger];
 
-    return joi;
+    return TipeTrigger[trigger];
 }
 function other(pokemon) {
     var trigger;
@@ -270,7 +277,7 @@ function trade(details) {
     return trigger;
 }
 
-function levelUp(pokemon, details) {
+async function levelUp(pokemon, details) {
     var trigger;
 
     var name = pokemon.species.name;
@@ -303,8 +310,10 @@ function levelUp(pokemon, details) {
         details.relative_physical_stats || details.relative_physical_stats == 0 ? trigger += `${StatsNumbers[details.relative_physical_stats]}\n` : trigger;
     } else {
         trigger = "Subir Nivel\n"
-
+        
         details.min_beauty ? trigger += `Belleza => ${details.min_beauty}\n` : trigger;
+
+        details.min_affection ? trigger += `Amistad => ${details.min_affection}\n` : trigger;
 
         details.min_happiness ? trigger += `Felicidad => ${details.min_happiness}\n` : trigger;
 
@@ -331,7 +340,7 @@ function levelUp(pokemon, details) {
                 trigger += "Cerca De Roca Hielo";
             }
         } else {
-            trigger += `En ${details.location.name[0].toUpperCase() + details.location.name.slice(1)}\n`;
+            trigger += `En ${await giveLocation(details.location.url)}\n`;
         }
     }
 
@@ -351,13 +360,24 @@ async function useItem(details){
 function translateItem(item){
     var length = item.names.length;
     var spanish = false;
+    var english;
     var itemName;
 
     for(var i = 0; !spanish && i < length; i++){
-        if(item.names[i].language.name == "es"){
+        var name = item.names[i].language.name;
+
+        if(name == "es"){
             spanish = true;
             itemName = item.names[i].name;
         }
+
+        if(name == "en"){
+            english = item.names[i].name;
+        }
+    }
+
+    if(!spanish){
+        itemName = english;
     }
 
     return itemName;
