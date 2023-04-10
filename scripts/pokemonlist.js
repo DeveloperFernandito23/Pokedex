@@ -7,6 +7,14 @@ function crearBotones() {
         let count = 0;
         const types = document.getElementById("myBtnContainer");
         var btn = document.createElement("button");
+
+        btn.addEventListener("mouseover", () => {
+            btn.style.backgroundColor = `var(--${type})`;
+        })
+        btn.addEventListener("mouseout", () => {
+            btn.style.backgroundColor = "#f1f1f1";
+        })
+
         btn.classList.add("btn");
         btn.setAttribute("onclick", `filterSelection("${type}")`)
         btn.innerHTML = TiposPokemon[type];
@@ -18,8 +26,9 @@ function crearBotonesGen() {
     Object.keys(Generaciones).forEach(gen => {
         const gene = document.getElementById("myBtnContainerGen");
         var btn = document.createElement("button");
+        
         btn.classList.add("btn-gen");
-        btn.setAttribute("onclick", `filterSelectionGen("${gen}")`)
+        btn.setAttribute("onclick", `filterSelectionGen("${gen}")`);
         btn.innerHTML = Generaciones[gen];
         gene.appendChild(btn);
     });
