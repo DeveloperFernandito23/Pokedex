@@ -93,6 +93,8 @@ async function givePokemonGeneration(pokemon) {
 function orderBy(value) {
     var lista = pokemons.slice();
 
+    showAlert();
+
     switch (value) {
         case "opt1":
             document.getElementById("demo").innerHTML = "";
