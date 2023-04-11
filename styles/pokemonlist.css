@@ -259,8 +259,8 @@ body[theme="light"] #filter{
 
 .btn.active,
 .btn-gen.active {
-    background-color: #666;
-    color: white;
+    background-color: #66666681;
+    color: rgb(172, 0, 0);
 }
 
 #myBtnContainer,
