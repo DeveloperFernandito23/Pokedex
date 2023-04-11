@@ -176,7 +176,6 @@ async function givePokemons() { //NEVER TOUCH
     crearBotonesGen();
     demo = document.getElementById("demo");
     content = demo.innerHTML;
-    filterSelectionGen(1);
 }
 
 function buscarPokemons(valor) {
