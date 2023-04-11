@@ -27,7 +27,7 @@ async function giveItem(urlItem) {
     return itemName;
 }
 
-async function giveLocation(urlLocation){
+async function giveLocation(urlLocation) {
     var response = await fetch(urlLocation);
     var data = await response.json();
     var locationName = translateItem(data);
@@ -48,6 +48,8 @@ async function pokemonDetails() {
 
     var pokemon = await givePokemonDetails(number);
 
+    var specie = await givePokemonSpecie(pokemon);
+
     var evolution = await evolutionChain(pokemon);
 
     chooseFavicon(pokemon);
@@ -60,9 +62,30 @@ async function pokemonDetails() {
 
     pokemonVarieties(pokemon);
 
+    makeRegion(specie);
+
     makeChain(pokemon, evolution);
 
     document.title = `${pokemon.species.name[0].toUpperCase() + pokemon.species.name.slice(1)} | Pokédex`;
+}
+
+function makeRegion(specie) {
+    var PokemonRegion = {
+        "i": "kanto",
+        "ii": "johto",
+        "iii": "hoenn",
+        "iv": "sinnoh",
+        "v": "teselia",
+        "vi": "kalos",
+        "vii": "alola",
+        "viii": "galar",
+        "ix": "paldea"
+    }
+
+    var region = document.getElementById("image-region");
+    var numberRegion = specie.generation.name.split("-")[1];
+
+    region.src = `../img/regions/${PokemonRegion[numberRegion]}.jpg`;
 }
 
 async function makeChain(pokemon, evolution) {
@@ -310,7 +333,7 @@ async function levelUp(pokemon, details) {
         details.relative_physical_stats || details.relative_physical_stats == 0 ? trigger += `${StatsNumbers[details.relative_physical_stats]}\n` : trigger;
     } else {
         trigger = "Subir Nivel\n"
-        
+
         details.min_beauty ? trigger += `Belleza => ${details.min_beauty}\n` : trigger;
 
         details.min_affection ? trigger += `Amistad => ${details.min_affection}\n` : trigger;
@@ -347,8 +370,8 @@ async function levelUp(pokemon, details) {
     return trigger;
 }
 
-async function useItem(details){
-    if(details.item != null){
+async function useItem(details) {
+    if (details.item != null) {
         var itemName = await giveItem(details.item?.url);
 
         var trigger = `Usar => ${itemName}\n` + (details.gender ? details.gender == 1 ? `Debe Ser Hembra` : `Debe Ser Macho` : "");
@@ -357,26 +380,26 @@ async function useItem(details){
     return trigger;
 }
 
-function translateItem(item){
+function translateItem(item) {
     var length = item.names.length;
     var spanish = false;
     var english;
     var itemName;
 
-    for(var i = 0; !spanish && i < length; i++){
+    for (var i = 0; !spanish && i < length; i++) {
         var name = item.names[i].language.name;
 
-        if(name == "es"){
+        if (name == "es") {
             spanish = true;
             itemName = item.names[i].name;
         }
 
-        if(name == "en"){
+        if (name == "en") {
             english = item.names[i].name;
         }
     }
 
-    if(!spanish){
+    if (!spanish) {
         itemName = english;
     }
 

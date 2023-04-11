@@ -202,6 +202,16 @@ footer {
     font-size: 16.5px;
 }
 
+#region{
+    margin: auto;
+}
+
+#image-region{
+    border: 6px var(--text-color) solid;
+    border-radius: 15px;
+    transition: all 1s ease-in-out;
+}
+
 #see-more {
     display: none;
     position: fixed;
