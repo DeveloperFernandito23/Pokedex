@@ -51,6 +51,7 @@ function filterSelection(x) {
     }
     if (demo.innerHTML.length == 0) {
         demo.innerHTML = content;
+        hip();
     }
 }
 function removeClass(classname) {
@@ -77,6 +78,7 @@ async function filterSelectionGen(x) {
     }
     if (demo.innerHTML.length == 0) {
         demo.innerHTML = content;
+        hip();
     }
 }
 
@@ -201,13 +203,9 @@ async function crearPokemon(pokemon) {
     var imagen = document.createElement("img");
     imagen.src = pokemon.sprites.other["official-artwork"].front_default;
     imagen.alt = "Lo siento, el pokemon no ha sido encontrado :(";
+    imagen.classList.add("pokemon-image");
 
-    imagen.addEventListener("mouseover", () => {
-        imagen.style.filter = `drop-shadow(0 0 15px var(--${pokemon.types[0].type.name}))`;
-    })
-    imagen.addEventListener("mouseout", () => {
-        imagen.style.filter = `none`;
-    })
+    shadowPokemon(imagen, pokemon);
 
     var nombre = document.createElement("div");
     nombre.classList.add("name");
@@ -347,4 +345,16 @@ function scrollToTop() {
         top: 0,
         behavior: "smooth"
     })
+}
+
+function hip(){
+    var types = document.getElementsByClassName("types");
+    var images = document.getElementsByClassName("pokemon-image");
+
+    for(var i = 0; i < types.length; i++){
+        var type = types[i].getElementsByClassName("type")[0].style.backgroundColor;
+        var image = images[i];
+
+        shadowPokemon(image, type);
+    }
 }

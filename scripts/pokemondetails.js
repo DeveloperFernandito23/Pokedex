@@ -266,12 +266,7 @@ async function makeChainData(thisPokemon, chain) {
     image.src = pokemon.sprites.other["official-artwork"].front_default;
     image.alt = "Lo siento, el pokemon no ha sido encontrado :(";
 
-    image.addEventListener("mouseover", () => {
-        image.style.filter = `drop-shadow(0 0 15px var(--${pokemon.types[0].type.name}))`;
-    })
-    image.addEventListener("mouseout", () => {
-        image.style.filter = `none`;
-    })
+    shadowPokemon(image, pokemon);
 
     var pokemonName = document.createElement("div");
     pokemonName.classList.add("name");
