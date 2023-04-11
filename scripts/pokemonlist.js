@@ -2,6 +2,7 @@ var pokemons = [];
 
 var demo, content;
 
+
 function createButtonsOfTypes() {
     Object.keys(TiposPokemon).forEach(type => {
         const types = document.getElementById("myBtnContainer");
@@ -324,7 +325,10 @@ function createButtonsFilters(){
 async function startPokedex(){
     await givePokemons();
     createButtonsFilters();
-    await filterSelectionGen(1);
+    if(sessionStorage.getItem("enter") == null){
+        await filterSelectionGen(1);
+    }
+    sessionStorage.setItem("enter", "true")
     await restorePosition();
 }
 
