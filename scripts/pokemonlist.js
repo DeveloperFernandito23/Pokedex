@@ -87,18 +87,6 @@ async function givePokemonGeneration(pokemon) {
     return generations[generations.length - 2];
 }
 
-/* function comparar ( a, b ){ return a - b; }
-arr.sort( comparar );  // [ 1, 5, 40, 200 ]
-
-NO BORRAR, ES PARA ORDENAR (PARA ACORDARME PARA HACERLO)
-
-*/
-// function pruebaTipos(){
-//     let elemento = document.getElementsByClassName("poke");
-//     let estilo = window.getComputedStyle(elemento[1], "::before");
-//     console.log(estilo.getPropertyValue('background'));
-// }
-
 function orderBy(value) {
     var lista = pokemons.slice();
 
@@ -119,16 +107,16 @@ function orderBy(value) {
             });
             break;
         case "opt3":
-            orden(false);
+            alphabeticalOrder(false);
             break;
         case "opt4":
-            orden(true);
+            alphabeticalOrder(true);
             break;
     }
 }
 
 // ORDENA ALFABETICAMENTE
-function orden(bool) {
+function alphabeticalOrder(bool) {
     var lista = pokemons.slice();
 
     var listaOrder = lista.sort((a, b, result = 0) => {
@@ -150,13 +138,20 @@ function orden(bool) {
         crearPokemon(element);
     });
 }
-
-async function givePokemons() { //NEVER TOUCH
-
+function startLoader(){
     document.getElementById("demo").style.display = "none";
     document.getElementsByTagName("body")[0].style.top = "25vh";
     document.getElementsByTagName("body")[0].style.position = "relative";
     document.getElementsByClassName("loader")[0].style.display = "flex";
+}
+function finishLoader(){
+    document.getElementById("demo").style.display = "";
+    document.getElementsByTagName("body")[0].style.top = "0";
+    document.getElementsByClassName("loader")[0].style.display = "none";
+    document.getElementById("loading-footer").style.display = "none";
+}
+async function givePokemons() { //NEVER TOUCH
+    startLoader();
 
     for (var i = 0; i < 900; i++) {
         var response = await fetch(`https://pokeapi.co/api/v2/pokemon/${i + 1}/`);
@@ -165,11 +160,7 @@ async function givePokemons() { //NEVER TOUCH
         await crearPokemon(objeto);
     }
 
-    document.getElementById("demo").style.display = "";
-    document.getElementsByTagName("body")[0].style.top = "0";
-    document.getElementsByClassName("loader")[0].style.display = "none";
-    document.getElementById("loading-footer").style.display = "none";
-
+    finishLoader();
    
     demo = document.getElementById("demo");
     content = demo.innerHTML;
@@ -335,4 +326,21 @@ async function startPokedex(){
     createButtonsFilters();
     await filterSelectionGen(1);
     await restorePosition();
+}
+
+window.onscroll = function() {scrollFunction()};
+
+function scrollFunction() {
+  if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+    document.getElementById("scrollToTopBtn").style.display = "block";
+  } else {
+    document.getElementById("scrollToTopBtn").style.display = "none";
+  }
+}
+
+function scrollToTop() {
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    })
 }
