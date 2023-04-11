@@ -1,0 +1,254 @@
+body {
+    background-color: rgb(135, 33, 15);
+}
+
+footer {
+    background-color: #333;
+    padding: 20px;
+}
+
+#top-page {
+    background-color: #333;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #333;
+    flex-wrap: wrap;
+}
+
+#main-title {
+    display: flex;
+    width: auto;
+    height: auto;
+    justify-content: center;
+}
+
+#evolution-chain {
+    display: none;
+}
+
+#evolution-pokemons {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(15vw, 200px));
+    gap: 4vw;
+    margin: 10vw;
+    margin-top: 0;
+    justify-content: center;
+}
+
+.evolution-elements {
+    text-align: center;
+    padding: 10px;
+    font-size: 1.5rem;
+    border-radius: 55px;
+    box-shadow: 0px 0px 10px black;
+    width: 100%;
+    height: 100%;
+}
+
+.evolution-trigger {
+    color: var(--text-color);
+    font-weight: var(--bold);
+    border: 3px var(--text-color) solid;
+    margin-top: 2px;
+    border-radius: 15px;
+    padding: 5px;
+}
+
+.menu {
+    padding: 40px;
+}
+
+#options {
+    position: absolute;
+    right: 20px;
+}
+
+#main-page {
+    display: flex;
+}
+
+#details {
+    flex-basis: 32vw;
+    margin-left: 1vw;
+    margin-top: 25vh;
+    width: max-content;
+    height: max-content;
+    padding: 5px;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    font-weight: var(--bold);
+    border: 3px var(--text-color) solid;
+    border-radius: 15px;
+    transition: all 1s ease-in-out;
+}
+
+#pokemon{
+    margin-top: -30px;
+}
+
+#pokemon-header {
+    display: grid;
+    margin-left: 1.8vw;
+    grid-template-columns: max-content auto;
+    gap: 2vw;
+}
+
+#main-image {
+    display: flex;
+    width: 15vw;
+    height: auto;
+    margin: auto;
+    background-color: var(--background-color);
+    border: 3px var(--text-color) solid;
+    border-radius: 250px;
+    text-align: center;
+    padding: 33px;
+    cursor: pointer;
+    transition: all 1s ease-in-out;
+}
+
+#data {
+    display: grid;
+}
+
+#number {
+    font-family: 'Pokemon Solid';
+    color: var(--text-color);
+    font-weight: var(--bold);
+    letter-spacing: 8px;
+    padding: 5px;
+    font-size: 28px;
+    text-align: center;
+    background-color: var(--background-color);
+    border: 3px var(--text-color) solid;
+    border-radius: 15px;
+    transition: all 1s ease-in-out;
+}
+
+.types {
+    gap: 2vh;
+    align-items: center;
+    justify-content: center;
+    margin-top: 15px;
+    height: 13vh;
+    width: 10vw;
+}
+
+.type {
+    padding: 4.5px;
+    text-align: center;
+    font-size: 25px;
+}
+
+#info {
+    display: grid;
+    grid-template-columns: max-content auto;
+    margin-top: 15px;
+    gap: 1.5vw;
+}
+
+#kilos {
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    font-family: "Pokemon Solid";
+    text-align: center;
+    letter-spacing: 2px;
+    padding-top: 35px;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-bottom: 30px;
+    font-weight: var(--bold);
+    color: var(--text-color);
+    transition: all 1s ease-in-out;
+}
+
+#meters {
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    font-family: "Pokemon Solid";
+    text-align: center;
+    letter-spacing: 2px;
+    padding-left: 15px;
+    padding-top: 10px;
+    font-weight: var(--bold);
+    color: var(--text-color);
+    transition: all 1s ease-in-out;
+}
+
+#stats {
+    display: grid;
+    grid-template-columns: 1fr 0.25fr 0.5fr;
+    align-items: center;
+    font-weight: var(--bold);
+    color: var(--text-color);
+    padding: 15px;
+    white-space: nowrap;
+    margin-top: 20px;
+    gap: 15px 35px;
+    border: 3px var(--background-color) solid;
+    border-radius: 30px;
+    transition: all 1s ease-in-out;
+}
+
+.stats-number {
+    text-align: right;
+}
+
+.stats-name,
+.stats-number {
+    font-size: 16.5px;
+}
+
+#see-more {
+    display: none;
+    position: fixed;
+    top: 0;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+}
+
+#screen {
+    position: relative;
+    padding: 10px;
+    color: var(--text-color);
+    background-color: var(--background-color);
+    font-weight: var(--bold);
+    border: 3px var(--text-color) solid;
+    border-radius: 15px;
+}
+
+#close {
+    position: absolute;
+    top: -12px;
+    right: -10px;
+    background-image: url(../img/close.png);
+    width: 26px;
+    height: 26px;
+    cursor: pointer;
+}
+
+.stats-progress {
+    background-color: var(--background-color);
+    border: 3px var(--background-color) solid;
+    border-radius: 10px;
+    transition: all 1s ease-in-out;
+}
+
+.stats-progress::-webkit-progress-bar {
+    background-color: var(--background-color);
+    border-radius: 5px;
+    transition: all 1s ease-in-out;
+}
+
+.stats-progress::-webkit-progress-value {
+    background-color: var(--text-color);
+    border-radius: 5px;
+    transition: width .8s ease-in-out;
+    transition: all 1s ease-in-out;
+}

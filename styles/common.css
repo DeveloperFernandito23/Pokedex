@@ -38,13 +38,11 @@ body {
 body[theme="dark"] {
     --background-color: black;
     --text-color: white;
-    --hover-color: ;
 }
 
 body[theme="light"] {
     --background-color: white;
     --text-color: black;
-    --hover-color: ;
 }
 
 a {
@@ -92,7 +90,8 @@ body {
 
 img {
     vertical-align: middle;
-    /*transition: all 1s ease-in-out; Lo comento porque estaría bien que tuviese una transición a la hora de que saliese el color de los textos, pero al ponerlo, también se aplica al hover*/
+    transition: color 1s ease-in-out;
+    font-weight: var(--bold);
     color: var(--text-color);
 }
 
@@ -127,7 +126,7 @@ option{
     /*background-color: rgb(255, 255, 255);*/
     text-align: center;
     padding: 10px;
-    font-size: 1.2rem;
+    font-size: 1.5rem;
     font-weight: var(--bold);
     border-radius: 55px;
     box-shadow: 0px 0px 10px black;
