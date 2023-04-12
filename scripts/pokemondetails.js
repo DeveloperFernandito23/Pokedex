@@ -206,22 +206,37 @@ function changeInfo() {
 
 function makeRegion(specie) {
     var PokemonRegion = {
-        "i": "kanto",
-        "ii": "johto",
-        "iii": "hoenn",
-        "iv": "sinnoh",
-        "v": "teselia",
-        "vi": "kalos",
-        "vii": "alola",
-        "viii": "galar",
-        "ix": "paldea"
+        i: "kanto",
+        ii: "johto",
+        iii: "hoenn",
+        iv: "sinnoh",
+        v: "teselia",
+        vi: "kalos",
+        vii: "alola",
+        viii: "galar",
+        ix: "paldea"
     }
 
     var region = document.getElementById("image-region");
     var numberRegion = specie.generation.name.split("-")[1];
 
     region.src = `../img/regions/${PokemonRegion[numberRegion]}.jpg`;
+    //region.addEventListener("click", () => fullImage(region.src));
 }
+
+/*function fullImage(url){
+    var seeDocument = document.getElementById("see-more");
+    seeDocument.style.display = "flex";
+
+    var screen = document.getElementById("screen");
+    screen.style.display = "none";
+
+    var image = document.createElement("img");
+    image.src = url;
+    image.setAttribute("id", "image-region-full");
+
+    seeDocument.appendChild(image);
+}*/
 
 async function makeChain(pokemon, evolution) {
     var chain = evolution.chain;
@@ -277,6 +292,7 @@ async function makeChainData(thisPokemon, chain) {
     } else {
         link.style.color = `var(--${pokemon.types[0].type.name})`;
         pokemonName.innerHTML = chain.species.name;
+        pokemonName.style.webkitTextStroke = "0.8px var(--text-color)";
     }
 
     chainSpace.appendChild(link);
