@@ -25,14 +25,20 @@ function createButtonsOfGenerations() {
     Object.keys(Generaciones).forEach(gen => {
         const gene = document.getElementById("myBtnContainerGen");
         var btn = document.createElement("button");
+        var image = document.createElement("img");
+        image.src = `img/pokeSiluetes/${gen}.png`;
+        image.classList.add("icons");
         
         btn.classList.add("btn-gen");
         btn.setAttribute("onclick", `filterSelectionGen("${gen}")`);
         btn.innerHTML = Generaciones[gen];
+
         gene.appendChild(btn);
+        btn.appendChild(image);
     });
 }
 function filterSelection(x) {
+    showAlert();
     const demo = document.getElementById("demo");
 
     demo.innerHTML = "";
@@ -51,7 +57,7 @@ function filterSelection(x) {
     }
     if (demo.innerHTML.length == 0) {
         demo.innerHTML = content;
-        hip();
+        shadowTypes();
     }
 }
 function removeClass(classname) {
@@ -62,6 +68,9 @@ function removeClass(classname) {
     }
 }
 async function filterSelectionGen(x) {
+    if(sessionStorage.getItem("enter") != null){
+        showAlert();
+    }
     const demo = document.getElementById("demo");
     demo.innerHTML = "";
     var element = document.getElementsByClassName("btn-gen");
@@ -78,7 +87,7 @@ async function filterSelectionGen(x) {
     }
     if (demo.innerHTML.length == 0) {
         demo.innerHTML = content;
-        hip();
+        shadowTypes();
     }
 }
 
@@ -349,7 +358,7 @@ function scrollToTop() {
     })
 }
 
-function hip(){
+function shadowTypes(){
     var types = document.getElementsByClassName("types");
     var images = document.getElementsByClassName("pokemon-image");
 
