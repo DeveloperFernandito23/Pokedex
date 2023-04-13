@@ -56,12 +56,13 @@ footer {
     transition: all 1s ease-in-out;
 }
 
-.evolution-trigger{
+.evolution-trigger {
     transition: none;
 }
 
-.name{
+.name {
     transition: all 1s ease-in-out;
+    font-size: 35px;
 }
 
 .menu {
@@ -92,7 +93,7 @@ footer {
     transition: all 1s ease-in-out;
 }
 
-#pokemon{
+#pokemon {
     margin-top: -30px;
 }
 
@@ -211,21 +212,17 @@ footer {
     font-size: 16.5px;
 }
 
-#region{
+#region {
     margin: auto;
+    margin-top: 75px;
 }
 
-#image-region{
+#image-region {
     border: 6px var(--text-color) solid;
     border-radius: 15px;
     transition: all 1s ease-in-out;
-    cursor: pointer;
 }
 
-#image-region-full{
-    width: 40%;
-    height: 60%;
-}
 #see-more {
     display: none;
     position: fixed;
@@ -243,6 +240,7 @@ footer {
     color: var(--text-color);
     background-color: var(--background-color);
     font-weight: var(--bold);
+    font-size: 17px;
     border: 3px var(--text-color) solid;
     border-radius: 15px;
 }

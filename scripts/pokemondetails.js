@@ -10,10 +10,8 @@ async function givePokemonDetails(id) {
     return data;
 }
 
-async function evolutionChain(pokemon) {
-    var species = await givePokemonSpecie(pokemon)
-
-    var response = await fetch(species.evolution_chain.url);
+async function evolutionChain(specie) {
+    var response = await fetch(specie.evolution_chain.url);
     var data = await response.json();
 
     return data;
@@ -42,15 +40,15 @@ async function pokemonDetails() {
 
     var number = newUrl.get('numero');
 
-    compruebaTema();
-
-    changeInfo();
-
     var pokemon = await givePokemonDetails(number);
 
     var specie = await givePokemonSpecie(pokemon);
 
-    var evolution = await evolutionChain(pokemon);
+    var evolution = await evolutionChain(specie);
+
+    compruebaTema();
+
+    changeInfo();
 
     chooseFavicon(pokemon);
 
@@ -102,8 +100,8 @@ function makeData(pokemon) {
         number.innerHTML = '#' + pokemon.id.toString().padStart(3, 0);
     }
 
-    weight.innerHTML = `${pokemon.weight / 10}`;
-    height.innerHTML = `${pokemon.height / 10}`;
+    weight.innerHTML = `${pokemon.weight / 10}kg`;
+    height.innerHTML = pokemon.name == "vaporeon" ? `${pokemon.height / 10}m` : `${pokemon.height / 10}`;
 
     comprobarTipos(pokemon);
 
@@ -217,26 +215,15 @@ function makeRegion(specie) {
         ix: "paldea"
     }
 
-    var region = document.getElementById("image-region");
+    var nameRegion = document.getElementById("name-region");
+    var imageRegion = document.getElementById("image-region");
+
     var numberRegion = specie.generation.name.split("-")[1];
+    var region = PokemonRegion[numberRegion];
 
-    region.src = `../img/regions/${PokemonRegion[numberRegion]}.jpg`;
-    //region.addEventListener("click", () => fullImage(region.src));
+    nameRegion.innerHTML = region[0].toUpperCase() + region.slice(1);
+    imageRegion.src = `../img/regions/${PokemonRegion[numberRegion]}.jpg`;
 }
-
-/*function fullImage(url){
-    var seeDocument = document.getElementById("see-more");
-    seeDocument.style.display = "flex";
-
-    var screen = document.getElementById("screen");
-    screen.style.display = "none";
-
-    var image = document.createElement("img");
-    image.src = url;
-    image.setAttribute("id", "image-region-full");
-
-    seeDocument.appendChild(image);
-}*/
 
 async function makeChain(pokemon, evolution) {
     var chain = evolution.chain;
@@ -398,17 +385,17 @@ async function checkTrigger(pokemon, details) {
     var TipeTrigger = {
         other: other(pokemon),
         trade: trade(details),
-        "level-up": await levelUp(pokemon, details),
+        "use-item": await useItem(details),
         spin: "Dar Confite Y Girar Personaje",
         "tower-of-waters": "Ganar Torre De Agua",
+        "level-up": await levelUp(pokemon, details),
         "tower-of-darkness": "Ganar Torre De Oscuridad",
         "three-critical-hits": "Realizar 3 Ataques Críticos",
         "take-damage": "Recibir Mínimo 49 De Daño De Un Golpe",
         "recoil-damage": "Recibir 294 De Daño De El Mismo Sin Ser Debilitado",
         shed: "Al Evolucionar A Ninjask Aparecerá Si Hay Espacio Libre En El Equipo",
         "agile-style-move": `Utilizar ${details.known_move?.name[0].toUpperCase() + details.known_move?.name.slice(1)} 20 Veces En Estilo Rápido`,
-        "strong-style-move": `Utilizar ${details.known_move?.name[0].toUpperCase() + details.known_move?.name.slice(1)} 20 Veces En Estilo Fuerte`,
-        "use-item": await useItem(details),
+        "strong-style-move": `Utilizar ${details.known_move?.name[0].toUpperCase() + details.known_move?.name.slice(1)} 20 Veces En Estilo Fuerte`
     }
 
     var trigger = details.trigger.name;
@@ -532,21 +519,25 @@ function translateItem(item) {
     var english;
     var itemName;
 
-    for (var i = 0; !spanish && i < length; i++) {
-        var name = item.names[i].language.name;
+    if (length != 0) {
+        for (var i = 0; !spanish && i < length; i++) {
+            var name = item.names[i].language.name;
 
-        if (name == "es") {
-            spanish = true;
-            itemName = item.names[i].name;
+            if (name == "es") {
+                spanish = true;
+                itemName = item.names[i].name;
+            }
+
+            if (name == "en") {
+                english = item.names[i].name;
+            }
         }
 
-        if (name == "en") {
-            english = item.names[i].name;
+        if (!spanish) {
+            itemName = english;
         }
-    }
-
-    if (!spanish) {
-        itemName = english;
+    } else {
+        itemName = item.name[0].toUpperCase() + item.name.slice(1);
     }
 
     return itemName;
