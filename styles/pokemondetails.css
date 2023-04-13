@@ -53,6 +53,15 @@ footer {
     margin-top: 2px;
     border-radius: 15px;
     padding: 5px;
+    transition: all 1s ease-in-out;
+}
+
+.evolution-trigger{
+    transition: none;
+}
+
+.name{
+    transition: all 1s ease-in-out;
 }
 
 .menu {
@@ -210,8 +219,13 @@ footer {
     border: 6px var(--text-color) solid;
     border-radius: 15px;
     transition: all 1s ease-in-out;
+    cursor: pointer;
 }
 
+#image-region-full{
+    width: 40%;
+    height: 60%;
+}
 #see-more {
     display: none;
     position: fixed;

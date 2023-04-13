@@ -52,6 +52,23 @@ function comprobarTipos(pokemon) {
     }
 }
 
+function shadowPokemon(image, data) {
+    var pokemon;
+
+    if (typeof data === "string") {
+        pokemon = data;
+    } else {
+        pokemon = `var(--${data.types[0].type.name})`;
+    }
+
+    image.addEventListener("mouseover", () => {
+        image.style.filter = `drop-shadow(0 0 15px ${pokemon})`;
+    })
+    image.addEventListener("mouseout", () => {
+        image.style.filter = `none`;
+    })
+}
+
 async function givePokemonSpecie(pokemon) {
     var urlSpecie = pokemon.species?.url;
 

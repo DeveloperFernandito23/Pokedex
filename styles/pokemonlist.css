@@ -19,6 +19,11 @@ body {
     height: 150px;
 }
 
+.icons{
+    width: 30px;
+    height: 30px;
+}
+
 #demo {
     display: grid;
     /* grid-template-columns: repeat( auto-fill, minmax(15vw, 200px) ); */
@@ -254,9 +259,18 @@ body[theme="light"] #filter{
     background-color: #f1f1f1;
     cursor: pointer;
     margin: 1px 1px;
+    border-radius: 15px;
 }
 
-.btn:hover {
+.btn-gen{
+    display: flex;
+    align-content: center;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn:hover, .btn-gen:hover {
     background-color: #ddd;
 }
 

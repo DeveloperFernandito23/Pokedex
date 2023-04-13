@@ -25,14 +25,20 @@ function createButtonsOfGenerations() {
     Object.keys(Generaciones).forEach(gen => {
         const gene = document.getElementById("myBtnContainerGen");
         var btn = document.createElement("button");
+        var image = document.createElement("img");
+        image.src = `img/pokeSiluetes/${gen}.png`;
+        image.classList.add("icons");
         
         btn.classList.add("btn-gen");
         btn.setAttribute("onclick", `filterSelectionGen("${gen}")`);
         btn.innerHTML = Generaciones[gen];
+
         gene.appendChild(btn);
+        btn.appendChild(image);
     });
 }
 function filterSelection(x) {
+    showAlert();
     const demo = document.getElementById("demo");
 
     demo.innerHTML = "";
@@ -51,7 +57,7 @@ function filterSelection(x) {
     }
     if (demo.innerHTML.length == 0) {
         demo.innerHTML = content;
-        
+        shadowTypes();
     }
 }
 function removeClass(classname) {
@@ -62,6 +68,9 @@ function removeClass(classname) {
     }
 }
 async function filterSelectionGen(x) {
+    if(sessionStorage.getItem("enter") != null){
+        showAlert();
+    }
     const demo = document.getElementById("demo");
     demo.innerHTML = "";
     var element = document.getElementsByClassName("btn-gen");
@@ -78,6 +87,7 @@ async function filterSelectionGen(x) {
     }
     if (demo.innerHTML.length == 0) {
         demo.innerHTML = content;
+        shadowTypes();
     }
 }
 
@@ -91,6 +101,8 @@ async function givePokemonGeneration(pokemon) {
 
 function orderBy(value) {
     var lista = pokemons.slice();
+
+    showAlert();
 
     switch (value) {
         case "opt1":
@@ -200,13 +212,9 @@ async function crearPokemon(pokemon) {
     var imagen = document.createElement("img");
     imagen.src = pokemon.sprites.other["official-artwork"].front_default;
     imagen.alt = "Lo siento, el pokemon no ha sido encontrado :(";
+    imagen.classList.add("pokemon-image");
 
-    imagen.addEventListener("mouseover", () => {
-        imagen.style.filter = `drop-shadow(0 0 15px var(--${pokemon.types[0].type.name}))`;
-    })
-    imagen.addEventListener("mouseout", () => {
-        imagen.style.filter = `none`;
-    })
+    shadowPokemon(imagen, pokemon);
 
     var nombre = document.createElement("div");
     nombre.classList.add("name");
@@ -346,4 +354,16 @@ function scrollToTop() {
         top: 0,
         behavior: "smooth"
     })
+}
+
+function shadowTypes(){
+    var types = document.getElementsByClassName("types");
+    var images = document.getElementsByClassName("pokemon-image");
+
+    for(var i = 0; i < types.length; i++){
+        var type = types[i].getElementsByClassName("type")[0].style.backgroundColor;
+        var image = images[i];
+
+        shadowPokemon(image, type);
+    }
 }
