@@ -2,6 +2,17 @@ var pokemons = [];
 
 var demo, content;
 
+var Generations = {
+    1: "0, 151",
+    2: "151, 251",
+    3: "251, 386",
+    4: "386, 494",
+    5: "494, 649",
+    6: "649, 721",
+    7: "721, 809",
+    8: "809, 905",
+    9: "905, 1010"
+};
 
 function createButtonsOfTypes() {
     Object.keys(TiposPokemon).forEach(type => {
@@ -28,7 +39,7 @@ function createButtonsOfGenerations() {
         var image = document.createElement("img");
         image.src = `img/pokeSiluetes/${gen}.png`;
         image.classList.add("icons");
-        
+
         btn.classList.add("btn-gen");
         btn.setAttribute("onclick", `filterSelectionGen("${gen}")`);
         btn.innerHTML = Generaciones[gen];
@@ -68,23 +79,28 @@ function removeClass(classname) {
     }
 }
 async function filterSelectionGen(x) {
-    if(sessionStorage.getItem("enter") != null){
+    if (sessionStorage.getItem("enter") != null) {
         showAlert();
     }
     const demo = document.getElementById("demo");
     demo.innerHTML = "";
     var element = document.getElementsByClassName("btn-gen");
 
+    var split = Generations[x].split(',');
+    sessionStorage.setItem("select", x);
+    await givePokemons(parseInt(split[0]), parseInt(split[1]));
+
+
     for (let i = 0; i < element.length; i++) {
         element[i].innerHTML.includes(Generaciones[x]) ? element[i].classList.add("active") : element[i].classList.remove("active");
     }
 
-    for (let index = 0; index < pokemons.length; index++) {
-        var pg = await givePokemonGeneration(pokemons[index])
-        if (pg == x) {
-            await crearPokemon(pokemons[index]);
-        }
-    }
+    // for (let index = 0; index < pokemons.length; index++) {
+    //     var pg = await givePokemonGeneration(pokemons[index])
+    //     if (pg == x) {
+    //         await crearPokemon(pokemons[index]);
+    //     }
+    // }
     if (demo.innerHTML.length == 0) {
         demo.innerHTML = content;
         shadowTypes();
@@ -99,39 +115,65 @@ async function givePokemonGeneration(pokemon) {
     return generations[generations.length - 2];
 }
 
-function orderBy(value) {
+async function orderBy(value) {
     var lista = pokemons.slice();
-
+    var select = sessionStorage.getItem("select");
+    var split, generation;
+    if (select != null) {
+        generation = Generations[select];
+        split = generation.split(',')
+    }
     showAlert();
 
     switch (value) {
         case "opt1":
             document.getElementById("demo").innerHTML = "";
 
-            pokemons.forEach(element => {
-                crearPokemon(element);
-            });
+            for (let i = 0; i < pokemons.length; i++) {
+                for (let j = parseInt(split[0]); j < parseInt(split[1]); j++) {
+                    var choose = pokemons[i].id == j+1 ? pokemons[i] : null;
+                    
+                    if(choose != null){
+                        await crearPokemon(choose);
+                    }
+                    
+                }
+            }
+
+            // pokemons.forEach(element => {
+            //     crearPokemon(element);
+            // });
             break;
         case "opt2":
             document.getElementById("demo").innerHTML = "";
 
-            console.log(lista);
-            lista.reverse().forEach(element => {
-                crearPokemon(element);
-            });
+            for (let i = pokemons.length-1; i > 0; i--) {
+                for (let j = parseInt(split[0]); j < parseInt(split[1]); j++) {
+                    var choose = pokemons[i].id == j+1 ? pokemons[i] : null;
+                    
+                    if(choose != null){
+                        await crearPokemon(choose);
+                    }
+                    
+                }
+            }
+            // console.log(lista);
+            // lista.reverse().forEach(element => {
+            //     crearPokemon(element);
+            // });
             break;
         case "opt3":
-            alphabeticalOrder(false);
+            alphabeticalOrder(false, parseInt(split[0]), parseInt(split[1]));
             break;
         case "opt4":
-            alphabeticalOrder(true);
+            alphabeticalOrder(true, parseInt(split[0]), parseInt(split[1]));
             break;
     }
 }
 
 // ORDENA ALFABETICAMENTE
-function alphabeticalOrder(bool) {
-    var lista = pokemons.slice();
+function alphabeticalOrder(bool, start, end) {
+    var lista = pokemons.slice(start, end);
 
     var listaOrder = lista.sort((a, b, result = 0) => {
         if (a.name.toLowerCase() > b.name.toLowerCase()) {
@@ -152,20 +194,20 @@ function alphabeticalOrder(bool) {
         crearPokemon(element);
     });
 }
-function startLoader(){
+function startLoader() {
     document.getElementById("demo").style.display = "none";
     document.getElementsByClassName("font-type")[0].style.height = "35vh";
     document.getElementsByClassName("loader")[0].style.display = "flex";
 }
-function finishLoader(){
+function finishLoader() {
     document.getElementById("demo").style.display = "";
     document.getElementsByClassName("font-type")[0].style.height = "20vh";
     document.getElementsByClassName("loader")[0].style.display = "none";
 }
-async function givePokemons() { //NEVER TOUCH
+async function givePokemons(start, end) { //NEVER TOUCH
     startLoader();
 
-    for (var i = 0; i < 900; i++) {
+    for (var i = start; i < end; i++) {
         var response = await fetch(`https://pokeapi.co/api/v2/pokemon/${i + 1}/`);
         var objeto = await response.json();
         await pokemons.push(objeto);
@@ -173,7 +215,7 @@ async function givePokemons() { //NEVER TOUCH
     }
 
     finishLoader();
-   
+
     demo = document.getElementById("demo");
     content = demo.innerHTML;
 }
@@ -194,7 +236,7 @@ function buscarPokemons(valor) {
     }
 }
 
-async function crearPokemon(pokemon) {
+function crearPokemon(pokemon) {
     var enlace = document.createElement("a");
     enlace.classList.add(`link-${pokemon.id}`);
     enlace.href = `html/pokemon.html?numero=${pokemon.id}`;
@@ -312,41 +354,46 @@ function showAlert() {
     setTimeout(function () {
         alertBox.classList.remove("show");
     }, 3000); // Oculta la alerta después de 3 segundos
-  }
+}
 
-function restorePosition(){
+function restorePosition() {
     var position = sessionStorage.getItem("position");
     var poke = document.getElementsByClassName(`link-${position}`)[0];
 
-    if(position != null){
+    if (position != null) {
         poke.scrollIntoView({
             behavior: 'smooth'
         });
     }
 }
-function createButtonsFilters(){
+function createButtonsFilters() {
     createButtonsOfTypes();
     createButtonsOfGenerations();
 }
 
-async function startPokedex(){
-    await givePokemons();
-    createButtonsFilters();
-    if(sessionStorage.getItem("enter") == null){
-        filterSelectionGen(1);
+async function startPokedex() {
+    if (sessionStorage.getItem("select") == null) {
+        await filterSelectionGen(1);
+    } else {
+        await filterSelectionGen(parseInt(sessionStorage.getItem("select")));
     }
+    // await givePokemons(0, 151);
+    createButtonsFilters();
+    // if(sessionStorage.getItem("enter") == null){
+    //     filterSelectionGen(1);
+    // }
     sessionStorage.setItem("enter", "true")
     await restorePosition();
 }
 
-window.onscroll = function() {scrollFunction()};
+window.onscroll = function () { scrollFunction() };
 
 function scrollFunction() {
-  if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-    document.getElementById("scrollToTopBtn").style.display = "block";
-  } else {
-    document.getElementById("scrollToTopBtn").style.display = "none";
-  }
+    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+        document.getElementById("scrollToTopBtn").style.display = "block";
+    } else {
+        document.getElementById("scrollToTopBtn").style.display = "none";
+    }
 }
 
 function scrollToTop() {
@@ -356,11 +403,11 @@ function scrollToTop() {
     })
 }
 
-function shadowTypes(){
+function shadowTypes() {
     var types = document.getElementsByClassName("types");
     var images = document.getElementsByClassName("pokemon-image");
 
-    for(var i = 0; i < types.length; i++){
+    for (var i = 0; i < types.length; i++) {
         var type = types[i].getElementsByClassName("type")[0].style.backgroundColor;
         var image = images[i];
 
