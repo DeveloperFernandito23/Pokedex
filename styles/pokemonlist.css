@@ -6,10 +6,13 @@ body {
     margin: auto;
 }
 
-.font-type,
-#loading-footer {
+.font-type{
     background-color: rgb(135, 33, 15);
     transition: all .5s ease-in-out;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
 }
 
 #loading-footer {

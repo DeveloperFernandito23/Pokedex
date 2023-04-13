@@ -51,6 +51,7 @@ function filterSelection(x) {
     }
     if (demo.innerHTML.length == 0) {
         demo.innerHTML = content;
+        
     }
 }
 function removeClass(classname) {
@@ -141,15 +142,13 @@ function alphabeticalOrder(bool) {
 }
 function startLoader(){
     document.getElementById("demo").style.display = "none";
-    document.getElementsByTagName("body")[0].style.top = "25vh";
-    document.getElementsByTagName("body")[0].style.position = "relative";
+    document.getElementsByClassName("font-type")[0].style.height = "35vh";
     document.getElementsByClassName("loader")[0].style.display = "flex";
 }
 function finishLoader(){
     document.getElementById("demo").style.display = "";
-    document.getElementsByTagName("body")[0].style.top = "0";
+    document.getElementsByClassName("font-type")[0].style.height = "20vh";
     document.getElementsByClassName("loader")[0].style.display = "none";
-    document.getElementById("loading-footer").style.display = "none";
 }
 async function givePokemons() { //NEVER TOUCH
     startLoader();
@@ -326,7 +325,7 @@ async function startPokedex(){
     await givePokemons();
     createButtonsFilters();
     if(sessionStorage.getItem("enter") == null){
-        await filterSelectionGen(1);
+        filterSelectionGen(1);
     }
     sessionStorage.setItem("enter", "true")
     await restorePosition();
