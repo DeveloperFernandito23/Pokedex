@@ -134,6 +134,9 @@ span {
     cursor: pointer;
     margin: 1px 1px;
     border-radius: 15px;
+}
+
+.btn{
     transition: all 1s ease-in-out;
 }
 
