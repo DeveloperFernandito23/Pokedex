@@ -36,20 +36,24 @@ body {
 }
 
 body[theme="dark"] {
-    --background-color: black;
-    --text-color: white;
-    --filter-color: hwb(0 34% 63%);
-    --list-background: rgb(26,26,26);
+    --background-color: rgb(0, 0, 0);
+    --text-color: rgb(255, 255, 255);
+    --filter-color: rgb(94, 87, 87);
     --shadow-filter: rgba(221, 204, 204, 0.61);
     --hover-filter: rgb(69, 69, 69);
+    --transition-color: rgb(233, 255, 255);
+    --transition-second-color: rgb(181, 187, 187);
+    --list-background: rgb(26,26,26);
 }
 
 body[theme="light"] {
-    --background-color: white;
-    --text-color: black;
-    --filter-color: #f1f1f1;
+    --background-color: rgb(255, 255, 255);
+    --text-color: rgb(0, 0, 0);
+    --filter-color: rgb(241, 241, 241);
     --shadow-filter: rgba(0, 0, 0, 0.2);
-    --hover-filter: #ddd;
+    --hover-filter: rgb(221, 221, 221);
+    --transition-color: rgb(31, 34, 34);
+    --transition-second-color: rgb(37, 41, 41);
 }
 
 a {
