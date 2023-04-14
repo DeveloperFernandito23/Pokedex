@@ -135,7 +135,6 @@ function selectGenerationActive(start, end) {
     return result;
 }
 async function orderBy(value) {
-    var lista = pokemons.slice();
     var select = sessionStorage.getItem("select");
     var split, generation;
     if (select != null) {
@@ -202,7 +201,7 @@ function alphabeticalOrder(bool, list) {
         createPokemon(element);
     });
 }
-function changeStyleLoader(pokemonsDisplay, height, loaderDisplay){
+function changeStyleLoader(pokemonsDisplay, height, loaderDisplay) {
     document.getElementById("pokemonList").style.display = pokemonsDisplay;
     document.getElementsByClassName("font-type")[0].style.height = height;
     document.getElementsByClassName("loader")[0].style.display = loaderDisplay;
@@ -230,14 +229,25 @@ async function givePokemons(start, end) { //NEVER TOUCH
     content = pokemonList.innerHTML;
 }
 
-function searchPokemons(valor) {
+async function searchPokemons(valor) {
     var document = pokemonList;
 
     document.innerHTML = "";
+    var select = sessionStorage.getItem("select");
+    var split, generation;
+    if (select != null) {
+        generation = GenerationsParameters[select];
+        split = generation.split(',')
+    }
 
-    for (var i = 0; i < pokemons.length; i++) {
-        if (pokemons[i].name.toUpperCase().includes(valor.toUpperCase())) {
-            createPokemon(pokemons[i]);
+    var listPokemons = [];
+
+    await selectGenerationActive(parseInt(split[0]), parseInt(split[1])).forEach(element => {
+        listPokemons.push(element);
+    });
+    for (var i = 0; i < listPokemons.length; i++) {
+        if (listPokemons[i].name.toUpperCase().includes(valor.toUpperCase())) {
+            createPokemon(listPokemons[i]);
         }
     }
 
