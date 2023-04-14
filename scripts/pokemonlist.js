@@ -52,9 +52,9 @@ async function filterSelection(x) {
     var genereationSelected = sessionStorage.getItem("select");
     var split;
     if (genereationSelected != null) {
-        split = Generations[parseInt(genereationSelected)].split(',');
+        split = GenerationsParameters[parseInt(genereationSelected)].split(',');
     } else {
-        split = Generations[1].split(',');
+        split = GenerationsParameters[1].split(',');
     }
 
     showAlert();
