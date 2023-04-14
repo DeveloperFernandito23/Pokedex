@@ -2,7 +2,7 @@ var pokemons = [];
 
 var demo, content;
 
-var Generations = {
+var GenerationsParameters = {
     1: "0, 151",
     2: "151, 251",
     3: "251, 386",
@@ -23,7 +23,7 @@ function createButtonsOfTypes() {
             btn.style.backgroundColor = `var(--${type})`;
         })
         btn.addEventListener("mouseout", () => {
-            btn.style.backgroundColor = "#f1f1f1";
+            btn.style.backgroundColor = "";
         })
 
         btn.classList.add("btn");
@@ -33,7 +33,7 @@ function createButtonsOfTypes() {
     });
 }
 function createButtonsOfGenerations() {
-    Object.keys(Generaciones).forEach(gen => {
+    Object.keys(Generations).forEach(gen => {
         const gene = document.getElementById("myBtnContainerGen");
         var btn = document.createElement("button");
         var image = document.createElement("img");
@@ -42,7 +42,7 @@ function createButtonsOfGenerations() {
 
         btn.classList.add("btn-gen");
         btn.setAttribute("onclick", `filterSelectionGen("${gen}")`);
-        btn.innerHTML = Generaciones[gen];
+        btn.innerHTML = Generations[gen];
 
         gene.appendChild(btn);
         btn.appendChild(image);
@@ -86,13 +86,13 @@ async function filterSelectionGen(x) {
     demo.innerHTML = "";
     var element = document.getElementsByClassName("btn-gen");
 
-    var split = Generations[x].split(',');
+    var split = GenerationsParameters[x].split(',');
     sessionStorage.setItem("select", x);
     await givePokemons(parseInt(split[0]), parseInt(split[1]));
 
 
     for (let i = 0; i < element.length; i++) {
-        element[i].innerHTML.includes(Generaciones[x]) ? element[i].classList.add("active") : element[i].classList.remove("active");
+        element[i].innerHTML.includes(Generations[x]) ? element[i].classList.add("active") : element[i].classList.remove("active");
     }
 
     // for (let index = 0; index < pokemons.length; index++) {
@@ -120,7 +120,7 @@ async function orderBy(value) {
     var select = sessionStorage.getItem("select");
     var split, generation;
     if (select != null) {
-        generation = Generations[select];
+        generation = GenerationsParameters[select];
         split = generation.split(',')
     }
     showAlert();

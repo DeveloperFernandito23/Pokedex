@@ -19,7 +19,7 @@ var PokemonTypes = {
     steel: "Acero",
     dark: "Siniestro"
 };
-var Generaciones = {
+var Generations = {
     1: "Primera",
     2: "Segunda",
     3: "Tercera",

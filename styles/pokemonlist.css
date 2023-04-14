@@ -1,8 +1,5 @@
 body {
-    background-image: url(../img/background.jpg);
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-attachment: fixed;
+    background-color: var(--list-background);
     margin: auto;
 }
 
@@ -209,10 +206,10 @@ span {
     opacity: 0;
     display: none;
     z-index: 1;
-    background-color: #f1f1f1;
+    background-color: var(--filter-color);
+    color: var(--text-color);
     min-width: 160px;
-    border: 1px solid #ddd;
-    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 8px 16px 0px var(--shadow-filter);
     padding: 12px 16px;
     transition: opacity 0.3s ease, transform 0.3s ease;
     font-weight: var(--bold);
@@ -224,7 +221,6 @@ span {
     display: grid;
     grid-template-columns: 2, 1fr;
     transition: opacity 0.3s ease, transform 0.3s ease;
-
 }
 
 #filter-title {
@@ -252,7 +248,8 @@ span {
     border: none;
     outline: none;
     padding: 12px 16px;
-    background-color: #f1f1f1;
+    color: var(--text-color);
+    background-color: var(--filter-color);
     cursor: pointer;
     margin: 1px 1px;
     border-radius: 15px;
@@ -267,12 +264,12 @@ span {
 }
 
 .btn:hover, .btn-gen:hover {
-    background-color: #ddd;
+    background-color: var(--hover-filter);
 }
 
 .btn.active,
 .btn-gen.active {
-    background-color: #66666681;
+    background-color: var(--hover-filter);;
     color: rgb(172, 0, 0);
 }
 
