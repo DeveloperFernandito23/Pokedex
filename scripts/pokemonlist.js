@@ -22,6 +22,9 @@ function createButtonsOfTypes() {
         btn.addEventListener("mouseover", () => {
             btn.style.backgroundColor = `var(--${type})`;
         })
+        btn.addEventListener("mouseout", () => {
+            btn.style.backgroundColor = "";
+        })
 
         btn.classList.add("btn");
         btn.setAttribute("onclick", `filterSelection("${type}")`)
@@ -49,9 +52,9 @@ async function filterSelection(x) {
     var genereationSelected = sessionStorage.getItem("select");
     var split;
     if (genereationSelected != null) {
-        split = GenerationsParameters[parseInt(genereationSelected)].split(',');
+        split = Generations[parseInt(genereationSelected)].split(',');
     } else {
-        split = GenerationsParameters[1].split(',');
+        split = Generations[1].split(',');
     }
 
     showAlert();
