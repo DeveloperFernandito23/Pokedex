@@ -46,7 +46,6 @@ function createButtonsOfGenerations() {
     });
 }
 async function filterSelection(x) {
-    document.getElementById("options").value = "opt1";
     var genereationSelected = sessionStorage.getItem("select");
     var split;
     if (genereationSelected != null) {
@@ -188,7 +187,7 @@ async function orderBy(value) {
             break;
         case "opt3":
             var listPokemons = [];
-            for (let i = pokemons.length - 1; i > 0; i--) {
+            for (let i = 0; i < pokemons.length; i++) {
                 for (let j = parseInt(split[0]); j < parseInt(split[1]); j++) {
                     var choose = pokemons[i].id == j + 1 ? pokemons[i] : null;
 
@@ -203,7 +202,7 @@ async function orderBy(value) {
             break;
         case "opt4":
             var listPokemons = [];
-            for (let i = pokemons.length - 1; i > 0; i--) {
+            for (let i = 0; i < pokemons.length; i++) {
                 for (let j = parseInt(split[0]); j < parseInt(split[1]); j++) {
                     var choose = pokemons[i].id == j + 1 ? pokemons[i] : null;
 
@@ -390,6 +389,7 @@ element1.addEventListener("click", () => {
     }
 });
 function resetFilters() {
+    document.getElementById("options").value = "opt1";
     demo.innerHTML = content;
     removeClass("active");
     showAlert();
