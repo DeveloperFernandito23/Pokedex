@@ -394,6 +394,7 @@ element1.addEventListener("click", () => {
 function resetFilters() {
     document.getElementById("options").value = "opt1";
     demo.innerHTML = content;
+    shadowTypes();
     removeClass("active");
     showAlert();
 }
