@@ -22,9 +22,6 @@ function createButtonsOfTypes() {
         btn.addEventListener("mouseover", () => {
             btn.style.backgroundColor = `var(--${type})`;
         })
-        btn.addEventListener("mouseout", () => {
-            btn.style.backgroundColor = "";
-        })
 
         btn.classList.add("btn");
         btn.setAttribute("onclick", `filterSelection("${type}")`)
