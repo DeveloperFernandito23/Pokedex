@@ -1,5 +1,5 @@
 //JS no tiene tipo enumerado, pero se puede usar esta sintaxis para dejarlo más claro
-var TiposPokemon = {
+var PokemonTypes = {
     water: "Agua",
     bug: "Bicho",
     dragon: "Dragón",
@@ -31,24 +31,24 @@ var Generaciones = {
     9: "Novena"
 };
 
-compruebaTema(); // Lo primero que hace es comprobar el tema activo y lo ajusta a cual sea el elegido
+checkTheme(); // Lo primero que hace es comprobar el tema activo y lo ajusta a cual sea el elegido
 
-function comprobarTipos(pokemon) {
-    var tipos = document.getElementsByClassName("types");
+function checkTypes(pokemon) {
+    var types = document.getElementsByClassName("types");
 
-    if (tipos.length == 1) {
-        tipos[0].innerHTML = "";
+    if (types.length == 1) {
+        types[0].innerHTML = "";
     }
 
     for (var i = 0; i < pokemon.types.length; i++) {
-        var tipo = document.createElement("div");
-        tipo.classList.add("type");
+        var type = document.createElement("div");
+        type.classList.add("type");
 
         var style = pokemon.types[i].type.name;
-        tipo.innerHTML = TiposPokemon[style];
-        tipo.style.backgroundColor = `var(--${style})`;
+        type.innerHTML = PokemonTypes[style];
+        type.style.backgroundColor = `var(--${style})`;
 
-        tipos[tipos.length - 1].appendChild(tipo);
+        types[types.length - 1].appendChild(type);
     }
 }
 
@@ -78,7 +78,7 @@ async function givePokemonSpecie(pokemon) {
     return object;
 }
 
-function compruebaTema() {
+function checkTheme() {
     const bodyAttributes = document.getElementsByTagName("body")[0];
     const slider = document.getElementById("slide");
 
@@ -105,5 +105,5 @@ function changeTheme() {
         localStorage.setItem('oscuro', true);
     }
 
-    compruebaTema()
+    checkTheme()
 }

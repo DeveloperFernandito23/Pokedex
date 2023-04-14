@@ -46,8 +46,6 @@ async function pokemonDetails() {
 
     var evolution = await evolutionChain(specie);
 
-    compruebaTema();
-
     changeInfo();
 
     chooseFavicon(pokemon);
@@ -87,8 +85,8 @@ function makeData(pokemon) {
         pokemon = JSON.parse(pokemon);
     }
 
-    var number = document.getElementById("number");
     var pokemonName = document.getElementsByClassName("font-type")[0];
+    var number = document.getElementById("number");
     var weight = document.getElementById("kilos");
     var height = document.getElementById("meters");
 
@@ -103,7 +101,7 @@ function makeData(pokemon) {
     weight.innerHTML = `${pokemon.weight / 10}kg`;
     height.innerHTML = pokemon.name == "vaporeon" ? `${pokemon.height / 10}m` : `${pokemon.height / 10}`;
 
-    comprobarTipos(pokemon);
+    checkTypes(pokemon);
 
     pokemonValues(pokemon);
 }
@@ -128,7 +126,7 @@ function removeImage() {
     image.replaceWith(imageClon);
 }
 
-async function changeImage(pokemon) {
+function changeImage(pokemon) {
     removeImage();
 
     var image = document.getElementsByClassName("image")[0];
@@ -147,7 +145,7 @@ async function changeImage(pokemon) {
         whatAreUDoing(image);
     }
 
-    contentImage.src = await pokemon.sprites.other["official-artwork"].front_default;
+    contentImage.src = pokemon.sprites.other["official-artwork"].front_default;
     contentImage.alt = "Lo siento, el pokemon no ha sido encontrado :(";
 }
 
@@ -171,11 +169,11 @@ async function pokemonVarieties(pokemon) {
         mainPage.appendChild(button);
 
         for (var i = 0; i < varieties.length; i++) {
-            var response = await fetch(varieties[i]);
-            var data = await response.json();
+            var variety = varieties[i].split("/")[6];
+            var data = await givePokemonDetails(variety);
             varietyCount = i;
 
-            await makeVariety(data);
+            makeVariety(data);
         }
     }
 }
@@ -465,7 +463,7 @@ async function levelUp(pokemon, details) {
 
         details.gender ? details.gender == 1 ? trigger += `Debe Ser Hembra\n` : trigger += `Debe Ser Macho\n` : trigger;
 
-        details.party_type ? trigger += `Debe Haber Un Pokemon Tipo ${TiposPokemon[details.party_type.name]} En El Equipo` : trigger;
+        details.party_type ? trigger += `Debe Haber Un Pokemon Tipo ${PokemonTypes[details.party_type.name]} En El Equipo\n` : trigger;
 
         details.relative_physical_stats || details.relative_physical_stats == 0 ? trigger += `${StatsNumbers[details.relative_physical_stats]}\n` : trigger;
     } else {
@@ -479,7 +477,7 @@ async function levelUp(pokemon, details) {
 
         details.time_of_day.length != 0 ? trigger += `${TimeOfDay[details.time_of_day]}\n` : trigger;
 
-        details.known_move_type ? trigger += `Conocer Movimiento Tipo ${TiposPokemon[details.known_move_type.name]}` : trigger;
+        details.known_move_type ? trigger += `Conocer Movimiento Tipo ${PokemonTypes[details.known_move_type.name]}\n` : trigger;
 
         details.held_item ? trigger += `Con ${details.held_item.name[0].toUpperCase() + details.held_item.name.slice(1)} Equipado\n` : trigger;
 
@@ -489,7 +487,7 @@ async function levelUp(pokemon, details) {
 
         if (details.location == null) {
             if (name == "probopass" || name == "magnezone" || name == "vikavolt") {
-                trigger += "En Campo Magnético Enemigo\n";
+                trigger += "En Campo Magnético Enemigo";
             }
 
             if (name == "leafeon") {

@@ -15,7 +15,7 @@ var Generations = {
 };
 
 function createButtonsOfTypes() {
-    Object.keys(TiposPokemon).forEach(type => {
+    Object.keys(PokemonTypes).forEach(type => {
         const types = document.getElementById("myBtnContainer");
         var btn = document.createElement("button");
 
@@ -28,7 +28,7 @@ function createButtonsOfTypes() {
 
         btn.classList.add("btn");
         btn.setAttribute("onclick", `filterSelection("${type}")`)
-        btn.innerHTML = TiposPokemon[type];
+        btn.innerHTML = PokemonTypes[type];
         types.appendChild(btn);
     });
 }
@@ -64,7 +64,7 @@ function filterSelection(x) {
     }
     var element = document.getElementsByClassName("btn");
     for (let i = 0; i < element.length; i++) {
-        element[i].innerHTML.includes(TiposPokemon[x]) ? element[i].classList.add("active") : element[i].classList.remove("active");
+        element[i].innerHTML.includes(PokemonTypes[x]) ? element[i].classList.add("active") : element[i].classList.remove("active");
     }
     if (demo.innerHTML.length == 0) {
         demo.innerHTML = content;
@@ -275,14 +275,14 @@ function crearPokemon(pokemon) {
     bicho.appendChild(nombre);
     bicho.appendChild(numero);
     bicho.appendChild(tipos);
-    comprobarTipos(pokemon);
+    checkTypes(pokemon);
     divImagen.appendChild(imagen);
 }
 function mostrar() {
     const prueba1 = document.querySelector("#prueba1");
     const filterOptions = document.querySelector(".filter-options");
     filterOptions.classList.toggle('show');
-    prueba1.classList.toggle('show');
+    prueba1.classList.toggle('show');   
 
     if (document.getElementById("myBtnContainer").style.display == "flex" || document.getElementById("myBtnContainerGen").style.display == "flex") {
         document.getElementById("myBtnContainer").style.display = "";
