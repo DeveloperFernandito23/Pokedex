@@ -21,9 +21,11 @@ function createButtonsOfTypes() {
 
         btn.addEventListener("mouseover", () => {
             btn.style.backgroundColor = `var(--${type})`;
+            btn.style.transition = "none";
         })
         btn.addEventListener("mouseout", () => {
             btn.style.backgroundColor = "";
+            btn.style.transition = "all 1s ease-in-out";
         })
 
         btn.classList.add("btn");
