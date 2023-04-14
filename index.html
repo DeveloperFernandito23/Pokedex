@@ -31,14 +31,14 @@
                     <div class="search-container">
                         <form>
                             <input type="text" placeholder="Buscar Pokemon..." name="search" id="search-input"
-                                autocomplete="off" onkeyup="buscarPokemons(this.value)" />
+                                autocomplete="off" onkeyup="searchPokemons(this.value)" />
                         </form>
                     </div>
                     <!-- <form class="buscador">
                         <input type="text" placeholder=" " onkeyup="buscarPokemons(this.value)" />
                         <button type="reset"></button>
                     </form> -->
-                    <button id="filter" onclick="mostrar()"></button>
+                    <button id="filter" onclick="showFilters()"></button>
                 </div>
                 <select name="options" id="options" onchange="orderBy(this.value)">
                     <option value="opt1">Ascendentemente</option>
@@ -47,7 +47,7 @@
                     <option value="opt4">Z-A</option>
                 </select>
             </nav>
-            <div id="prueba1">
+            <div id="filter-container">
                 <div class="filter-options">
                     <p id="filter-title">Filtrar por</p>
                     <ul class="filter-content">
@@ -61,7 +61,7 @@
                 </div>
             </div>
 
-            <div id="prueba">
+            <div id="btn-container">
                 <div id="myBtnContainer">
                     <button class="btn" onclick="filterSelection('all')">Todos</button>
                 </div>
@@ -71,7 +71,7 @@
         </div>
 
 
-        <div id="demo"></div>
+        <div id="pokemonList"></div>
 
     </div>
     <div class="loader">

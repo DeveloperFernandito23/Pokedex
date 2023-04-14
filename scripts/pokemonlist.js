@@ -1,6 +1,6 @@
 var pokemons = [];
 
-var demo, content;
+var pokemonList, content;
 
 var GenerationsParameters = {
     1: "0, 151",
@@ -58,9 +58,7 @@ async function filterSelection(x) {
     }
 
     showAlert();
-    const demo = document.getElementById("demo");
-
-    demo.innerHTML = "";
+    pokemonList.innerHTML = "";
 
     for (let i = 0; i < pokemons.length; i++) {
         for (let j = parseInt(split[0]); j < parseInt(split[1]); j++) {
@@ -70,28 +68,20 @@ async function filterSelection(x) {
                 for (var k = 0; k < pokemons[i].types.length; k++) {
 
                     if (pokemons[i].types[k].type.name.includes(x)) {
-                        crearPokemon(pokemons[i]);
+                        createPokemon(pokemons[i]);
                     }
                 }
             }
 
         }
     }
-    
-    // for (let index = 0; index < pokemons.length; index++) {
-    //     for (var i = 0; i < pokemons[index].types.length; i++) {
 
-    //         if (pokemons[index].types[i].type.name.includes(x)) {
-    //             crearPokemon(pokemons[index]);
-    //         }
-    //     }
-    // }
     var element = document.getElementsByClassName("btn");
     for (let i = 0; i < element.length; i++) {
         element[i].innerHTML.includes(PokemonTypes[x]) ? element[i].classList.add("active") : element[i].classList.remove("active");
     }
-    if (demo.innerHTML.length == 0) {
-        demo.innerHTML = content;
+    if (pokemonList.innerHTML.length == 0) {
+        pokemonList.innerHTML = content;
         shadowTypes();
     }
 }
@@ -108,8 +98,8 @@ async function filterSelectionGen(x) {
     if (sessionStorage.getItem("select") != null) {
         showAlert();
     }
-    const demo = document.getElementById("demo");
-    demo.innerHTML = "";
+    const pokemonList = document.getElementById("pokemonList");
+    pokemonList.innerHTML = "";
     var element = document.getElementsByClassName("btn-gen");
 
     var split = GenerationsParameters[x].split(',');
@@ -121,14 +111,8 @@ async function filterSelectionGen(x) {
         element[i].innerHTML.includes(Generations[x]) ? element[i].classList.add("active") : element[i].classList.remove("active");
     }
 
-    // for (let index = 0; index < pokemons.length; index++) {
-    //     var pg = await givePokemonGeneration(pokemons[index])
-    //     if (pg == x) {
-    //         await crearPokemon(pokemons[index]);
-    //     }
-    // }
-    if (demo.innerHTML.length == 0) {
-        demo.innerHTML = content;
+    if (pokemonList.innerHTML.length == 0) {
+        await filterSelectionGen(1);
         shadowTypes();
     }
 }
@@ -140,7 +124,16 @@ async function givePokemonGeneration(pokemon) {
 
     return generations[generations.length - 2];
 }
-
+function selectGenerationActive(start, end) {
+    var result = [];
+    for (let i = 0; i < pokemons.length; i++) {
+        for (let j = start; j < end; j++) {
+            var choose = pokemons[i].id == j + 1 ? pokemons[i] : null;
+            if (choose != null) result.push(choose);
+        }
+    }
+    return result;
+}
 async function orderBy(value) {
     var lista = pokemons.slice();
     var select = sessionStorage.getItem("select");
@@ -153,68 +146,34 @@ async function orderBy(value) {
 
     switch (value) {
         case "opt1":
-            document.getElementById("demo").innerHTML = "";
+            pokemonList.innerHTML = "";
 
-            for (let i = 0; i < pokemons.length; i++) {
-                for (let j = parseInt(split[0]); j < parseInt(split[1]); j++) {
-                    var choose = pokemons[i].id == j + 1 ? pokemons[i] : null;
+            await selectGenerationActive(parseInt(split[0]), parseInt(split[1])).forEach(element => {
+                createPokemon(element);
+            });
 
-                    if (choose != null) {
-                        await crearPokemon(choose);
-                    }
-
-                }
-            }
-
-            // pokemons.forEach(element => {
-            //     crearPokemon(element);
-            // });
             break;
         case "opt2":
-            document.getElementById("demo").innerHTML = "";
+            pokemonList.innerHTML = "";
 
-            for (let i = pokemons.length - 1; i > 0; i--) {
-                for (let j = parseInt(split[0]); j < parseInt(split[1]); j++) {
-                    var choose = pokemons[i].id == j + 1 ? pokemons[i] : null;
-
-                    if (choose != null) {
-                        await crearPokemon(choose);
-                    }
-
-                }
-            }
-            // console.log(lista);
-            // lista.reverse().forEach(element => {
-            //     crearPokemon(element);
-            // });
+            await selectGenerationActive(parseInt(split[0]), parseInt(split[1])).reverse().forEach(element => {
+                createPokemon(element);
+            });
             break;
         case "opt3":
             var listPokemons = [];
-            for (let i = 0; i < pokemons.length; i++) {
-                for (let j = parseInt(split[0]); j < parseInt(split[1]); j++) {
-                    var choose = pokemons[i].id == j + 1 ? pokemons[i] : null;
 
-                    if (choose != null) {
-                        listPokemons.push(pokemons[i])
-                    }
-
-                }
-            }
+            await selectGenerationActive(parseInt(split[0]), parseInt(split[1])).forEach(element => {
+                listPokemons.push(element);
+            });
             alphabeticalOrder(false, listPokemons);
-            
             break;
         case "opt4":
             var listPokemons = [];
-            for (let i = 0; i < pokemons.length; i++) {
-                for (let j = parseInt(split[0]); j < parseInt(split[1]); j++) {
-                    var choose = pokemons[i].id == j + 1 ? pokemons[i] : null;
 
-                    if (choose != null) {
-                        listPokemons.push(pokemons[i])
-                    }
-
-                }
-            }
+            await selectGenerationActive(parseInt(split[0]), parseInt(split[1])).forEach(element => {
+                listPokemons.push(element);
+            });
             alphabeticalOrder(true, listPokemons);
             break;
     }
@@ -224,7 +183,7 @@ async function orderBy(value) {
 function alphabeticalOrder(bool, list) {
     var listPoke = list.slice();
 
-    var listaOrder = listPoke.sort((a, b, result = 0) => {
+    var orderList = listPoke.sort((a, b, result = 0) => {
         if (a.name.toLowerCase() > b.name.toLowerCase()) {
             result = 1;
         }
@@ -234,58 +193,60 @@ function alphabeticalOrder(bool, list) {
         return result;
     });
 
-    document.getElementById("demo").innerHTML = "";
+    pokemonList.innerHTML = "";
     if (bool) {
-        listaOrder.reverse();
+        orderList.reverse();
     }
 
-    listaOrder.forEach(element => {
-        crearPokemon(element);
+    orderList.forEach(element => {
+        createPokemon(element);
     });
 }
+function changeStyleLoader(pokemonsDisplay, height, loaderDisplay){
+    document.getElementById("pokemonList").style.display = pokemonsDisplay;
+    document.getElementsByClassName("font-type")[0].style.height = height;
+    document.getElementsByClassName("loader")[0].style.display = loaderDisplay;
+}
+
 function startLoader() {
-    document.getElementById("demo").style.display = "none";
-    document.getElementsByClassName("font-type")[0].style.height = "35vh";
-    document.getElementsByClassName("loader")[0].style.display = "flex";
+    changeStyleLoader("none", "35vh", "flex");
 }
 function finishLoader() {
-    document.getElementById("demo").style.display = "";
-    document.getElementsByClassName("font-type")[0].style.height = "20vh";
-    document.getElementsByClassName("loader")[0].style.display = "none";
+    changeStyleLoader("", "20vh", "none");
 }
 async function givePokemons(start, end) { //NEVER TOUCH
     startLoader();
 
     for (var i = start; i < end; i++) {
         var response = await fetch(`https://pokeapi.co/api/v2/pokemon/${i + 1}/`);
-        var objeto = await response.json();
-        await pokemons.push(objeto);
-        await crearPokemon(objeto);
+        var object = await response.json();
+        await pokemons.push(object);
+        await createPokemon(object);
     }
 
     finishLoader();
 
-    demo = document.getElementById("demo");
-    content = demo.innerHTML;
+    pokemonList = document.getElementById("pokemonList");
+    content = pokemonList.innerHTML;
 }
 
-function buscarPokemons(valor) {
-    var documento = document.getElementById("demo");
+function searchPokemons(valor) {
+    var document = pokemonList;
 
-    documento.innerHTML = "";
+    document.innerHTML = "";
 
     for (var i = 0; i < pokemons.length; i++) {
         if (pokemons[i].name.toUpperCase().includes(valor.toUpperCase())) {
-            crearPokemon(pokemons[i]);
+            createPokemon(pokemons[i]);
         }
     }
 
-    if (documento.innerHTML.length == 0) {
-        documento.innerHTML = "<div class='alert'>¡No se encontraron pokémons!</div>";
+    if (document.innerHTML.length == 0) {
+        document.innerHTML = "<div class='alert'>¡No se encontraron pokémons!</div>";
     }
 }
 
-function crearPokemon(pokemon) {
+function createPokemon(pokemon) {
     var enlace = document.createElement("a");
     enlace.classList.add(`link-${pokemon.id}`);
     enlace.href = `html/pokemon.html?numero=${pokemon.id}`;
@@ -318,7 +279,7 @@ function crearPokemon(pokemon) {
     var tipos = document.createElement("div");
     tipos.classList.add("types");
 
-    document.getElementById("demo").appendChild(enlace);
+    document.getElementById("pokemonList").appendChild(enlace);
     enlace.appendChild(bicho);
     bicho.appendChild(divImagen);
     bicho.appendChild(nombre);
@@ -327,11 +288,11 @@ function crearPokemon(pokemon) {
     checkTypes(pokemon);
     divImagen.appendChild(imagen);
 }
-function mostrar() {
-    const prueba1 = document.querySelector("#prueba1");
+function showFilters() {
+    const filterContainer = document.querySelector("#filter-container");
     const filterOptions = document.querySelector(".filter-options");
     filterOptions.classList.toggle('show');
-    prueba1.classList.toggle('show');
+    filterContainer.classList.toggle('show');
 
     if (document.getElementById("myBtnContainer").style.display == "flex" || document.getElementById("myBtnContainerGen").style.display == "flex") {
         document.getElementById("myBtnContainer").style.display = "";
@@ -357,7 +318,7 @@ element.addEventListener("click", () => {
     if (show) {
         document.getElementById("myBtnContainer").style.display = "flex";
         document.getElementById("myBtnContainer").style.opacity = "1";
-        document.getElementById("prueba").style.opacity = "1";
+        document.getElementById("btn-container").style.opacity = "1";
         document.getElementById("myBtnContainerGen").style.display = "";
         document.getElementById("myBtnContainerGen").style.opacity = "0";
         show2 = true;
@@ -365,7 +326,7 @@ element.addEventListener("click", () => {
     } else {
         document.getElementById("myBtnContainer").style.display = "";
         document.getElementById("myBtnContainer").style.opacity = "0";
-        document.getElementById("prueba").style.opacity = "0";
+        document.getElementById("btn-container").style.opacity = "0";
         show = true;
     }
 });
@@ -379,7 +340,7 @@ element1.addEventListener("click", () => {
     if (show2) {
         document.getElementById("myBtnContainerGen").style.display = "flex";
         document.getElementById("myBtnContainerGen").style.opacity = "1";
-        document.getElementById("prueba").style.opacity = "1";
+        document.getElementById("btn-container").style.opacity = "1";
         document.getElementById("myBtnContainer").style.display = "";
         document.getElementById("myBtnContainer").style.opacity = "0";
         show = true;
@@ -387,13 +348,13 @@ element1.addEventListener("click", () => {
     } else {
         document.getElementById("myBtnContainerGen").style.display = "";
         document.getElementById("myBtnContainerGen").style.opacity = "0";
-        document.getElementById("prueba").style.opacity = "0";
+        document.getElementById("btn-container").style.opacity = "0";
         show2 = true;
     }
 });
 function resetFilters() {
     document.getElementById("options").value = "opt1";
-    demo.innerHTML = content;
+    pokemonList.innerHTML = content;
     shadowTypes();
     removeClass("active");
     showAlert();
@@ -428,12 +389,7 @@ async function startPokedex() {
     } else {
         await filterSelectionGen(parseInt(sessionStorage.getItem("select")));
     }
-    // await givePokemons(0, 151);
     createButtonsFilters();
-    // if(sessionStorage.getItem("enter") == null){
-    //     filterSelectionGen(1);
-    // }
-    sessionStorage.setItem("enter", "true")
     await restorePosition();
 }
 
