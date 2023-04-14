@@ -48,20 +48,45 @@ function createButtonsOfGenerations() {
         btn.appendChild(image);
     });
 }
-function filterSelection(x) {
+async function filterSelection(x) {
+    document.getElementById("options").value = "opt1";
+    var genereationSelected = sessionStorage.getItem("select");
+    var split;
+    if (genereationSelected != null) {
+        split = Generations[parseInt(genereationSelected)].split(',');
+    } else {
+        split = Generations[1].split(',');
+    }
+
     showAlert();
     const demo = document.getElementById("demo");
 
     demo.innerHTML = "";
 
-    for (let index = 0; index < pokemons.length; index++) {
-        for (var i = 0; i < pokemons[index].types.length; i++) {
+    for (let i = 0; i < pokemons.length; i++) {
+        for (let j = parseInt(split[0]); j < parseInt(split[1]); j++) {
+            var choose = pokemons[i].id == j + 1 ? pokemons[i] : null;
 
-            if (pokemons[index].types[i].type.name.includes(x)) {
-                crearPokemon(pokemons[index]);
+            if (choose != null) {
+                for (var k = 0; k < pokemons[i].types.length; k++) {
+
+                    if (pokemons[i].types[k].type.name.includes(x)) {
+                        crearPokemon(pokemons[i]);
+                    }
+                }
             }
+
         }
     }
+    
+    // for (let index = 0; index < pokemons.length; index++) {
+    //     for (var i = 0; i < pokemons[index].types.length; i++) {
+
+    //         if (pokemons[index].types[i].type.name.includes(x)) {
+    //             crearPokemon(pokemons[index]);
+    //         }
+    //     }
+    // }
     var element = document.getElementsByClassName("btn");
     for (let i = 0; i < element.length; i++) {
         element[i].innerHTML.includes(PokemonTypes[x]) ? element[i].classList.add("active") : element[i].classList.remove("active");
@@ -79,7 +104,9 @@ function removeClass(classname) {
     }
 }
 async function filterSelectionGen(x) {
-    if (sessionStorage.getItem("enter") != null) {
+    document.getElementById("options").value = "opt1";
+
+    if (sessionStorage.getItem("select") != null) {
         showAlert();
     }
     const demo = document.getElementById("demo");
@@ -131,12 +158,12 @@ async function orderBy(value) {
 
             for (let i = 0; i < pokemons.length; i++) {
                 for (let j = parseInt(split[0]); j < parseInt(split[1]); j++) {
-                    var choose = pokemons[i].id == j+1 ? pokemons[i] : null;
-                    
-                    if(choose != null){
+                    var choose = pokemons[i].id == j + 1 ? pokemons[i] : null;
+
+                    if (choose != null) {
                         await crearPokemon(choose);
                     }
-                    
+
                 }
             }
 
@@ -147,14 +174,14 @@ async function orderBy(value) {
         case "opt2":
             document.getElementById("demo").innerHTML = "";
 
-            for (let i = pokemons.length-1; i > 0; i--) {
+            for (let i = pokemons.length - 1; i > 0; i--) {
                 for (let j = parseInt(split[0]); j < parseInt(split[1]); j++) {
-                    var choose = pokemons[i].id == j+1 ? pokemons[i] : null;
-                    
-                    if(choose != null){
+                    var choose = pokemons[i].id == j + 1 ? pokemons[i] : null;
+
+                    if (choose != null) {
                         await crearPokemon(choose);
                     }
-                    
+
                 }
             }
             // console.log(lista);
@@ -163,19 +190,42 @@ async function orderBy(value) {
             // });
             break;
         case "opt3":
-            alphabeticalOrder(false, parseInt(split[0]), parseInt(split[1]));
+            var listPokemons = [];
+            for (let i = pokemons.length - 1; i > 0; i--) {
+                for (let j = parseInt(split[0]); j < parseInt(split[1]); j++) {
+                    var choose = pokemons[i].id == j + 1 ? pokemons[i] : null;
+
+                    if (choose != null) {
+                        listPokemons.push(pokemons[i])
+                    }
+
+                }
+            }
+            alphabeticalOrder(false, listPokemons);
+            
             break;
         case "opt4":
-            alphabeticalOrder(true, parseInt(split[0]), parseInt(split[1]));
+            var listPokemons = [];
+            for (let i = pokemons.length - 1; i > 0; i--) {
+                for (let j = parseInt(split[0]); j < parseInt(split[1]); j++) {
+                    var choose = pokemons[i].id == j + 1 ? pokemons[i] : null;
+
+                    if (choose != null) {
+                        listPokemons.push(pokemons[i])
+                    }
+
+                }
+            }
+            alphabeticalOrder(true, listPokemons);
             break;
     }
 }
 
 // ORDENA ALFABETICAMENTE
-function alphabeticalOrder(bool, start, end) {
-    var lista = pokemons.slice(start, end);
+function alphabeticalOrder(bool, list) {
+    var listPoke = list.slice();
 
-    var listaOrder = lista.sort((a, b, result = 0) => {
+    var listaOrder = listPoke.sort((a, b, result = 0) => {
         if (a.name.toLowerCase() > b.name.toLowerCase()) {
             result = 1;
         }
@@ -282,7 +332,7 @@ function mostrar() {
     const prueba1 = document.querySelector("#prueba1");
     const filterOptions = document.querySelector(".filter-options");
     filterOptions.classList.toggle('show');
-    prueba1.classList.toggle('show');   
+    prueba1.classList.toggle('show');
 
     if (document.getElementById("myBtnContainer").style.display == "flex" || document.getElementById("myBtnContainerGen").style.display == "flex") {
         document.getElementById("myBtnContainer").style.display = "";
