@@ -93,7 +93,7 @@ span {
     min-width: 160px;
     box-shadow: 0px 8px 16px 0px var(--shadow-filter);
     padding: 12px 16px;
-    transition: opacity 0.3s ease, transform 0.3s ease;
+    transition: all 1s ease-in-out;
     font-weight: var(--bold);
 }
 
@@ -102,7 +102,6 @@ span {
     opacity: 1;
     display: grid;
     grid-template-columns: 2, 1fr;
-    transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
 #filter-title {
@@ -135,6 +134,7 @@ span {
     cursor: pointer;
     margin: 1px 1px;
     border-radius: 15px;
+    transition: all 1s ease-in-out;
 }
 
 .btn-gen{
@@ -270,7 +270,7 @@ span {
     20%{
         transform: translateY(-50px);
         filter: drop-shadow(0 0 20px rgb(255, 21, 0));
-        box-shadow: 0 30px 0 rgb(31, 34, 34), 0 -30px 0 rgb(37, 41, 41);
+        box-shadow: 0 30px 0 var(--transition-color), 0 -30px 0 var(--transition-second-color);
     }
 
     
