@@ -356,7 +356,6 @@ function resetFilters() {
     document.getElementById("options").value = "opt1";
     pokemonList.innerHTML = content;
     shadowTypes();
-    removeClass("active");
     showAlert();
 }
 
@@ -384,12 +383,13 @@ function createButtonsFilters() {
 }
 
 async function startPokedex() {
+    createButtonsFilters();
+
     if (sessionStorage.getItem("select") == null) {
         await filterSelectionGen(1);
     } else {
         await filterSelectionGen(parseInt(sessionStorage.getItem("select")));
     }
-    createButtonsFilters();
     await restorePosition();
 }
 
