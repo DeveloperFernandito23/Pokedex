@@ -394,7 +394,7 @@ function restorePosition() {
     var position = sessionStorage.getItem("position");
     var poke = document.getElementsByClassName(`link-${position}`)[0];
 
-    if (position != null) {
+    if (poke != undefined) {
         poke.scrollIntoView({
             behavior: 'smooth'
         });
