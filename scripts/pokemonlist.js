@@ -61,6 +61,8 @@ async function filterSelection(x) {
 
     showAlert();
     pokemonList.innerHTML = "";
+    sessionStorage.setItem("typeSelected", x);
+
 
     for (let i = 0; i < pokemons.length; i++) {
         for (let j = parseInt(split[0]); j < parseInt(split[1]); j++) {
@@ -86,6 +88,9 @@ async function filterSelection(x) {
         pokemonList.innerHTML = content;
         shadowTypes();
     }
+
+    document.getElementById("typeFilter").innerHTML = PokemonTypes[x];
+
 }
 function removeClass(classname) {
     var element = document.getElementsByClassName(classname);
@@ -96,7 +101,6 @@ function removeClass(classname) {
 }
 async function filterSelectionGen(x) {
     document.getElementById("options").value = "opt1";
-
     if (sessionStorage.getItem("select") != null) {
         showAlert();
     }
@@ -117,6 +121,13 @@ async function filterSelectionGen(x) {
         await filterSelectionGen(1);
         shadowTypes();
     }
+    if (sessionStorage.getItem("typeSelected") != null) {
+
+        filterSelection(sessionStorage.getItem("typeSelected"));
+
+    }
+    document.getElementById("generation").innerHTML = `${Generations[x]} Generación`;
+
 }
 
 async function givePokemonGeneration(pokemon) {
@@ -345,9 +356,9 @@ element.addEventListener("click", () => {
 var show2 = true;
 const element1 = document.getElementById("gen");
 element1.addEventListener("click", () => {
-    if (document.getElementById("myBtnContainerGen").style.display != "" || document.getElementById("myBtnContainer").style.display != "") {
-        resetFilters();
-    }
+    // if (document.getElementById("myBtnContainerGen").style.display != "" || document.getElementById("myBtnContainer").style.display != "") {
+    //     resetFilters();
+    // }
 
     if (show2) {
         document.getElementById("myBtnContainerGen").style.display = "flex";
