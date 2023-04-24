@@ -29,6 +29,7 @@ body {
     --fairy: rgb(239, 113, 240);
     --steel: rgb(96, 162, 185);
     --dark: rgb(80, 65, 63);
+    --all: rgb(69, 69, 69);
 
     --bold: 800;
     margin: 0;

@@ -80,13 +80,37 @@ footer {
 
 #main-page {
     display: flex;
+    flex-wrap: wrap;
 }
 
+
+/* display: inline;
+    position: relative;
+    right: 0;
+    left: ;
+    order: -1;
+    margin: auto; 
+} 
 #details {
-    flex-basis: 32vw;
+    /* flex-basis: 32vw; */
+/* margin-left: 1vw; */
+/* margin-top: 25vh;
+    width: 25%;
+    height: max-content;
+    padding: 5px;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    font-weight: var(--bold);
+    border: 3px var(--text-color) solid;
+    border-radius: 15px;
+    transition: all 1s ease-in-out; */
+
+
+#details {
+    /* flex-basis: 32vw; */
     margin-left: 1vw;
     margin-top: 25vh;
-    width: max-content;
+    width: 25%;
     height: max-content;
     padding: 5px;
     background-color: var(--background-color);
@@ -95,7 +119,9 @@ footer {
     border: 3px var(--text-color) solid;
     border-radius: 15px;
     transition: all 1s ease-in-out;
+    order: -1;
 }
+
 
 #pokemon {
     margin-top: -30px;
@@ -277,4 +303,78 @@ footer {
     border-radius: 5px;
     transition: width .8s ease-in-out;
     transition: all 1s ease-in-out;
+}
+
+/* Si no funciona poner 1000px */
+@media screen and (max-width: 700px) {  
+    #details {
+        width: 70%;
+        justify-content: space-between;
+        text-align: center;
+        display: flex;
+        font-size: 1rem;
+        align-content: space-around;
+        flex-wrap: wrap;
+        margin: 5vh auto;
+    }
+
+    #main-page {
+        display: block;
+    }
+
+    #image-region {
+        display: block;
+        margin: auto;
+        width: 80%;
+    }
+
+    .types {
+        margin: 1vh auto;
+    }
+
+    #data {
+        justify-content: center;
+    }
+
+    #main-image {
+        width: 25vw;
+    }
+
+    #evolution-pokemons {
+        gap: 8vw;
+    }
+
+    #pokemon-header {
+        gap: 0;
+    }
+
+    #info {
+        grid-template-columns: repeat(2, 80px);
+    }
+
+    #number {
+        width: 30vw;
+    }
+
+    #stats {
+        margin: 3vh 1vw;
+        gap: 15px 15px;
+        font-size: 0.6rem;
+    }
+
+    .menu {
+        padding-left: 0;
+        padding-right: 0;
+        height: 2vh;
+    }
+    .switch{
+        margin-left: 2vw;
+    }
+    .font-type{
+        margin: 5vh auto;
+        font-size: 2rem;
+    }
+    #region{
+        margin: 0;
+    }
 }
