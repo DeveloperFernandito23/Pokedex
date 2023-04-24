@@ -1,5 +1,5 @@
 //JS no tiene tipo enumerado, pero se puede usar esta sintaxis para dejarlo más claro
-var PokemonTypes = {
+const PokemonTypes = {
     water: "Agua",
     bug: "Bicho",
     dragon: "Dragón",
@@ -19,7 +19,7 @@ var PokemonTypes = {
     steel: "Acero",
     dark: "Siniestro"
 };
-var Generations = {
+const Generations = {
     1: "Primera",
     2: "Segunda",
     3: "Tercera",

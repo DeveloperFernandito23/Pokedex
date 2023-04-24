@@ -2,7 +2,7 @@ var pokemons = [];
 
 var pokemonList, content;
 
-var GenerationsParameters = {
+const GenerationsParameters = {
     1: "0, 151",
     2: "151, 251",
     3: "251, 386",

@@ -205,7 +205,7 @@ function changeInfo() {
 }
 
 function makeRegion(specie) {
-    var PokemonRegion = {
+    const PokemonRegion = {
         i: "kanto",
         ii: "johto",
         iii: "hoenn",
@@ -384,7 +384,7 @@ function closeScreen() {
 }
 
 async function checkTrigger(pokemon, details) {
-    var TipeTrigger = {
+    const TipeTrigger = {
         other: other(pokemon),
         trade: trade(details),
         "use-item": await useItem(details),
@@ -407,7 +407,7 @@ async function checkTrigger(pokemon, details) {
 function other(pokemon) {
     var trigger;
 
-    var Names = {
+    const Names = {
         maushold: "Nivel => 25 En Combate",
         kingambit: "Subir Nivel \n Derrotar 3 Bisharp Líderes",
         gholdengo: "Subir Nivel \n Tener 999 Monedas de Gimmighoul",
@@ -440,13 +440,13 @@ async function levelUp(pokemon, details) {
 
     var name = pokemon.species.name;
 
-    var StatsNumbers = {
+    const StatsNumbers = {
         "-1": "Ataque < Defensa",
         0: "Ataque == Defensa",
         1: "Ataque > Defensa"
     }
 
-    var TimeOfDay = {
+    const TimeOfDay = {
         day: "Debe Ser De Día",
         night: "Debe Ser De Noche",
         dusk: "Debe Ser Al Atardecer Debe Tener La Habilidad Ritmo Propio"
