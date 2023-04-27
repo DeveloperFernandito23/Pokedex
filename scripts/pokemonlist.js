@@ -231,6 +231,7 @@ function startLoader() {
 }
 function finishLoader() {
     changeStyleLoader("", "20vh", "none");
+    restorePosition();
 }
 async function givePokemons(start, end) { //NEVER TOUCH
     startLoader();
@@ -416,11 +417,10 @@ async function startPokedex() {
     createButtonsFilters();
 
     if (sessionStorage.getItem("select") == null) {
-        filterSelectionGen(1);
+        await filterSelectionGen(1);
     } else {
-        filterSelectionGen(parseInt(sessionStorage.getItem("select")));
+        await filterSelectionGen(parseInt(sessionStorage.getItem("select")));
     }
-    restorePosition();
 }
 
 window.onscroll = function () { scrollFunction() };
