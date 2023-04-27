@@ -67,18 +67,23 @@ async function filterSelection(x) {
 
 
     for (let i = 0; i < pokemons.length; i++) {
-        for (let j = parseInt(split[0]); j < parseInt(split[1]); j++) {
+        var stop = false;
+        for (let j = parseInt(split[0]); stop == false && j < parseInt(split[1]); j++) {
             var choose = pokemons[i].id == j + 1 ? pokemons[i] : null;
 
             if (choose != null) {
-                for (var k = 0; k < pokemons[i].types.length; k++) {
+                stop = true;
+
+                var repeat = false;
+                for (var k = 0; k < pokemons[i].types.length && repeat == false; k++) {
 
                     if (x != "all") {
                         if (pokemons[i].types[k].type.name.includes(x)) {
-                            createPokemon(pokemons[i]);
+                            await createPokemon(pokemons[i]);
                         }
                     } else {
-                        createPokemon(pokemons[i]);
+                        await createPokemon(pokemons[i]);
+                        repeat = true;
                     }
                 }
             }
@@ -117,7 +122,7 @@ async function filterSelectionGen(x) {
     for (let i = 0; i < element.length; i++) {
         element[i].innerHTML.includes(Generations[x]) ? element[i].classList.add("active") : element[i].classList.remove("active");
     }
-    
+
     document.getElementById("generation").innerHTML = `${Generations[x]} Generación`;
 
     var split = GenerationsParameters[x].split(',');
@@ -130,7 +135,7 @@ async function filterSelectionGen(x) {
     }
 
     if (pokemonList.innerHTML.length == 0) {
-        await filterSelectionGen(1);
+        filterSelectionGen(1);
         shadowTypes();
     }
 
@@ -243,8 +248,8 @@ async function givePokemons(start, end) { //NEVER TOUCH
     for (var i = start; i < end; i++) {
         var response = await fetch(`https://pokeapi.co/api/v2/pokemon/${i + 1}/`);
         var object = await response.json();
-        pokemons.push(object);
-        createPokemon(object);
+        await pokemons.push(object);
+        await createPokemon(object);
     }
 
     content = pokemonList.innerHTML;
@@ -268,7 +273,7 @@ async function searchPokemons(valor) {
     });
     for (var i = 0; i < listPokemons.length; i++) {
         if (listPokemons[i].name.toUpperCase().includes(valor.toUpperCase())) {
-            createPokemon(listPokemons[i]);
+            await createPokemon(listPokemons[i]);
         }
     }
 
