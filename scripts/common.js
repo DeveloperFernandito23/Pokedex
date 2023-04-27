@@ -1,5 +1,6 @@
 //JS no tiene tipo enumerado, pero se puede usar esta sintaxis para dejarlo más claro
 const PokemonTypes = {
+    "all": "Todos",
     water: "Agua",
     bug: "Bicho",
     dragon: "Dragón",

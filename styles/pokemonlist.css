@@ -28,7 +28,7 @@ body {
     transition: all 0.5s ease;
     color: var(--fuego);
     gap: 4vw;
-    margin: 10vw;
+    margin: 5vw;
     justify-content: center;
     width: auto;
     /* vw para que sea más responsivo, es una unidad de medida relativa */

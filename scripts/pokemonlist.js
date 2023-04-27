@@ -108,6 +108,13 @@ async function filterSelectionGen(x) {
     pokemonList.innerHTML = "";
     var element = document.getElementsByClassName("btn-gen");
 
+    if (sessionStorage.getItem("typeSelected") != null) {
+
+        filterSelection(sessionStorage.getItem("typeSelected"));
+
+    }
+    document.getElementById("generation").innerHTML = `${Generations[x]} Generación`;
+
     var split = GenerationsParameters[x].split(',');
     sessionStorage.setItem("select", x);
     await givePokemons(parseInt(split[0]), parseInt(split[1]));
@@ -121,13 +128,6 @@ async function filterSelectionGen(x) {
         await filterSelectionGen(1);
         shadowTypes();
     }
-    if (sessionStorage.getItem("typeSelected") != null) {
-
-        filterSelection(sessionStorage.getItem("typeSelected"));
-
-    }
-    document.getElementById("generation").innerHTML = `${Generations[x]} Generación`;
-
 }
 
 async function givePokemonGeneration(pokemon) {
@@ -155,7 +155,7 @@ async function orderBy(value) {
         split = generation.split(',')
     }
     showAlert();
-
+    filterSelection("all");
     switch (value) {
         case "opt1":
             pokemonList.innerHTML = "";
@@ -229,14 +229,15 @@ function finishLoader() {
 async function givePokemons(start, end) { //NEVER TOUCH
     startLoader();
 
+    setTimeout(finishLoader, 2500);
+
     for (var i = start; i < end; i++) {
         var response = await fetch(`https://pokeapi.co/api/v2/pokemon/${i + 1}/`);
         var object = await response.json();
-        await pokemons.push(object);
-        await createPokemon(object);
+        pokemons.push(object);
+        createPokemon(object);
     }
 
-    finishLoader();
 
     pokemonList = document.getElementById("pokemonList");
     content = pokemonList.innerHTML;
