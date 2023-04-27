@@ -114,6 +114,10 @@ async function filterSelectionGen(x) {
     pokemonList.innerHTML = "";
     var element = document.getElementsByClassName("btn-gen");
 
+    for (let i = 0; i < element.length; i++) {
+        element[i].innerHTML.includes(Generations[x]) ? element[i].classList.add("active") : element[i].classList.remove("active");
+    }
+    
     document.getElementById("generation").innerHTML = `${Generations[x]} Generación`;
 
     var split = GenerationsParameters[x].split(',');
@@ -123,10 +127,6 @@ async function filterSelectionGen(x) {
 
         filterSelection(sessionStorage.getItem("typeSelected"));
 
-    }
-
-    for (let i = 0; i < element.length; i++) {
-        element[i].innerHTML.includes(Generations[x]) ? element[i].classList.add("active") : element[i].classList.remove("active");
     }
 
     if (pokemonList.innerHTML.length == 0) {
