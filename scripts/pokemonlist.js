@@ -1,6 +1,8 @@
 var pokemons = [];
 
-var pokemonList, content;
+var pokemonList = document.getElementById("pokemonList");
+
+var content;
 
 const GenerationsParameters = {
     1: "0, 151",
@@ -71,12 +73,15 @@ async function filterSelection(x) {
             if (choose != null) {
                 for (var k = 0; k < pokemons[i].types.length; k++) {
 
-                    if (pokemons[i].types[k].type.name.includes(x)) {
+                    if (x != "all") {
+                        if (pokemons[i].types[k].type.name.includes(x)) {
+                            createPokemon(pokemons[i]);
+                        }
+                    } else {
                         createPokemon(pokemons[i]);
                     }
                 }
             }
-
         }
     }
 
@@ -84,13 +89,13 @@ async function filterSelection(x) {
     for (let i = 0; i < element.length; i++) {
         element[i].innerHTML.includes(PokemonTypes[x]) ? element[i].classList.add("active") : element[i].classList.remove("active");
     }
-    if (pokemonList.innerHTML.length == 0) {
-        pokemonList.innerHTML = content;
-        shadowTypes();
-    }
+
+    // if (x == "all") {
+    //     pokemonList.innerHTML = content;
+    //     shadowTypes();
+    // }
 
     document.getElementById("typeFilter").innerHTML = PokemonTypes[x];
-
 }
 function removeClass(classname) {
     var element = document.getElementsByClassName(classname);
@@ -101,24 +106,24 @@ function removeClass(classname) {
 }
 async function filterSelectionGen(x) {
     document.getElementById("options").value = "opt1";
+    sessionStorage.setItem("select", x);
+
     if (sessionStorage.getItem("select") != null) {
         showAlert();
     }
-    const pokemonList = document.getElementById("pokemonList");
     pokemonList.innerHTML = "";
     var element = document.getElementsByClassName("btn-gen");
+
+    document.getElementById("generation").innerHTML = `${Generations[x]} Generación`;
+
+    var split = GenerationsParameters[x].split(',');
+    await givePokemons(parseInt(split[0]), parseInt(split[1]));
 
     if (sessionStorage.getItem("typeSelected") != null) {
 
         filterSelection(sessionStorage.getItem("typeSelected"));
 
     }
-    document.getElementById("generation").innerHTML = `${Generations[x]} Generación`;
-
-    var split = GenerationsParameters[x].split(',');
-    sessionStorage.setItem("select", x);
-    await givePokemons(parseInt(split[0]), parseInt(split[1]));
-
 
     for (let i = 0; i < element.length; i++) {
         element[i].innerHTML.includes(Generations[x]) ? element[i].classList.add("active") : element[i].classList.remove("active");
@@ -128,6 +133,7 @@ async function filterSelectionGen(x) {
         await filterSelectionGen(1);
         shadowTypes();
     }
+
 }
 
 async function givePokemonGeneration(pokemon) {
@@ -231,6 +237,8 @@ async function givePokemons(start, end) { //NEVER TOUCH
 
     setTimeout(finishLoader, 2500);
 
+    pokemonList.innerHTML = "";
+
     for (var i = start; i < end; i++) {
         var response = await fetch(`https://pokeapi.co/api/v2/pokemon/${i + 1}/`);
         var object = await response.json();
@@ -238,8 +246,6 @@ async function givePokemons(start, end) { //NEVER TOUCH
         createPokemon(object);
     }
 
-
-    pokemonList = document.getElementById("pokemonList");
     content = pokemonList.innerHTML;
 }
 
@@ -410,11 +416,11 @@ async function startPokedex() {
     createButtonsFilters();
 
     if (sessionStorage.getItem("select") == null) {
-        await filterSelectionGen(1);
+        filterSelectionGen(1);
     } else {
-        await filterSelectionGen(parseInt(sessionStorage.getItem("select")));
+        filterSelectionGen(parseInt(sessionStorage.getItem("select")));
     }
-    await restorePosition();
+    restorePosition();
 }
 
 window.onscroll = function () { scrollFunction() };
