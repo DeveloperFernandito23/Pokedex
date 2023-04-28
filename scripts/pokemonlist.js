@@ -95,11 +95,6 @@ async function filterSelection(x) {
         element[i].innerHTML.includes(PokemonTypes[x]) ? element[i].classList.add("active") : element[i].classList.remove("active");
     }
 
-    // if (x == "all") {
-    //     pokemonList.innerHTML = content;
-    //     shadowTypes();
-    // }
-
     document.getElementById("typeFilter").innerHTML = PokemonTypes[x];
 }
 function removeClass(classname) {
@@ -248,8 +243,8 @@ async function givePokemons(start, end) { //NEVER TOUCH
     for (var i = start; i < end; i++) {
         var response = await fetch(`https://pokeapi.co/api/v2/pokemon/${i + 1}/`);
         var object = await response.json();
-        await pokemons.push(object);
-        await createPokemon(object);
+        pokemons.push(object);
+        createPokemon(object);
     }
 
     content = pokemonList.innerHTML;
@@ -369,9 +364,6 @@ element.addEventListener("click", () => {
 var show2 = true;
 const element1 = document.getElementById("gen");
 element1.addEventListener("click", () => {
-    // if (document.getElementById("myBtnContainerGen").style.display != "" || document.getElementById("myBtnContainer").style.display != "") {
-    //     resetFilters();
-    // }
 
     if (show2) {
         document.getElementById("myBtnContainerGen").style.display = "flex";
