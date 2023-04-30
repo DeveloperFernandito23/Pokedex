@@ -243,8 +243,8 @@ async function givePokemons(start, end) { //NEVER TOUCH
     for (var i = start; i < end; i++) {
         var response = await fetch(`https://pokeapi.co/api/v2/pokemon/${i + 1}/`);
         var object = await response.json();
-        pokemons.push(object);
-        createPokemon(object);
+        await pokemons.push(object);
+        await createPokemon(object);
     }
 
     content = pokemonList.innerHTML;
