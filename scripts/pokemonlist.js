@@ -79,10 +79,10 @@ async function filterSelection(x) {
 
                     if (x != "all") {
                         if (pokemons[i].types[k].type.name.includes(x)) {
-                            await createPokemon(pokemons[i]);
+                            createPokemon(pokemons[i]);
                         }
                     } else {
-                        await createPokemon(pokemons[i]);
+                        createPokemon(pokemons[i]);
                         repeat = true;
                     }
                 }
