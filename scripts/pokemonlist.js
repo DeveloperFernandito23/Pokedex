@@ -125,12 +125,12 @@ async function filterSelectionGen(x) {
 
     if (sessionStorage.getItem("typeSelected") != null) {
 
-        filterSelection(sessionStorage.getItem("typeSelected"));
+        await filterSelection(sessionStorage.getItem("typeSelected"));
 
     }
 
     if (pokemonList.innerHTML.length == 0) {
-        filterSelectionGen(1);
+        await filterSelectionGen(1);
         shadowTypes();
     }
 
