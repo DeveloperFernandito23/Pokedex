@@ -382,7 +382,7 @@ element1.addEventListener("click", () => {
 });
 function resetFilters() {
     document.getElementById("options").value = "opt1";
-    pokemonList.innerHTML = content;
+    filterSelection("all");
     shadowTypes();
     showAlert();
 }
