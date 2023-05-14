@@ -280,7 +280,7 @@ async function searchPokemons(valor) {
 function createPokemon(pokemon) {
     var enlace = document.createElement("a");
     enlace.classList.add(`link-${pokemon.id}`);
-    enlace.href = `html/pokemon.html?numero=${pokemon.id}`;
+    enlace.href = `html/pokemon.html?id=${pokemon.id}`;
 
     enlace.addEventListener("click", () => {
         sessionStorage.setItem("position", pokemon.id);

@@ -38,7 +38,7 @@ async function pokemonDetails() {
 
     var newUrl = new URLSearchParams(parameters);
 
-    var number = newUrl.get('numero');
+    var number = newUrl.get('id');
 
     var pokemon = await givePokemonDetails(number);
 
@@ -258,7 +258,7 @@ async function makeChainData(thisPokemon, chain) {
     var chainSpace = document.getElementById("evolution-pokemons");
 
     var link = document.createElement("a");
-    link.href = `pokemon.html?numero=${id}`;
+    link.href = `pokemon.html?id=${id}`;
 
     var element = document.createElement("div");
     element.classList.add("poke");
