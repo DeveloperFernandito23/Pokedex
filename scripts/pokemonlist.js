@@ -3,6 +3,7 @@ var pokemons = [];
 var pokemonList = document.getElementById("pokemonList");
 
 var content;
+var tryAbort = false;
 
 const GenerationsParameters = {
     1: "0, 151",
@@ -121,7 +122,10 @@ async function filterSelectionGen(x) {
     document.getElementById("generation").innerHTML = `${Generations[x]} Generación`;
 
     var split = GenerationsParameters[x].split(',');
-    await givePokemons(parseInt(split[0]), parseInt(split[1]));
+    try {
+        await givePokemons(parseInt(split[0]), parseInt(split[1]));
+
+    } catch (error) { }
 
     if (sessionStorage.getItem("typeSelected") != null) {
 
@@ -129,10 +133,10 @@ async function filterSelectionGen(x) {
 
     }
 
-    if (pokemonList.innerHTML.length == 0) {
-        await filterSelectionGen(1);
-        shadowTypes();
-    }
+    // if (pokemonList.innerHTML.length == 0) {
+    //     await filterSelectionGen(1);
+    //     shadowTypes();
+    // }
 
 }
 
@@ -233,16 +237,31 @@ function finishLoader() {
     changeStyleLoader("", "20vh", "none");
     restorePosition();
 }
-async function givePokemons(start, end) { //NEVER TOUCH
+
+let abortController; // Variable para almacenar el controlador de aborto
+
+async function givePokemons(start, end) {
     startLoader();
-
     setTimeout(finishLoader, 2500);
-
     pokemonList.innerHTML = "";
 
-    for (var i = start; i < end; i++) {
-        var response = await fetch(`https://pokeapi.co/api/v2/pokemon/${i + 1}/`);
-        var object = await response.json();
+    try {
+        if (tryAbort) {
+            abortController.abort(); // Esto aborta la petición anterior si existe
+            tryFetch = false;
+        }
+    } catch (error) {
+        // Manejar el error al abortar la petición anterior
+    }
+    
+    abortController = new AbortController(); // Crear nuevo controlador de aborto
+    const signal = abortController.signal; // Obtener la señal del controlador
+
+    for (let i = start; i < end; i++) {
+        tryAbort = true;
+        const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${i + 1}/`, { signal });
+        const object = await response.json();
+
         await pokemons.push(object);
         await createPokemon(object);
     }
@@ -268,7 +287,7 @@ async function searchPokemons(valor) {
     });
     for (var i = 0; i < listPokemons.length; i++) {
         if (listPokemons[i].name.toUpperCase().includes(valor.toUpperCase())) {
-            await createPokemon(listPokemons[i]);
+            createPokemon(listPokemons[i]);
         }
     }
 
