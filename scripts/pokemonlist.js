@@ -249,6 +249,7 @@ async function givePokemons(start, end) {
         if (tryAbort) {
             abortController.abort(); // Esto aborta la petición anterior si existe
             tryFetch = false;
+            pokemons = []; // Reseteamos la lista para evitar pokemons clonados
         }
     } catch (error) {
         // Manejar el error al abortar la petición anterior
